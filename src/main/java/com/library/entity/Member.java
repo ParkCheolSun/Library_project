@@ -7,13 +7,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.library.constant.Role;
+import com.library.dto.MemberDto;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.Getter;
@@ -26,8 +28,13 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Member {
+	
 	@Id
-	@Column(name = "id")
+	@Column(name = "mNumber")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long mNumber;
+	
+	@Column(name = "id", unique = true)
 	private String id;					// 아이디
 	
 	@NotNull
@@ -48,4 +55,32 @@ public class Member {
 	private LocalDateTime lastLogin;	// 마지막 접속 날짜
 	
 	private InetAddress ipAddress;		// 접속한 ip주소
+	
+	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
+		Member member = new Member();
+		member.setName(memberDto.getName());
+		member.setEmail(memberDto.getEmail());
+		member.setAddress(memberDto.getAddress());
+		//String password = passwordEncoder.encode(memberDto.getPassword());
+		//member.setPassword(password);
+		member.setPassword(memberDto.getPassword());
+		member.setAddress(memberDto.getAddress());
+		member.setGender(memberDto.getGender());
+		member.setRole(Role.USER);
+		return member;
+	}
+	
+	// 시큐리티 없을때 테스트용으로 사용
+	public static Member createMember(MemberDto memberDto) {
+		Member member = new Member();
+		member.setName(memberDto.getName());
+		System.out.println(memberDto.getEmail());
+		member.setEmail(memberDto.getEmail());
+		member.setAddress(memberDto.getAddress());
+		member.setPassword(memberDto.getPassword());
+		member.setAddress(memberDto.getAddress());
+		member.setGender(memberDto.getGender());
+		member.setRole(Role.USER);
+		return member;
+	}
 }

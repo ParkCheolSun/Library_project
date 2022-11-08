@@ -3,78 +3,105 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layoutForm}">
 <head>
-  <meta charset="UTF-8">
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
+<meta charset="UTF-8">
+<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+<link rel='stylesheet'
+	href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
 <link rel="stylesheet" th:href="@{/css/signUpForm.css}">
 
 </head>
-	<div class="section" layout:fragment="content">
-		<div class="container">
-			<div class="row full-height justify-content-center">
-				<div class="col-12 text-center align-self-center py-5">
-					<div class="section pb-5 pt-5 pt-sm-2 text-center">
-						<h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
-			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
-			          	<label for="reg-log"></label>
-						<div class="card-3d-wrap mx-auto">
-							<div class="card-3d-wrapper">
-								<div class="card-front">
+<div class="section" layout:fragment="content">
+	<div class="container">
+		<div class="row full-height justify-content-center">
+			<div class="col-12 text-center align-self-center py-5">
+				<div class="section pb-5 pt-5 pt-sm-2 text-center">
+					<h6 class="mb-0 pb-3">
+						<span>Log In </span><span>Sign Up</span>
+					</h6>
+					<input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+					<label for="reg-log"></label>
+					<div class="card-3d-wrap mx-auto">
+						<div class="card-3d-wrapper">
+							<div class="card-front">
+								<form action="/Login/SignIn" role="form" method="post"
+									th:object="${memberDto}">
 									<div class="center-wrap">
 										<div class="section text-center">
 											<h4 class="mb-4 pb-3">Log In</h4>
 											<div class="form-group">
-												<input type="email" name="logemail" class="form-style" placeholder="이메일" id="logemail" autocomplete="off">
-												<i class="input-icon uil uil-at"></i>
-											</div>	
+												<input type="text" name="logid" class="form-style"
+													th:field="*{id}" placeholder="아이디" id="logid"
+													autocomplete="off"> <i
+													class="input-icon uil uil-at"></i>
+											</div>
 											<div class="form-group mt-2">
-												<input type="password" name="logpass" class="form-style" placeholder="비밀번호" id="logpass" autocomplete="off">
-												<i class="input-icon uil uil-lock-alt"></i>
+												<input type="password" name="logpass" class="form-style"
+													th:field="*{password}" placeholder="비밀번호" id="logpass"
+													autocomplete="off"> <i
+													class="input-icon uil uil-lock-alt"></i>
 											</div>
 											<a href="#" class="btn mt-4">submit</a>
-                            				<p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p>
-				      					</div>
-			      					</div>
-			      				</div>
-								<div class="card-back">
+											<p class="mb-0 mt-4 text-center">
+												<a href="#0" class="link">Forgot your password?</a>
+											</p>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="card-back">
+								<form action="/Login/Save" role="form" method="post"
+									th:object="${memberDto}">
 									<div class="center-wrap">
 										<div class="section text-center">
 											<h4 class="mb-4 pb-3">Sign Up</h4>
 											<div class="form-group mt-2">
-												<input type="text" name="logid" class="form-style" placeholder="아이디" id="logid" autocomplete="off">
-												<i class="input-icon uil uil-lock-alt"></i>
+												<input type="text" name="logid" class="form-style"
+													th:field="*{id}" placeholder="아이디" id="logid"
+													autocomplete="off"> <i
+													class="input-icon uil uil-lock-alt"></i>
 											</div>
 											<div class="form-group mt-2">
-												<input type="text" name="logname" class="form-style" placeholder="이름" id="logname" autocomplete="off">
-												<i class="input-icon uil uil-user"></i>
-											</div>	
-											<div class="form-group mt-2">
-												<input type="email" name="logemail" class="form-style" placeholder="이메일" id="logemail" autocomplete="off">
-												<i class="input-icon uil uil-at"></i>
-											</div>	
-											<div class="form-group mt-2">
-												<input type="password" name="logpass" class="form-style" placeholder="비밀번호" id="logpass" autocomplete="off">
-												<i class="input-icon uil uil-lock-alt"></i>
+												<input type="text" name="logname" class="form-style"
+													th:field="*{name}" placeholder="이름" id="logname"
+													autocomplete="off"> <i
+													class="input-icon uil uil-user"></i>
 											</div>
 											<div class="form-group mt-2">
-												<input type="password" name="logrepass" class="form-style" placeholder="비밀번호확인" id="logrepass" autocomplete="off">
+												<input type="email" name="logemail" class="form-style"
+													th:field="*{email}" placeholder="이메일" id="logemail"
+													autocomplete="off"> <i
+													class="input-icon uil uil-at"></i>
+											</div>
+											<div class="form-group mt-2">
+												<input type="password" name="logpass" class="form-style"
+													th:field="*{password}" placeholder="비밀번호" id="logpass"
+													autocomplete="off"> <i
+													class="input-icon uil uil-lock-alt"></i>
+											</div>
+											<div class="form-group mt-2">
+												<input type="password" name="logrepass" class="form-style"
+													placeholder="비밀번호확인" id="logrepass" autocomplete="off">
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
 											<div class="form-group mt-2 ">
-                        										<select class="form-control select-control" id="gender">
-                            											<option value="M">남</option>
-                            											<option value="F">여</option>
-                        										</select>
+												<select class="form-control select-control" id="gender"
+													th:field="*{gender}">
+													<option value="M">남</option>
+													<option value="F">여</option>
+												</select>
 											</div>
-											<a href="#" class="btn mt-4">submit</a>
-				      					</div>
-			      					</div>
-			      				</div>
-			      			</div>
-			      		</div>
-			      	</div>
-		      	</div>
-	      	</div>
-	    </div>
+											<button type="submit" class="btn btn-primary" style="">Submit</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+
+</div>
 </html>

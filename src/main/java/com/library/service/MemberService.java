@@ -21,6 +21,7 @@ public class MemberService implements UserDetailsService {
 
 	public Member saveMember(Member member) {
 		System.out.println("member 저장전....");
+		System.out.println(member.toString());
 		validateDuplicateMember(member);
 		System.out.println("member 저장중....");
 		return memberRepository.save(member);

@@ -58,6 +58,7 @@ public class Member {
 	
 	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
+		member.setId(memberDto.getId());
 		member.setName(memberDto.getName());
 		member.setEmail(memberDto.getEmail());
 		member.setAddress(memberDto.getAddress());
@@ -73,8 +74,9 @@ public class Member {
 	// 시큐리티 없을때 테스트용으로 사용
 	public static Member createMember(MemberDto memberDto) {
 		Member member = new Member();
+		member.setId(memberDto.getId());
+		System.out.println(memberDto.getId());
 		member.setName(memberDto.getName());
-		System.out.println(memberDto.getEmail());
 		member.setEmail(memberDto.getEmail());
 		member.setAddress(memberDto.getAddress());
 		member.setPassword(memberDto.getPassword());

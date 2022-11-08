@@ -41,7 +41,8 @@
 													autocomplete="off"> <i
 													class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<a href="#" class="btn mt-4">submit</a>
+											<button type="submit" class="btn btn-primary" style="">Submit</button>
+											<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 											<p class="mb-0 mt-4 text-center">
 												<a href="#0" class="link">Forgot your password?</a>
 											</p>
@@ -92,6 +93,7 @@
 												</select>
 											</div>
 											<button type="submit" class="btn btn-primary" style="">Submit</button>
+											<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 										</div>
 									</div>
 								</form>

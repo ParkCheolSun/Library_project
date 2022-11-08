@@ -62,15 +62,14 @@ public class Member {
 		member.setName(memberDto.getName());
 		member.setEmail(memberDto.getEmail());
 		member.setAddress(memberDto.getAddress());
-		//String password = passwordEncoder.encode(memberDto.getPassword());
-		//member.setPassword(password);
-		member.setPassword(memberDto.getPassword());
+		String password = passwordEncoder.encode(memberDto.getPassword());
+		member.setPassword(password);
 		member.setAddress(memberDto.getAddress());
 		member.setGender(memberDto.getGender());
 		member.setRole(Role.USER);
 		return member;
 	}
-	
+	/*
 	// 시큐리티 없을때 테스트용으로 사용
 	public static Member createMember(MemberDto memberDto) {
 		Member member = new Member();
@@ -84,5 +83,5 @@ public class Member {
 		member.setGender(memberDto.getGender());
 		member.setRole(Role.USER);
 		return member;
-	}
+	}*/
 }

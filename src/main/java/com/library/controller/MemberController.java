@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberController {
 	private final MemberService memberService;
-	//private final PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 
 	@GetMapping(value = "/SignUp")
 	public String memberForm(Model model) {
@@ -32,7 +32,7 @@ public class MemberController {
 	@PostMapping(value = "/SignIn")
 	public String memberSignIn(Model model) {
 		model.addAttribute("memberDto", new MemberDto());
-		return "redirect:/";
+		return "member/SignUpForm";
 	}
 
 	@PostMapping(value = "/Save")
@@ -44,24 +44,12 @@ public class MemberController {
 		}
 		try {
 			System.out.println("정상구문!!!!");
-			Member member = Member.createMember(memberDto);
+			Member member = Member.createMember(memberDto, passwordEncoder);
 			memberService.saveMember(member);
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "member/SignUpForm";
 		}
-		/*
-		if (bindingResult.hasErrors()) {
-			return "member/memberForm";
-		}
-		try {
-			Member member = Member.createMember(memberDto, passwordEncoder);
-			memberService.saveMember(member);
-		} catch (IllegalStateException e) {
-			model.addAttribute("errorMessage", e.getMessage());
-			return "member/memberForm";
-		}
-		*/
 		return "redirect:/";
 	}
 }

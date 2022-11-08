@@ -47,10 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         
         http.formLogin()  //사용자가 로그인을 하는 경우 입니다.  
-                .loginPage("/Login/SignUp")
-                .defaultSuccessUrl("/").failureUrl("/")
+                .loginPage("/Login/SignIn")
+                .defaultSuccessUrl("/").failureUrl("/login/error")
                 .usernameParameter("id")
-                .permitAll().and().csrf().disable();
+                .permitAll();
         
         //SPA 같은 싱글페이지 어플리케이션과 연동하려면 아래처럼 CSRF값을 헤더에 포함하여 사용 할 수 있습니다!
         //.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-    	auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());  //비밀번호 암호화 안합니다.
+    	auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
     	//auth.userDetailsService(service).passwordEncoder(passwordEncoder());  //비밀번호 암호화 합니다.
     }
 

@@ -28,20 +28,15 @@ import lombok.ToString;
 public class Member {
 	@Id
 	@Column(name = "id")
-	@NotEmpty(message = "아이디 입력은 필수 입니다.")
 	private String id;					// 아이디
 	
-	@NotEmpty(message = "이름 입력은 필수 입니다.")
 	@NotNull
 	private String name;				// 이름
 	
 	@Column(unique = true)
-	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "이메일 형식에 맞지 않습니다.")
 	@NotNull
 	private String email;				// 이메일
 	
-	@NotEmpty(message = "비밀번호 입력은 필수 입니다.")
-    @Size(min = 8, message = "비밀번호는 최소 8자 이상이어야 합니다.")
 	@NotNull
 	private String password;			// 비밀번호
 	private String address;				// 주소

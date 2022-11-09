@@ -9,9 +9,67 @@
 <link rel='stylesheet'
 	href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
 <link rel="stylesheet" th:href="@{/css/signUpForm.css}">
-
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<!-- default header name is X-CSRF-TOKEN -->
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
+
+
 <div class="section" layout:fragment="content">
+	<script>
+		$(document).ready(function() {
+			console.log("dddddd");
+		});
+
+		function checkId() {
+			var reg = /\s/g;
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			var id = $("#id").val()
+			if(id.match(reg)){
+				//공백이 있을 경우
+				return;
+			}
+			if ($("#id").val().trim() == '') {
+                alert($("#id").attr("placeholder")+" 항목을 입력하세요.");
+                return;
+            }
+			$.ajax({
+				url : '/Login/IdCheck', //Controller에서 요청 받을 주소
+				type : 'post', //POST 방식으로 전달
+				dataType: 'json',
+				data : {
+					'id' : id
+				},
+				success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
+					console.log("check : " + check.answer)
+					if (check.answer == "Success") {
+						$("#id").prop('readonly', true);
+						$("#id_hidden").val("S");
+						//$('#container').replaceWith();
+					} else { 
+						$('#id').val('');
+						//$('#container').replaceWith();
+					}
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					console.log(xhr)
+					console.log(xhr.responseText)
+					console.log(ajaxOptions)
+					console.log(thrownError)
+					alert("에러입니다");
+				},
+				beforeSend : function(xhr) {
+					if (token && header) {
+						xhr.setRequestHeader(header, token); // 헤드의 csrf meta태그를 읽어 CSRF 토큰 함께 전송
+					} else {
+						alert("csrf 토큰 에러");
+					}
+				},
+			});
+		}
+	</script>
 	<div class="container">
 		<div class="row full-height justify-content-center">
 			<div class="col-12 text-center align-self-center py-5">
@@ -42,7 +100,8 @@
 													class="input-icon uil uil-lock-alt"></i>
 											</div>
 											<button type="submit" class="btn btn-primary" style="">Submit</button>
-											<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}">
 											<p class="mb-0 mt-4 text-center">
 												<a href="#0" class="link">Forgot your password?</a>
 											</p>
@@ -52,38 +111,48 @@
 							</div>
 							<div class="card-back">
 								<form action="/Login/Save" role="form" method="post"
-									th:object="${memberDto}">
+									th:object="${memberDto}" id="signupForm">
+
 									<div class="center-wrap">
 										<div class="section text-center">
+
 											<h4 class="mb-4 pb-3">Sign Up</h4>
 											<div class="form-group mt-2">
-												<input type="text" name="logid" class="form-style"
-													th:field="*{id}" placeholder="아이디" id="logid"
+												<input type="text" name="id" class="form-style-id" width="80"
+													th:field="*{id}" placeholder="아이디" id="id"
 													autocomplete="off"> <i
 													class="input-icon uil uil-lock-alt"></i>
+													<button type="button" class="btn-check btn-primary" onclick="checkId()">중복확인</button>
+												<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"
+													class="fieldError">해당 란은 공백일 수 없습니다.</p>
+													<input type="hidden" id="id_hidden" value="F">
 											</div>
 											<div class="form-group mt-2">
-												<input type="text" name="logname" class="form-style"
-													th:field="*{name}" placeholder="이름" id="logname"
+												<input type="text" name="name" class="form-style"
+													th:field="*{name}" placeholder="이름" id="name"
 													autocomplete="off"> <i
 													class="input-icon uil uil-user"></i>
+												<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+													class="fieldError">해당 란은 공백일 수 없습니다.</p>
 											</div>
 											<div class="form-group mt-2">
-												<input type="email" name="logemail" class="form-style"
-													th:field="*{email}" placeholder="이메일" id="logemail"
+												<input type="email" name="email" class="form-style"
+													th:field="*{email}" placeholder="이메일" id="email"
 													autocomplete="off"> <i
 													class="input-icon uil uil-at"></i>
+												<p th:if="${#fields.hasErrors('email')}"
+													th:errors="*{email}" class="fieldError">해당 란은 공백일 수
+													없습니다.</p>
+													<input type="hidden" id="email_hidden" value="F">
 											</div>
 											<div class="form-group mt-2">
-												<input type="password" name="logpass" class="form-style"
-													th:field="*{password}" placeholder="비밀번호" id="logpass"
+												<input type="password" name="password" class="form-style"
+													th:field="*{password}" placeholder="비밀번호" id="password"
 													autocomplete="off"> <i
 													class="input-icon uil uil-lock-alt"></i>
-											</div>
-											<div class="form-group mt-2">
-												<input type="password" name="logrepass" class="form-style"
-													placeholder="비밀번호확인" id="logrepass" autocomplete="off">
-												<i class="input-icon uil uil-lock-alt"></i>
+												<p th:if="${#fields.hasErrors('password')}"
+													th:errors="*{password}" class="fieldError">해당 란은 공백일 수
+													없습니다.</p>
 											</div>
 											<div class="form-group mt-2 ">
 												<select class="form-control select-control" id="gender"
@@ -93,7 +162,8 @@
 												</select>
 											</div>
 											<button type="submit" class="btn btn-primary" style="">Submit</button>
-											<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}">
 										</div>
 									</div>
 								</form>

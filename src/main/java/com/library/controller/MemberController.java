@@ -1,5 +1,7 @@
 package com.library.controller;
 
+import java.util.HashMap;
+
 import javax.validation.Valid;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.library.dto.MemberDto;
 import com.library.entity.Member;
@@ -33,6 +37,20 @@ public class MemberController {
 	public String memberSignIn(Model model) {
 		model.addAttribute("memberDto", new MemberDto());
 		return "member/SignUpForm";
+	}
+	
+	// ajax를 통한 ID체크
+	@ResponseBody
+	@PostMapping(value = "/IdCheck")
+	public HashMap<String, String> idCheck(@RequestParam("id") String id) {
+		boolean check = memberService.findById(id);
+		 HashMap<String, String> map = new HashMap<String, String>();
+		if(check) {
+			map.put("answer", "Fail");
+		} else {
+			map.put("answer", "Success");
+		}
+		return map;
 	}
 
 	@PostMapping(value = "/Save")

@@ -26,6 +26,15 @@ public class MemberService implements UserDetailsService {
 		System.out.println("member 저장중....");
 		return memberRepository.save(member);
 	}
+	
+	// ajax를 통한 ID체크
+	public boolean findById(String id) {
+		Member mem = memberRepository.findById(id);
+		if(mem != null) {
+			return true;
+		}
+		return false;
+	}
 
 	private void validateDuplicateMember(Member member) {
 		Member findMember = memberRepository.findById(member.getId());

@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <link rel='stylesheet'
 	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
-<link rel='stylesheet'
-	href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
+
 <link rel="stylesheet" th:href="@{/css/signUpForm.css}">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -40,7 +39,7 @@
 												<input type="text" name="logid" class="form-style"
 													th:field="*{id}" placeholder="아이디" id="logid"
 													autocomplete="off"> <i
-													class="input-icon uil uil-at"></i>
+													class="input-icon uil uil-user"></i>
 											</div>
 											<div class="form-group mt-2">
 												<input type="password" name="logpass" class="form-style"
@@ -70,7 +69,7 @@
 												<input type="text" name="id" class="form-style-id"
 													width="80" th:field="*{id}" placeholder="아이디" id="id"
 													autocomplete="off"> <i
-													class="input-icon uil uil-lock-alt"></i>
+													class="input-icon uil uil-user"></i>
 												<button type="button" class="btn-check btn-primary"
 													onclick="checkId()">중복확인</button>
 												<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"

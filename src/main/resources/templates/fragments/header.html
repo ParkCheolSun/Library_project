@@ -4,7 +4,8 @@
 
 <div class="header" th:fragment="header">
 
-	<!-- 22-11-10  --> <!--상단바-->
+	<!-- 22-11-10  -->
+	<!--상단바-->
 	<head>
 <meta charset="UTF-8">
 <title>Document</title>
@@ -24,7 +25,7 @@
 		<div
 			class="container-fluid container-xl d-flex align-items-center justify-content-between">
 			<a href="/" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
-				<img th:src="@{/images/logo.gif}" > <!--                  <img src="https://eiec.kdi.re.kr/res/img/h1_logo.png" alt="">  -->
+				<img th:src="@{/images/logo.gif}"> <!--                  <img src="https://eiec.kdi.re.kr/res/img/h1_logo.png" alt="">  -->
 			</a>
 
 			<nav id="navbar" class="navbar">
@@ -72,8 +73,12 @@
 
 					<div id="btn_group">
 						<span style="float: right;">
-							<button id="login-btn" type="button" onclick = "location.href = '/login/signUp' ">로그인/회원가입</button>
-							<button id="mypage-btn" type=""button"">마이페이지</button>
+						<a href="/login/signUp" class="login-btn-a">
+						 	<i class="input-icon uil uil-sign-in-alt login-btn-i"></i>
+						 	</a>
+						 	 <!-- uil-sign-out-alt -->
+							<!-- <button id="login-btn" class="custom-btn" type="button" onclick="location.href = '/login/signUp' ">로그인/회원가입</button> -->
+							<button id="mypage-btn" class="custom-btn" type="button">마이페이지</button>
 						</span>
 					</div>
 

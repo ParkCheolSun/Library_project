@@ -20,28 +20,28 @@ import com.library.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("/Login")
+@RequestMapping("/login")
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
 
-	@GetMapping(value = "/SignUp")
+	@GetMapping(value = "/signUp")
 	public String memberForm(Model model) {
 		model.addAttribute("memberDto", new MemberDto());
-		return "member/SignUpForm";
+		return "member/signUpForm";
 	}
 	
-	@PostMapping(value = "/SignIn")
+	@PostMapping(value = "/signIn")
 	public String memberSignIn(Model model) {
 		model.addAttribute("memberDto", new MemberDto());
-		return "member/SignUpForm";
+		return "member/signUpForm";
 	}
 	
 	// ajax를 통한 ID체크
 	@ResponseBody
-	@PostMapping(value = "/IdCheck")
+	@PostMapping(value = "/idCheck")
 	public HashMap<String, String> idCheck(@RequestParam("id") String id) {
 		boolean check = memberService.findById(id);
 		 HashMap<String, String> map = new HashMap<String, String>();
@@ -52,13 +52,14 @@ public class MemberController {
 		}
 		return map;
 	}
+	
 
-	@PostMapping(value = "/Save")
+	@PostMapping(value = "/save")
 	public String newMember(@Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
 		System.out.println(memberDto.toString());
 		if (bindingResult.hasErrors()) {
 			System.out.println(bindingResult.toString());
-			return "member/SignUpForm";
+			return "member/signUpForm";
 		}
 		try {
 			System.out.println("정상구문!!!!");
@@ -66,7 +67,7 @@ public class MemberController {
 			memberService.saveMember(member);
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
-			return "member/SignUpForm";
+			return "member/signUpForm";
 		}
 		return "redirect:/";
 	}

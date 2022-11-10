@@ -14,7 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MemberDto {
-	@NotBlank(message = "이름은 필수 입력 값입니다.")
+	@NotBlank(message = "아이디은 필수 입력 값입니다.")
 	private String id;
 	
 	@NotBlank(message = "이름은 필수 입력 값입니다.")

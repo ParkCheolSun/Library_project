@@ -47,8 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         
         http.formLogin()  //사용자가 로그인을 하는 경우 입니다.  
-                .loginPage("/Login/SignIn")
-                .defaultSuccessUrl("/").failureUrl("/login/error")
+                .loginPage("/login/signIn")
+                .defaultSuccessUrl("/")
+                .usernameParameter("id")
+                .failureUrl("/login/error")
                 .usernameParameter("id")
                 .permitAll();
         

@@ -17,7 +17,6 @@
 	th:content="${_csrf.headerName}" />
 </head>
 
-
 <div class="section" layout:fragment="content">
 	<script src="/javascript/signUpForm.js"></script>
 	<div class="container">
@@ -49,7 +48,7 @@
 													autocomplete="off"> <i
 													class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<button type="submit" class="btn btn-primary" style="">Submit</button>
+											<button class="btn btn-primary" style="">Submit</button>
 											<input type="hidden" th:name="${_csrf.parameterName}"
 												th:value="${_csrf.token}">
 											<p class="mb-0 mt-4 text-center explanation-font">

@@ -1,6 +1,8 @@
 		$(document).ready(function() {
 		$("#btn-signup").prop('disabled', true);
-		if(!checkIng()){
+		$("#logid").val("")
+		$("#logpass").val("")
+		if(checkIng()){
 			$("#reg-log").click();
 		}
 		$("#btn-signup").click(function(){
@@ -40,6 +42,10 @@
 			$.each(get_input, function(index, value) {
 				if ($(value).val() == null || $(value).val() == ""
 						&& $(value).attr("id") != "code") {
+						console.log(value);
+					console.log('id =' + $(value).attr("id"));
+					console.log('name =' + $(value).attr("name"));
+					console.log('value =' + $(value).val());
 					return false;
 				}
 			});

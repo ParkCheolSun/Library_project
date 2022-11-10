@@ -28,16 +28,17 @@ public class MemberController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
 
+	// 회원가입
 	@GetMapping(value = "/signUp")
 	public String memberForm(Model model) {
 		model.addAttribute("memberDto", new MemberDto());
-		return "member/signUpForm";
+		return "member/SignUpForm";
 	}
 	
+	// 로그인
 	@PostMapping(value = "/signIn")
 	public String memberSignIn(Model model) {
-		model.addAttribute("memberDto", new MemberDto());
-		return "member/signUpForm";
+		return "member/SignUpForm";
 	}
 	
 	// ajax를 통한 ID체크
@@ -60,7 +61,7 @@ public class MemberController {
 		System.out.println(memberDto.toString());
 		if (bindingResult.hasErrors()) {
 			System.out.println("bindingResult : " + bindingResult.toString());
-			return "member/SignUpForm";
+			return "login/signUp";
 		}
 		try {
 			System.out.println("정상구문!!!!");

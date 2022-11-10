@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.library.dto.MemberDto;
 import com.library.entity.Member;
@@ -58,8 +59,8 @@ public class MemberController {
 	public String newMember(@Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
 		System.out.println(memberDto.toString());
 		if (bindingResult.hasErrors()) {
-			System.out.println(bindingResult.toString());
-			return "member/signUpForm";
+			System.out.println("bindingResult : " + bindingResult.toString());
+			return "member/SignUpForm";
 		}
 		try {
 			System.out.println("정상구문!!!!");
@@ -67,7 +68,7 @@ public class MemberController {
 			memberService.saveMember(member);
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
-			return "member/signUpForm";
+			return "login/signUp";
 		}
 		return "redirect:/";
 	}

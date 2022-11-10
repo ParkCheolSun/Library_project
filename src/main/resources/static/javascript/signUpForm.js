@@ -1,6 +1,53 @@
 		$(document).ready(function() {
-			$("#btn-signup").prop('disabled', true);
+		$("#btn-signup").prop('disabled', true);
+		if(!checkIng()){
+			$("#reg-log").click();
+		}
+		$("#btn-signup").click(function(){
+			var result = checkInput();
+			return result;
 		});
+	});
+		
+		function checkInput() {
+			var get_input = $(".card-back input");
+			var textString = "";
+			$.each(get_input, function(index, value) {
+				if ($(value).val() == null || $(value).val() == ""
+						&& $(value).attr("id") != "code") {
+					console.log(value);
+					console.log('id =' + $(value).attr("id"));
+					console.log('name =' + $(value).attr("name"));
+					console.log('value =' + $(value).val());
+					textString = $(value).attr("placeholder") + "를 입력해 주세요."
+					Swal.fire({
+						icon : 'error',
+						title : '입력오류',
+						text : textString,
+						footer : '<a href="">Why do I have this issue?</a>'
+					});
+					return false;
+				}
+			});
+			if(textString != "")
+				return false;
+			return true;
+		}
+		
+		function checkIng() {
+			var get_input = $(".card-back input");
+			var textString = "";
+			$.each(get_input, function(index, value) {
+				if ($(value).val() == null || $(value).val() == ""
+						&& $(value).attr("id") != "code") {
+					return false;
+				}
+			});
+			if(textString == ""){
+				return false;
+			}
+			return true;
+		}
 
 		function checkId() {
 			var reg = /\s/g;

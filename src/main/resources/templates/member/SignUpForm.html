@@ -10,6 +10,7 @@
 	href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
 <link rel="stylesheet" th:href="@{/css/signUpForm.css}">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
 <!-- default header name is X-CSRF-TOKEN -->
 <meta id="_csrf_header" name="_csrf_header"
@@ -31,7 +32,7 @@
 					<div class="card-3d-wrap mx-auto">
 						<div class="card-3d-wrapper">
 							<div class="card-front">
-								<form action="/Login/signIn" role="form" method="post"
+								<form action="/login/signIn" role="form" method="post"
 									th:object="${memberDto}">
 									<div class="center-wrap">
 										<div class="section text-center">
@@ -59,7 +60,7 @@
 								</form>
 							</div>
 							<div class="card-back">
-								<form action="/Login/save" role="form" method="post"
+								<form action="/login/save" role="form" method="post"
 									th:object="${memberDto}" id="signupForm">
 
 									<div class="center-wrap">

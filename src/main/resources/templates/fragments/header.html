@@ -5,17 +5,16 @@
 <div class="header" th:fragment="header">
 
 	<!-- 22-11-10  --> <!--상단바-->
-	<head>
+<head>
 <meta charset="UTF-8">
 <title>Document</title>
 
 <!-- Template Main CSS File -->
 <link href="/css/headerForm.css" rel="stylesheet">
 
-	</head>
+</head>
 
 	<!-- <body> -->
-
 	<!-- ======= Header ======= -->
 
 	<header id="header" class="header d-flex align-items-center"
@@ -24,14 +23,14 @@
 		<div
 			class="container-fluid container-xl d-flex align-items-center justify-content-between">
 			<a href="/" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
-				<img th:src="@{/images/logo.gif}" > <!--                  <img src="https://eiec.kdi.re.kr/res/img/h1_logo.png" alt="">  -->
+				<img th:src="@{/images/logo.gif}" > 
 			</a>
 
 			<nav id="navbar" class="navbar">
 				<ul>
 					<!--  1번 메뉴바-->
-					<li class="dropdown"><a href="#"><span>도서관 안내</span> <i
-							class="bi bi-chevron-down dropdown-indicator"></i></a>
+					<li class="dropdown"><a href="/header/test1"><span>도서관 안내</span> 
+					<i class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
 							<li><a href="#">인사말</a></li>
 							<li><a href="#">도서관 소개</a></li>
@@ -39,22 +38,22 @@
 						</ul></li>
 
 					<!--  2번 메뉴바-->
-					<li class="dropdown"><a href="#"><span>문화 프로그램</span> <i
-							class="bi bi-chevron-down dropdown-indicator"></i></a>
+					<li class="dropdown"><a href="#"><span>문화 프로그램</span> 
+					<i class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
 							<li><a href="#">프로그램 신청</a></li>
 						</ul></li>
 
 					<!--  3번 메뉴바-->
-					<li class="dropdown"><a href="#"><span>알람마당</span> <i
-							class="bi bi-chevron-down dropdown-indicator"></i></a>
+					<li class="dropdown"><a href="#"><span>알람마당</span> 
+					<i class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
 							<li><a href="#">공지사항</a></li>
 						</ul></li>
 
 					<!--  4번 메뉴바-->
-					<li class="dropdown"><a href="#"><span>열린마당</span> <i
-							class="bi bi-chevron-down dropdown-indicator"></i></a>
+					<li class="dropdown"><a href="#"><span>열린마당</span> 
+					<i class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
 							<li><a href="#">질문과 답변</a></li>
 							<li><a href="#">자주하는 질문</a></li>
@@ -63,23 +62,23 @@
 						</ul></li>
 
 					<!--  5번 메뉴바-->
-					<li class="dropdown"><a href="#"><span>작은도서관</span> <i
-							class="bi bi-chevron-down dropdown-indicator"></i></a>
+					<li class="dropdown"><a href="#"><span>작은도서관</span> 
+					<i class="bi bi-chevron-down dropdown-indicator"></i></a>
 						<ul>
 							<li><a href="#">도서관별 소개</a></li>
 							<li><a href="#">도서관 소식</a></li>
 						</ul></li>
 
 					<div id="btn_group">
-						<span style="float: right;">
 							<button id="login-btn" type="button" onclick = "location.href = '/login/signUp' ">로그인/회원가입</button>
-							<button id="mypage-btn" type=""button"">마이페이지</button>
-						</span>
+							<button id="mypage-btn" type="button">마이페이지</button>
+							<button id="spare-btn" type="button">Sprare</button>
+						
 					</div>
 
 				</ul>
 			</nav>
-			<!-- .navbar -->
+			      <!-- .navbar -->
 		</div>
 	</header>
 	<!--   </body> -->

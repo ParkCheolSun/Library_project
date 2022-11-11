@@ -1,9 +1,113 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+</head>
 <div class="sidebar" th:fragment="sidebar">
-	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-	사이트 테스트
-	</ul>
+	<div class="accordion" id="accordionExample">
+		<!-- 메뉴 1번 -->
+		<div class="card">
+			<div class="card-header" id="headingOne">
+				<h2 class="mb-0">
+					<button class="btn btn-link btn-block text-left" type="button"
+						data-toggle="collapse" data-target="#collapseOne"
+						aria-expanded="true" aria-controls="collapseOne">도서관 안내</button>
+				</h2>
+			</div>
+
+			<div id="collapseOne" class="collapse show"
+				aria-labelledby="headingOne" data-parent="#accordionExample">
+				<div class="card-body">인사말</div>
+			</div>
+			<div id="collapseOne" class="collapse show"
+				aria-labelledby="headingOne" data-parent="#accordionExample">
+				<div class="card-body">도서관 소개</div>
+			</div>
+			<div id="collapseOne" class="collapse show"
+				aria-labelledby="headingOne" data-parent="#accordionExample">
+				<div class="card-body">찾아오시는 길</div>
+			</div>
+		</div>
+		<!-- 1번 끝 -->
+		<!-- 메뉴 2번 -->
+		<div class="card">
+			<div class="card-header" id="headingTwo">
+				<h2 class="mb-0">
+					<button class="btn btn-link btn-block text-left collapsed"
+						type="button" data-toggle="collapse" data-target="#collapseTwo"
+						aria-expanded="false" aria-controls="collapseTwo">문화프로그램</button>
+				</h2>
+			</div>
+			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+				data-parent="#accordionExample">
+				<div class="card-body">프로그램 신청</div>
+			</div>
+		</div>
+		<!-- 2번 끝 -->
+		<!-- 메뉴3번  -->
+		<div class="card">
+			<div class="card-header" id="headingThree">
+				<h2 class="mb-0">
+					<button class="btn btn-link btn-block text-left collapsed"
+						type="button" data-toggle="collapse" data-target="#collapseThree"
+						aria-expanded="false" aria-controls="collapseThree">알림마당</button>
+				</h2>
+			</div>
+			<div id="collapseThree" class="collapse"
+				aria-labelledby="headingThree" data-parent="#accordionExample">
+				<div class="card-body">공지사항</div>
+			</div>
+		</div>
+		<!-- 3번 끝 -->
+		<!-- 메뉴 4번 -->
+		<div class="card">
+			<div class="card-header" id="headingFour">
+				<h2 class="mb-0">
+					<button class="btn btn-link btn-block text-left" type="button"
+						data-toggle="collapse" data-target="#collapseFour"
+						aria-expanded="true" aria-controls="collapseFour">열린마당</button>
+				</h2>
+			</div>
+
+			<div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+				data-parent="#accordionExample">
+				<div class="card-body">질문과 답변</div>
+			</div>
+			<div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+				data-parent="#accordionExample">
+				<div class="card-body">자주하는 질문</div>
+			</div>
+			<div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+				data-parent="#accordionExample">
+				<div class="card-body">도서관에 바란다[건의사항]</div>
+			</div>
+			<div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+				data-parent="#accordionExample">
+				<div class="card-body">포토갤러리</div>
+			</div>
+		</div>
+		<!-- 4번 끝 -->
+		<!-- 메뉴 5번 -->
+		<div class="card">
+			<div class="card-header" id="headingFive">
+				<h2 class="mb-0">
+					<button class="btn btn-link btn-block text-left collapsed"
+						type="button" data-toggle="collapse" data-target="#collapseFive"
+						aria-expanded="false" aria-controls="collapseTwo">작은도서관</button>
+				</h2>
+			</div>
+			<div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+				data-parent="#accordionExample">
+				<div class="card-body">작은도서관 소개</div>
+			</div>
+			<div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+				data-parent="#accordionExample">
+				<div class="card-body">작은도서관 소식</div>
+			</div>
+		</div>
+	</div>
 </div>
 </html>

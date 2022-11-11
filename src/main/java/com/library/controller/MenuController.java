@@ -13,7 +13,7 @@ public class MenuController {
 	@GetMapping(value = "/test1")
 	public String test1(Model model){
 	System.out.println("도서관 안내");
-	return "redirect:/";
+	return "popupzone/popup";          // 팝업존 테스트를위한 임시 이동용으로 사용중
 	}
 	
 	@GetMapping(value = "/a1")
@@ -39,7 +39,7 @@ public class MenuController {
 	@GetMapping(value = "/test2")
 	public String test2(Model model){
 	System.out.println("문화 프로그램");
-	return "redirect:/";
+	return "redirect:/header/b1";
 	}
 	
 	@GetMapping(value = "/b1")
@@ -53,7 +53,7 @@ public class MenuController {
 	@GetMapping(value = "/test3")
 	public String test3(Model model){
 	System.out.println("알람마당");
-	return "redirect:/";
+	return "redirect:/header/c1";
 	}
 	
 	@GetMapping(value = "/c1")
@@ -104,7 +104,7 @@ public class MenuController {
 	
 	@GetMapping(value = "/e1")
 	public String e1(Model model){
-	System.out.println("도서관별 소개");
+	System.out.println("도서관 소개");
 	return "redirect:/";
 	}
 	

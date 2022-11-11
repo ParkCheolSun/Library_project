@@ -147,7 +147,8 @@
 				type : 'post', //POST 방식으로 전달
 				dataType : 'json',
 				data : {
-					'email' : email
+					'email' : email,
+					'action' : 'create'
 				},
 				success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
 					console.log("check : " + check.result)
@@ -224,7 +225,8 @@
 				dataType : 'json',
 				data : {
 					'email' : email,
-					'code' : code
+					'code' : code,
+					'action' : 'create'
 				},
 				success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
 					console.log("check : " + check.result)

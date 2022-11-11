@@ -8,6 +8,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.library.entity.Member;
+
 @Service("mailService")
 public class MailService {
 	@Autowired
@@ -33,7 +35,15 @@ public class MailService {
 	}
     
     public boolean checkEmail(String email) {
-    	return memberService.findByEmail(email);
+    	Member mem = memberService.findByEmail(email);
+    	if(mem == null)
+    		return false;
+    	return true;
+    }
+    
+    public Member findEmail(String email) {
+    	Member mem = memberService.findByEmail(email);
+    	return mem;
     }
  
 }

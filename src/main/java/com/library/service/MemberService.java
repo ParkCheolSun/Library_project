@@ -36,13 +36,10 @@ public class MemberService implements UserDetailsService {
 		return false;
 	}
 	
-	// Email체크
-	public boolean findByEmail(String email) {
+	// Email 체크
+	public Member findByEmail(String email) {
 		Member mem = memberRepository.findByEmail(email);
-		if(mem != null) {
-			return true;
-		}
-		return false;
+		return mem;
 	}
 	
 

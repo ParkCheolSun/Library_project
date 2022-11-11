@@ -15,10 +15,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.library.entity.Member;
 import com.library.service.MailService;
 
 @Controller
@@ -32,14 +32,19 @@ public class MailController {
 	@PostMapping
 	@ResponseBody
 	@RequestMapping(value = "/sendEmail")
-	public ResponseEntity sendSimpleMail(@RequestParam("email") String email, HttpServletRequest request,
+	public ResponseEntity sendSimpleMail(@RequestParam("email") String email, @RequestParam("action") String action, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ResponseEntity resEntity = null;
 		HashMap<String, String> map = new HashMap<String, String>();
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		boolean emailCheck = isValidEmail(email);
-		if (emailCheck == false || mailService.checkEmail(email) == true) {
+		boolean findEmail = mailService.checkEmail(email);
+		if(action.equals("find")) {
+			System.out.println("음음=======================");
+			findEmail = false;
+		}
+		if (emailCheck == false || findEmail == true) {
 			String result = "False";
 			map.put("result", result);
 			resEntity = new ResponseEntity(map, HttpStatus.OK);
@@ -57,7 +62,7 @@ public class MailController {
 	@PostMapping
 	@ResponseBody
 	@RequestMapping(value = "/checkEmail")
-	public ResponseEntity codeCheck(@RequestParam("email") String email, @RequestParam("code") String code, HttpServletRequest request,
+	public ResponseEntity codeCheck(@RequestParam("email") String email, @RequestParam("code") String code, @RequestParam("action") String action, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ResponseEntity resEntity = null;
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -66,6 +71,13 @@ public class MailController {
 		response.setContentType("text/html;charset=utf-8");
 		if(codeMap.get(email).equals(code)) {
 			result = "Success";
+		}
+		
+		System.out.println("action : " + action);
+		if(action.equals("find")) {
+			Member mem = mailService.findEmail(email);
+			System.out.println(mem.getId());
+			result = mem.getId();
 		}
 		map.put("result", result);
 		resEntity = new ResponseEntity(map, HttpStatus.OK);

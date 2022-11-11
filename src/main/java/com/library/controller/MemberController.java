@@ -91,4 +91,25 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
+	
+	@ResponseBody
+	@PostMapping(value = "/findEmail")
+	public HashMap<String, String> findId(@RequestParam("email") String email) {
+		Member member = memberService.findByEmail(email);
+		System.out.println(member);
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		if(member.getId() == null) {
+			map.put("answer", "Fail");
+		} else {
+			map.put("answer", "Success");
+		}
+		return map;
+	}
+	
+	@GetMapping(value = "/find")
+	public String findId(Model model) {
+		model.addAttribute("memberDto", new MemberDto());
+		return "member/FindMemberForm";
+	}
 }

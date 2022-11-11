@@ -39,7 +39,7 @@ public class MailController {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		boolean emailCheck = isValidEmail(email);
-		if (emailCheck == false) {
+		if (emailCheck == false || mailService.checkEmail(email) == true) {
 			String result = "False";
 			map.put("result", result);
 			resEntity = new ResponseEntity(map, HttpStatus.OK);
@@ -77,7 +77,7 @@ public class MailController {
 		String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(email);
-		if (m.matches()) {
+		if (m.matches() ) {
 			err = true;
 		}
 		return err;

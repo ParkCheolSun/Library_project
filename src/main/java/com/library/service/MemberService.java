@@ -35,6 +35,16 @@ public class MemberService implements UserDetailsService {
 		}
 		return false;
 	}
+	
+	// Email체크
+	public boolean findByEmail(String email) {
+		Member mem = memberRepository.findByEmail(email);
+		if(mem != null) {
+			return true;
+		}
+		return false;
+	}
+	
 
 	private void validateDuplicateMember(Member member) {
 		Member findMember = memberRepository.findById(member.getId());

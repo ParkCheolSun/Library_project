@@ -114,7 +114,7 @@
 											<div class="form-group mt-2">
 												<input type="password" name="password" class="form-style"
 													th:field="*{password}" placeholder="비밀번호" id="password"
-													autocomplete="off"> <i
+													autocomplete="off"  minlength="8" maxlength="16"> <i
 													class="input-icon uil uil-lock-alt"></i>
 												<p th:if="${#fields.hasErrors('password')}"
 													th:errors="*{password}" class="fieldError">해당 란은 공백일 수

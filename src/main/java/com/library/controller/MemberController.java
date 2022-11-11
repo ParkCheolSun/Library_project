@@ -1,19 +1,24 @@
 package com.library.controller;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.library.dto.MemberDto;
 import com.library.entity.Member;
@@ -30,8 +35,15 @@ public class MemberController {
 
 	// 회원가입
 	@GetMapping(value = "/signUp")
-	public String memberForm(Model model) {
-		model.addAttribute("memberDto", new MemberDto());
+	public String memberForm(HttpServletRequest request, Model model) {
+		Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
+	    if(flashMap!=null) {
+	    	MemberDto memberDto =(MemberDto)flashMap.get("memberDto");
+	        model.addAttribute("memberDto", memberDto);
+	        System.out.println("redirect 성공!");
+	    } else {
+	    	model.addAttribute("memberDto", new MemberDto());
+	    }
 		return "member/SignUpForm";
 	}
 	
@@ -57,11 +69,17 @@ public class MemberController {
 	
 
 	@PostMapping(value = "/save")
-	public String newMember(@Valid MemberDto memberDto, BindingResult bindingResult, Model model) {
+	public String newMember(@Valid MemberDto memberDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		System.out.println(memberDto.toString());
 		if (bindingResult.hasErrors()) {
 			System.out.println("bindingResult : " + bindingResult.toString());
-			return "login/signUp";
+			List<ObjectError> list =  bindingResult.getAllErrors();
+            for(ObjectError e : list) {
+                 System.out.println(e.getDefaultMessage());
+            }
+			redirectAttributes.addFlashAttribute("memberDto", memberDto);
+			return "member/SignUpForm";
+			//return "redirect:/login/signUp";
 		}
 		try {
 			System.out.println("정상구문!!!!");
@@ -69,7 +87,7 @@ public class MemberController {
 			memberService.saveMember(member);
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
-			return "login/signUp";
+			return "member/SignUpForm";
 		}
 		return "redirect:/";
 	}

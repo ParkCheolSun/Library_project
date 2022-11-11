@@ -3,9 +3,7 @@ package com.library.service;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -14,6 +12,9 @@ import org.springframework.stereotype.Service;
 public class MailService {
 	@Autowired
 	 private JavaMailSender mailSender;
+	
+	@Autowired
+	MemberService memberService;
  
     @Async
 	public void sendMail(String to, String subject, String body) {
@@ -30,6 +31,10 @@ public class MailService {
 		e.printStackTrace();
 	  }
 	}
+    
+    public boolean checkEmail(String email) {
+    	return memberService.findByEmail(email);
+    }
  
 }
 

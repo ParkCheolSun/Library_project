@@ -18,6 +18,7 @@
 
 <div class="section" layout:fragment="content">
 	<script src="/javascript/signUpForm.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<div class="container">
 		<div class="row full-height justify-content-center">
 			<input type="hidden" id="mes" th:value="${mes}">
@@ -83,6 +84,22 @@
 													autocomplete="off"> <i
 													class="input-icon uil uil-user"></i>
 												<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+													class="fieldError">해당 란은 공백일 수 없습니다.</p>
+											</div>
+											<div class="form-group mt-2">
+												<input type="text" name="address" class="form-style"
+													th:field="*{address}" placeholder="주소" id="address"
+													autocomplete="off" readonly> <i
+													class="input-icon uil uil-user"></i>
+												<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+													class="fieldError">해당 란은 공백일 수 없습니다.</p>
+											</div>
+											<div class="form-group mt-2">
+												<input type="text" name="address_detail" class="form-style"
+													th:field="*{address_detail}" placeholder="상세주소" id="address_detail"
+													autocomplete="off"> <i
+													class="input-icon uil uil-user"></i>
+												<p th:if="${#fields.hasErrors('address_detail')}" th:errors="*{address_detail}"
 													class="fieldError">해당 란은 공백일 수 없습니다.</p>
 											</div>
 											<div class="form-group mt-2">

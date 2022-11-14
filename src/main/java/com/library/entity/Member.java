@@ -47,6 +47,7 @@ public class Member {
 	@NotNull
 	private String password;			// 비밀번호
 	private String address;				// 주소
+	private String address_detail;		// 상세주소
 	private String gender;				// 성별
 	
 	@Enumerated(EnumType.STRING)
@@ -62,6 +63,7 @@ public class Member {
 		member.setName(memberDto.getName());
 		member.setEmail(memberDto.getEmail());
 		member.setAddress(memberDto.getAddress());
+		member.setAddress_detail(memberDto.getAddress_detail());
 		String password = passwordEncoder.encode(memberDto.getPassword());
 		member.setPassword(password);
 		member.setAddress(memberDto.getAddress());

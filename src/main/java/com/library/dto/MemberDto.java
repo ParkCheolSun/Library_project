@@ -29,5 +29,7 @@ public class MemberDto {
 	
 	private String address;
 	
+	private String address_detail;
+	
 	private String gender;
 }

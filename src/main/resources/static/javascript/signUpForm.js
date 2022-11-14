@@ -22,6 +22,15 @@
 						timer : 1500
 					});
 				}
+			$("#address").click(function(){
+    	 		//카카오 지도 발생
+        		new daum.Postcode({
+            		oncomplete: function(data) { //선택시 입력값 세팅
+            			$("#address").val(data.address); // 주소 넣기
+            			$("#address_detail").focus(); //상세입력 포커싱
+            		}
+       			}).open();
+    		});
 		});
 		
 		function checkInput() {
@@ -63,7 +72,7 @@
 				}
 			});
 			console.log(cnt);
-			if(cnt == 4){
+			if(cnt == 6){
 				return false;
 			}
 			return true;

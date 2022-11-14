@@ -10,229 +10,6 @@
 	--font-secondary: "Poppins", sans-serif;
 }
 
-/* Colors */
-:root {
-	--color-default: #222222;
-	--color-primary: #008374;
-	--color-secondary: #f85a40;
-}
-
-/* Smooth scroll behavior */
-:root {
-	scroll-behavior: smooth;
-}
-
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
-body {
-	font-family: var(- -font-default);
-	color: var(- -color-default);
-}
-
-a {
-	color: var(- -color-primary);
-	text-decoration: none;
-}
-
-a:hover {
-	color: #00b6a1;
-	text-decoration: none;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	font-family: var(- -font-primary);
-}
-
-/*--------------------------------------------------------------
-# Sections & Section Header
---------------------------------------------------------------*/
-section {
-	padding: 60px 0;
-	overflow: hidden;
-}
-
-.sections-bg {
-	background-color: #f6f6f6;
-}
-
-.section-header {
-	text-align: center;
-	padding-bottom: 60px;
-}
-
-.section-header h2 {
-	font-size: 32px;
-	font-weight: 600;
-	margin-bottom: 20px;
-	padding-bottom: 20px;
-	position: relative;
-}
-
-.section-header h2:after {
-	content: "";
-	position: absolute;
-	display: block;
-	width: 50px;
-	height: 3px;
-	background: var(- -color-primary);
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin: auto;
-}
-
-.section-header p {
-	margin-bottom: 0;
-	color: #6f6f6f;
-}
-
-/*--------------------------------------------------------------
-# Breadcrumbs
---------------------------------------------------------------*/
-.breadcrumbs .page-header {
-	padding: 60px 0 60px 0;
-	min-height: 20vh;
-	position: relative;
-	background-color: var(- -color-primary);
-}
-
-.breadcrumbs .page-header h2 {
-	font-size: 56px;
-	font-weight: 500;
-	color: #fff;
-	font-family: var(- -font-secondary);
-}
-
-.breadcrumbs .page-header p {
-	color: rgba(255, 255, 255, 0.8);
-}
-
-.breadcrumbs nav {
-	background-color: #f6f6f6;
-	padding: 20px 0;
-}
-
-.breadcrumbs nav ol {
-	display: flex;
-	flex-wrap: wrap;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	font-size: 16px;
-	font-weight: 600;
-	color: var(- -color-default);
-}
-
-.breadcrumbs nav ol a {
-	color: var(- -color-primary);
-	transition: 0.3s;
-}
-
-.breadcrumbs nav ol a:hover {
-	text-decoration: underline;
-}
-
-.breadcrumbs nav ol li+li {
-	padding-left: 10px;
-}
-
-.breadcrumbs nav ol li+li::before {
-	display: inline-block;
-	padding-right: 10px;
-	color: var(- -color-secondary);
-	content: "/";
-}
-
-/*--------------------------------------------------------------
-# Scroll top button
---------------------------------------------------------------*/
-.scroll-top {
-	position: fixed;
-	visibility: hidden;
-	opacity: 0;
-	right: 15px;
-	bottom: -15px;
-	z-index: 99999;
-	background: var(- -color-secondary);
-	width: 44px;
-	height: 44px;
-	border-radius: 50px;
-	transition: all 0.4s;
-}
-
-.scroll-top i {
-	font-size: 24px;
-	color: #fff;
-	line-height: 0;
-}
-
-.scroll-top:hover {
-	background: rgba(248, 90, 64, 0.8);
-	color: #fff;
-}
-
-.scroll-top.active {
-	visibility: visible;
-	opacity: 1;
-	bottom: 15px;
-}
-
-/*--------------------------------------------------------------
-# Preloader
---------------------------------------------------------------*/
-#preloader {
-	position: fixed;
-	inset: 0;
-	z-index: 999999;
-	overflow: hidden;
-	background: #fff;
-	transition: all 0.6s ease-out;
-}
-
-#preloader:before {
-	content: "";
-	position: fixed;
-	top: calc(50% - 30px);
-	left: calc(50% - 30px);
-	border: 6px solid #fff;
-	border-color: var(- -color-primary) transparent var(- -color-primary)
-		transparent;
-	border-radius: 50%;
-	width: 60px;
-	height: 60px;
-	-webkit-animation: animate-preloader 1.5s linear infinite;
-	animation: animate-preloader 1.5s linear infinite;
-}
-
-@-webkit-keyframes animate-preloader {
-	0% {
-	transform: rotate(0deg);
-}
-
-100% {
-transform: rotate(360deg);
- 	}
-}
-
-@keyframes animate-preloader {
-	0% {
-	transform: rotate(0deg);
-}
-
-100 % {
-	transform: rotate(360deg);
-	}
-}
-
-/*--------------------------------------------------------------
-# Disable aos animation delay on mobile devices
---------------------------------------------------------------*/
-@media screen and (max-width: 768px) {
-	[data-aos-delay] {
-		transition-delay: 0 !important;
-	}
-}
 
 /*--------------------------------------------------------------
 # Header
@@ -246,40 +23,20 @@ transform: rotate(360deg);
 	background-color: #fff;
 }
 
-.header.sticked {
-	position: fixed;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: 70px;
-	box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-}
-
 .header .logo img {
 	max-height: 40px;
 	margin-right: 6px;
 }
 
-.header .logo h1 {
+/* .header .logo h1 {
 	font-size: 30px;
 	margin: 0;
 	font-weight: 600;
 	letter-spacing: 0.8px;
 	color: black;
 	font-family: var(- -font-primary);
-}
+} */
 
-.header .logo h1 span {
-	color: #f96f59;
-}
-
-.sticked-header-offset {
-	margin-top: 70px;
-}
-
-section {
-	scroll-margin-top: 70px;
-}
 
 /*--------------------------------------------------------------
 # Top Navi_bar
@@ -320,7 +77,7 @@ section {
 		font-family: var(- -font-secondary);
 		font-size: 16px;
 		font-weight: 600;
-		color: black;
+		color: black; 
 		white-space: nowrap;
 		transition: 0.3s;
 		position: relative;
@@ -347,11 +104,15 @@ section {
 		visibility: visible;
 		width: 100%;
 	}
-	.navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover>a
+	
+	/* 메뉴바에 마우스 드래그시 색변함 */
+	.navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover>a   
 		{
-		color: black;
+		color: #587D4A;
 	}
-	.navbar .dropdown ul {
+	
+	/* 상단 메뉴바 호버 */
+	.navbar .dropdown ul {   
 		display: block;
 		position: absolute;
 		left: 28px;
@@ -361,7 +122,7 @@ section {
 		z-index: 99;
 		opacity: 0;
 		visibility: hidden;
-		background: #fff;
+		background: #66CC66;
 		box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.5);
 		transition: 0.3s;
 		border-radius: 4px;
@@ -377,7 +138,7 @@ section {
 		font-size: 15px;
 		text-transform: none;
 		font-weight: 600;
-		color: black;
+		color: white;
 	}
 	.navbar .dropdown ul a i {
 		font-size: 12px;
@@ -402,6 +163,12 @@ section {
 		left: 100%;
 		visibility: visible;
 	}
+	
+/*--------------------------------------------------------------
+# Header_top_right btn_menu 
+--------------------------------------------------------------*/	
+	/* 마이 페이지 css */	
+		
 	.custom-btn {
 		width: 130px;
 		height: 40px;
@@ -423,6 +190,8 @@ section {
 		border: none;
 		z-index: 1;
 	}
+	
+
 	.custom-btn:after {
 		position: absolute;
 		content: "";
@@ -447,6 +216,8 @@ section {
 	.custom-btn:active {
 		top: 2px;
 	}
+	
+	/* 로그인 버튼 css */
 	.login-btn-a {
 		display: inline !important;
 	}

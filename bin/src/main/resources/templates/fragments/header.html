@@ -1,7 +1,94 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <div class="header" th:fragment="header">
-	<button onclick = "location.href = '/login/signUp' ">로그인</button>
+
+	<!-- 22-11-10  -->
+	<!--상단바-->
+	<head>
+<meta charset="UTF-8">
+<title>Document</title>
+
+<!-- Template Main CSS File -->
+<link href="/css/headerForm.css" rel="stylesheet">
+
+	</head>
+
+	<!-- <body> -->
+
+	<!-- ======= Header ======= -->
+
+	<header id="header" class="header d-flex align-items-center"
+		th:fragment="header">
+
+		<div
+			class="container-fluid container-xl d-flex align-items-center justify-content-between">
+			<a href="/" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+				<img th:src="@{/images/logo.gif}"> 				<!-- <img src="https://eiec.kdi.re.kr/res/img/h1_logo.png" alt="">  -->
+			</a>
+
+			<nav id="navbar" class="navbar">
+				<ul>
+					<!--  1번 메뉴바-->
+					<li class="dropdown"><a href="/header/test1"><span>도서관 안내</span> <i
+							class="bi bi-chevron-down dropdown-indicator"></i></a>
+						<ul>
+							<li><a href="/header/a1">인사말</a></li>
+							<li><a href="/header/a2">도서관 소개</a></li>
+							<li><a href="/header/a3">찾아오시는 길</a></li>
+						</ul></li>
+
+					<!--  2번 메뉴바-->
+					<li class="dropdown"><a href="/header/test2"><span>문화 프로그램</span> <i
+							class="bi bi-chevron-down dropdown-indicator"></i></a>
+						<ul>
+							<li><a href="/header/b1">프로그램 신청</a></li>
+						</ul></li>
+
+					<!--  3번 메뉴바-->
+					<li class="dropdown"><a href="/header/test3"><span>알람마당</span> <i
+							class="bi bi-chevron-down dropdown-indicator"></i></a>
+						<ul>
+							<li><a href="/header/c1">공지사항</a></li>
+						</ul></li>
+
+					<!--  4번 메뉴바-->
+					<li class="dropdown"><a href="/header/test4"><span>열린마당</span> <i
+							class="bi bi-chevron-down dropdown-indicator"></i></a>
+						<ul>
+							<li><a href="/header/d1">질문과 답변</a></li>
+							<li><a href="/header/d2">자주하는 질문</a></li>
+							<li><a href="/header/d3">건의사항</a></li>
+							<li><a href="/header/d4">포토갤러리</a></li>
+						</ul></li>
+
+					<!--  5번 메뉴바-->
+					<li class="dropdown"><a href="/header/test5"><span>작은도서관</span> <i
+							class="bi bi-chevron-down dropdown-indicator"></i></a>
+						<ul>
+							<li><a href="/header/e1">도서관별 소개</a></li>
+							<li><a href="/header/e2">도서관 소식</a></li>
+						</ul></li>
+
+					<div id="btn_group">
+						<span style="float: right;">
+						<a href="/login/signUp" class="login-btn-a">
+						 	<i class="input-icon uil uil-sign-in-alt login-btn-i"></i>
+						 	</a>
+						 	 <!-- uil-sign-out-alt -->
+							<!-- <button id="login-btn" class="custom-btn" type="button" onclick="location.href = '/login/signUp' ">로그인/회원가입</button> -->
+							
+							<button id="mypage-btn" class="custom-btn" type="button">마이페이지</button>
+							
+						</span>
+					</div>
+
+				</ul>
+			</nav>
+			<!-- .navbar -->
+		</div>
+	</header>
+	<!--   </body> -->
 </div>
 </html>

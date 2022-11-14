@@ -9,6 +9,19 @@
 				var result = checkInput();
 				return result;
 			});
+			var message = $('#mes').val();
+				var output = "";
+				if (message == "modPassword")
+					output = "비밀번호 변경이 완료되었습니다."
+				if(output != ""){
+					Swal.fire({
+						position : 'top-end',
+						icon : 'success',
+						title : output,
+						showConfirmButton : false,
+						timer : 1500
+					});
+				}
 		});
 		
 		function checkInput() {

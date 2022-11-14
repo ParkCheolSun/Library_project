@@ -371,7 +371,25 @@ a:hover {
 	width: 100%;
 }
 
+.btn-email-start2 {
+	width: 100%;
+}
+
+.btn-email-end2 {
+	display: none;
+	width: 48%;
+}
+
+.input-email-code2 {
+	display: none;
+	width: 100%;
+}
+
 .btn-signup {
+	width: 100%;
+}
+
+.btn-change {
 	width: 100%;
 }
 

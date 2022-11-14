@@ -1,10 +1,13 @@
 package com.library.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,53 +39,51 @@ public class MemberController {
 	// 회원가입
 	@GetMapping(value = "/signUp")
 	public String memberForm(HttpServletRequest request, Model model) {
-		Map<String, ?> flashMap =RequestContextUtils.getInputFlashMap(request);
-	    if(flashMap!=null) {
-	    	MemberDto memberDto =(MemberDto)flashMap.get("memberDto");
-	        model.addAttribute("memberDto", memberDto);
-	        System.out.println("redirect 성공!");
-	    } else {
-	    	model.addAttribute("memberDto", new MemberDto());
-	    }
+		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
+		if (flashMap != null) {
+			MemberDto memberDto = (MemberDto) flashMap.get("memberDto");
+			model.addAttribute("memberDto", memberDto);
+		} else {
+			model.addAttribute("memberDto", new MemberDto());
+		}
 		return "member/SignUpForm";
 	}
-	
+
 	// 로그인
 	@PostMapping(value = "/signIn")
 	public String memberSignIn(Model model) {
 		return "member/SignUpForm";
 	}
-	
+
 	// ajax를 통한 ID체크
 	@ResponseBody
 	@PostMapping(value = "/idCheck")
 	public HashMap<String, String> idCheck(@RequestParam("id") String id) {
 		boolean check = memberService.findById(id);
-		 HashMap<String, String> map = new HashMap<String, String>();
-		if(check) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		if (check) {
 			map.put("answer", "Fail");
 		} else {
 			map.put("answer", "Success");
 		}
 		return map;
 	}
-	
 
 	@PostMapping(value = "/save")
-	public String newMember(@Valid MemberDto memberDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+	public String newMember(@Valid MemberDto memberDto, BindingResult bindingResult, Model model,
+			RedirectAttributes redirectAttributes) {
 		System.out.println(memberDto.toString());
 		if (bindingResult.hasErrors()) {
 			System.out.println("bindingResult : " + bindingResult.toString());
-			List<ObjectError> list =  bindingResult.getAllErrors();
-            for(ObjectError e : list) {
-                 System.out.println(e.getDefaultMessage());
-            }
+			List<ObjectError> list = bindingResult.getAllErrors();
+			for (ObjectError e : list) {
+				System.out.println(e.getDefaultMessage());
+			}
 			redirectAttributes.addFlashAttribute("memberDto", memberDto);
 			return "member/SignUpForm";
-			//return "redirect:/login/signUp";
+			// return "redirect:/login/signUp";
 		}
 		try {
-			System.out.println("정상구문!!!!");
 			Member member = Member.createMember(memberDto, passwordEncoder);
 			memberService.saveMember(member);
 		} catch (IllegalStateException e) {
@@ -91,25 +92,36 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
-	
+
 	@ResponseBody
 	@PostMapping(value = "/findEmail")
 	public HashMap<String, String> findId(@RequestParam("email") String email) {
 		Member member = memberService.findByEmail(email);
 		System.out.println(member);
 		HashMap<String, String> map = new HashMap<String, String>();
-		
-		if(member.getId() == null) {
+
+		if (member.getId() == null) {
 			map.put("answer", "Fail");
 		} else {
 			map.put("answer", "Success");
 		}
 		return map;
 	}
-	
+
 	@GetMapping(value = "/find")
 	public String findId(Model model) {
 		model.addAttribute("memberDto", new MemberDto());
 		return "member/FindMemberForm";
+	}
+
+	@PostMapping(value = "/mod")
+	public String newMember(MemberDto memberDto, HttpServletResponse response, Model model, RedirectAttributes redirectAttributes) {
+		Member member = memberService.findByEmail(memberDto.getEmail());
+		String password = passwordEncoder.encode(memberDto.getPassword());
+		member.setPassword(password);
+		memberService.updateMember(member);
+		redirectAttributes.addFlashAttribute("memberDto", new MemberDto());
+		redirectAttributes.addFlashAttribute("mes", "modPassword");
+		return "redirect:/login/signUp";
 	}
 }

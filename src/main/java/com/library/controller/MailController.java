@@ -7,12 +7,14 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +43,6 @@ public class MailController {
 		boolean emailCheck = isValidEmail(email);
 		boolean findEmail = mailService.checkEmail(email);
 		if(action.equals("find")) {
-			System.out.println("음음=======================");
 			findEmail = false;
 		}
 		if (emailCheck == false || findEmail == true) {
@@ -77,6 +78,11 @@ public class MailController {
 		if(action.equals("find")) {
 			Member mem = mailService.findEmail(email);
 			System.out.println(mem.getId());
+			result = mem.getId();
+		} else if(action.equals("find2")) {
+			Member mem = mailService.findEmail(email);
+			if(mem.getId() == null)
+				result = "NotID";
 			result = mem.getId();
 		}
 		map.put("result", result);

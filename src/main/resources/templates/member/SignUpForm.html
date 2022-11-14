@@ -20,6 +20,7 @@
 	<script src="/javascript/signUpForm.js"></script>
 	<div class="container">
 		<div class="row full-height justify-content-center">
+			<input type="hidden" id="mes" th:value="${mes}">
 			<div class="col-12 text-center align-self-center py-5">
 				<div class="section pb-5 pt-5 pt-sm-2 text-center">
 					<h6 class="mb-0 pb-3 signup-font">
@@ -114,7 +115,7 @@
 											<div class="form-group mt-2">
 												<input type="password" name="password" class="form-style"
 													th:field="*{password}" placeholder="비밀번호" id="password"
-													autocomplete="off"  minlength="8" maxlength="16"> <i
+													autocomplete="off" minlength="8" maxlength="16"> <i
 													class="input-icon uil uil-lock-alt"></i>
 												<p th:if="${#fields.hasErrors('password')}"
 													th:errors="*{password}" class="fieldError">해당 란은 공백일 수

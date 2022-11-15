@@ -2,28 +2,30 @@
 	display: flex;
 	width: 100%;
 	align-items: stretch;
+	margin-left: 50px;
 }
 
 #sidebar {
 	min-width: 250px;
 	max-width: 250px;
-	background: #7386D5;
+	background: #7b5635;
 	color: #fff;
 	transition: all 0.3s;
-}
-
-#sidebar.active {
-	margin-left: -250px;
+	border-radius: 25px;
 }
 
 #sidebar .sidebar-header {
 	padding: 20px;
-	background: #6d7fcc;
+	background: #7b5635;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	text-align: center;
+	border-bottom: solid 1px #b17c4b;
 }
 
 #sidebar ul.components {
 	padding: 20px 0;
-	border-bottom: 1px solid #47748b;
+	/* border-bottom: 1px solid #47748b; */
 }
 
 #sidebar ul p {
@@ -38,13 +40,15 @@
 }
 
 #sidebar ul li a:hover {
-	color: #7386D5;
+	color: #b17c4b;
 	background: #fff;
+	border-radius: 25px;
 }
 
 #sidebar ul li.active>a, a[aria-expanded="true"] {
 	color: #fff;
-	background: #6d7fcc;
+	background: #b17c4b;
+	border-radius: 25px;
 }
 
 .components li a {
@@ -73,6 +77,14 @@ ul.CTAs a {
 	display: block;
 	border-radius: 5px;
 	margin-bottom: 5px;
+}
+
+.list-unstyled li a {
+	margin-left: 5px;
+}
+
+.sub-content {
+	margin-left: 14px;
 }
 
 a.download {

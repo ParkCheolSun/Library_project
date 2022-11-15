@@ -46,6 +46,10 @@ a:hover {
 /*--------------------------------------------------------------
 # Top Navi_bar
 --------------------------------------------------------------*/
+.container-xl {
+	max-width: 1400px;
+}
+
 @media ( min-width : 825px) , ( max-width : 825px) {
 	.navbar {
 		padding: 0;
@@ -115,7 +119,7 @@ a:hover {
 	/* 메뉴바에 마우스 드래그시 색변함 */
 	.navbar a:hover, .navbar .active, .navbar .active:focus, .navbar li:hover>a
 		{
-		color: #587D4A;
+		color: #800000;
 	}
 
 	/* 상단 메뉴바 호버 */
@@ -129,13 +133,14 @@ a:hover {
 		z-index: 99;
 		opacity: 0;
 		visibility: hidden;
-		background: #66CC66;
+		background: #c44000;
 		box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.5);
 		transition: 0.3s;
 		border-radius: 4px;
 	}
 	.navbar .dropdown a {
 		text-decoration: none;
+		font-size: 25px;
 	}
 	.navbar .dropdown ul li {
 		min-width: 200px;
@@ -230,7 +235,7 @@ a:hover {
 	.login-btn-i {
 		left: 0px;
 		position: relative;
-		font-size: 30px !important;
+		font-size: 40px !important;
 		color: black;
 	}
 }

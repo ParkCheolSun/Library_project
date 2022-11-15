@@ -8,6 +8,10 @@
 				"width" : "100%",
 				"height" : "100%"
 			});
+		} else {
+			$("#main-header").css({
+				"border-bottom" : "solid 1px"
+			});
 		}
 	});
 	

@@ -11,6 +11,7 @@
 
 .cnt02 {
 	background-color: #fff;
+	padding-top: 200px;
 }
 
 .cnt03 {
@@ -37,4 +38,41 @@
     transform: scale(1.02);
     z-index: 0; 
     content: "";
+}
+
+.swiper-title {
+	font-size: 70px;
+	text-align: center;
+}
+
+.swiper-container {
+	/* height: 500px; */
+	height: auto;
+	width: 750px;
+	margin-left: 200px!important;
+	float: left;
+}
+
+.swiper-slide {
+	text-align: center;
+	display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
+	/*align-items:center;  위아래 기준 중앙정렬 */
+	justify-content: center; /* 좌우 기준 중앙정렬 */
+}
+
+
+.swiper-slide img {
+	/* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */ 
+	max-width: 100%;
+}
+
+.notice {
+	float: left;
+	margin-left: 100px;
+}
+
+.notice-area {
+	height: 700px;
+	width: 900px;
+	background-color: orange;
 }

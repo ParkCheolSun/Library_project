@@ -6,6 +6,11 @@
 <head>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link th:href="@{/css/main.css}" rel="stylesheet">
+<!-- Swiper -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 </head>
 <div layout:fragment="content">
 	<script src="/javascript/mainContent.js"></script>
@@ -15,7 +20,48 @@
 			<p>메인페이지1</p>
 		</div>
 		<div class="cnt02">
-			<p>메인페이지2</p>
+			<div class="swiper-container">
+				<h1 class="swiper-title">팝업존</h1>
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img
+							src="https://library.daegu.go.kr/data/popupZone/h32/1666577215439">
+					</div>
+					<div class="swiper-slide">
+						<img
+							src="https://library.daegu.go.kr/data/popupZone/h32/1663307448253">
+					</div>
+					<div class="swiper-slide">
+						<img
+							src="https://library.daegu.go.kr/data/popupZone/h32/1656584022367">
+					</div>
+					<div class="swiper-slide">
+						<img
+							src="https://library.daegu.go.kr/data/popupZone/h32/1667357066868">
+					</div>
+					<div class="swiper-slide">
+						<img
+							src="https://library.daegu.go.kr/data/popupZone/h32/1661164896085">
+					</div>
+					<div class="swiper-slide">
+						<img
+							src="https://library.daegu.go.kr/data/popupZone/h32/1656584031883">
+					</div>
+
+				</div>
+
+				<!-- 네비게이션 -->
+				<div class="swiper-button-next"></div>
+				<!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+				<div class="swiper-button-prev"></div>
+				<!-- 이전 버튼 -->
+
+			</div>
+			<div class="notice">
+				<h1 class="swiper-title">공지사항</h1>
+				<div class="notice-area">
+				</div>
+			</div>
 		</div>
 		<div class="cnt03">
 			<p>메인페이지3</p>

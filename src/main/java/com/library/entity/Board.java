@@ -29,7 +29,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Board {
+public class Board extends BaseTimeEntity{
 	@Id
 	@Column(name = "board_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,7 +42,7 @@ public class Board {
 	@NotNull
 	private String title; // 제목
 
-	private String contents; // 내용
+	private String content; // 내용
 
 	private LocalDateTime cDate; // 작성날짜
 
@@ -63,13 +63,13 @@ public class Board {
 	private Category category;
 
 	@Builder
-	public Board(Long id, short blevel, String title, String contents, LocalDateTime cDate, LocalDateTime mDate,
+	public Board(Long id, short blevel, String title, String content, LocalDateTime cDate, LocalDateTime mDate,
 			int readCnt, String disclosure, Member member, String registerId) {
 		this.member = member;
 		this.id = id;
 		this.blevel = blevel;
 		this.title = title;
-		this.contents = contents;
+		this.content = content;
 		this.cDate = cDate;
 		this.mDate = mDate;
 		this.readCnt = readCnt; // hits == cnt 

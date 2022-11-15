@@ -42,19 +42,20 @@ public class BoardService {
 	}
 
 	public BoardResponseDto findById(Long id) {
+		boardRepository.updateBoardReadCntInc(id);
 		return new BoardResponseDto(boardRepository.findById(id).get());
 	}
-
+	
 	public int updateBoard(BoardRequestDto boardRequestDto) {
 		return boardRepository.updateBoard(boardRequestDto);
 	}
-
-	public int updateBoardReadCntInc(Long id) {
-		return boardRepository.updateBoardReadCntInc(id);
-	}
-
+	
 	public void deleteById(Long id) {
 		boardRepository.deleteById(id);
+	}
+	
+	public void deleteAll(Long[] deleteId) {
+		boardRepository.deleteBoard(deleteId);
 	}
 
 }

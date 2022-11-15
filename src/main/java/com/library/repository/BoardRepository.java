@@ -13,12 +13,15 @@ public interface BoardRepository extends JpaRepository <Board, Long> {
 	
 	static final String UPDATE_BOARD = "UPDATE Board "
 			+ "SET TITLE = :#{#boardRequestDto.title}, "
-			+ "CONTENTS = :#{#boardRequestDto.contents}, "
+			+ "CONTENT = :#{#boardRequestDto.content}, "
 			+ "WHERE BOARD_ID = :#{#boardRequestDto.id}";
 	
 	static final String UPDATE_BOARD_READ_CNT_INC = "UPDATE Board "
 			+ "SET READ_CNT = READ_CNT + 1 "
 			+ "WHERE BOARD_ID = :id";
+	
+	static final String DELETE_BOARD = "DELETE FROM Board "
+			+ "WHERE BOARD_ID IN (:deleteList)";
 	
 	@Transactional
 	@Modifying
@@ -29,4 +32,9 @@ public interface BoardRepository extends JpaRepository <Board, Long> {
 	@Modifying
 	@Query(value = UPDATE_BOARD_READ_CNT_INC, nativeQuery = true)
 	public int updateBoardReadCntInc(@Param("id") Long id);
+	
+	@Transactional
+	@Modifying
+	@Query(value = DELETE_BOARD, nativeQuery = true)
+	public int deleteBoard(@Param("deleteList") Long[] deleteList);
 }

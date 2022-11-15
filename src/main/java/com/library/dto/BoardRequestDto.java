@@ -18,7 +18,7 @@ public class BoardRequestDto {
 	private Long id;
 	private short blevel;
 	private String title;
-	private String contents;
+	private String content;
 	private LocalDateTime cDate;
 	private LocalDateTime mDate;
 	private int readCnt;
@@ -33,7 +33,7 @@ public class BoardRequestDto {
 				.id(id)
 				.blevel(blevel)
 				.title(title)
-				.contents(contents)
+				.content(content)
 				.cDate(cDate)
 				.mDate(mDate)
 				.readCnt(readCnt)
@@ -44,7 +44,7 @@ public class BoardRequestDto {
 	
 	@Override
 	public String toString() {
-		return "BoardRequestDto [id=" + id + ", title=" + title + ", contents=" + contents + ", registerId=" + registerId
+		return "BoardRequestDto [id=" + id + ", title=" + title + ", content=" + content + ", registerId=" + registerId
 				+ "]";
 	}
 

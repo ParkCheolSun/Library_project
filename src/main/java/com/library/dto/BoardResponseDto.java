@@ -14,8 +14,8 @@ import lombok.Getter;
 public class BoardResponseDto {
 	private Long id;
 	private String title;
-	private String contents;
-	private LocalDateTime cDate;
+	private String content;
+	private LocalDateTime registerTime;
 	private String disclosure;
 	private Member member;
 	private Category category;
@@ -26,25 +26,22 @@ public class BoardResponseDto {
 		this.member = entity.getMember();
 		this.id = entity.getId();
 		this.title = entity.getTitle();
-		this.contents = entity.getContents();
-		this.cDate = entity.getCDate();
+		this.content = entity.getContent();
+		this.registerTime = entity.getRegisterTime();
 		this.disclosure = entity.getDisclosure();
 		this.readCnt = entity.getReadCnt();
 		this.registerId = entity.getRegisterId();
+		
 	}
 
 	@Override
 	public String toString() {
-		return "BoardResponseDto [id=" + id + ", title=" + title + ", contents=" + contents + ", readCnt=" + readCnt
-				+ ", registerId=" + registerId + ", cDate=" + cDate + "]";
-	}
-
-	public String getRegisterTime() {
-		return toStringDateTime(this.cDate);
+		return "BoardResponseDto [id=" + id + ", title=" + title + ", content=" + content + ", readCnt=" + readCnt
+				+ ", registerId=" + registerId + ", registerTime=" + registerTime + "]";
 	}
 
 	public static String toStringDateTime(LocalDateTime localDateTime) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		return Optional.ofNullable(localDateTime).map(formatter::format).orElse("");
 	}
 }

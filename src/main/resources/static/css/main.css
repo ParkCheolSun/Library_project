@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.main-content {
+	
+}
+
+.cnt01 {
+	background-image: url("../images/Library_main.jpg");
+	background-size : contain;
+}
+
+.cnt02 {
+	background-color: #fff;
+}
+
+.cnt03 {
+	background-image: url("../images/Library_second.jpg");
+	background-size: cover;
+    -webkit-filter: blur(5px); 
+    -moz-filter: blur(5px); 
+    -o-filter: blur(5px); 
+    -ms-filter: blur(5px); 
+    filter: blur(5px);
+    transform: scale(1.02);
+    z-index: 0; 
+    content: "";
+}
+
+.cnt04 {
+	background-image: url("../images/Library_therd.jpg");
+	background-size: cover;
+    -webkit-filter: blur(5px); 
+    -moz-filter: blur(5px); 
+    -o-filter: blur(5px); 
+    -ms-filter: blur(5px); 
+    filter: blur(5px);
+    transform: scale(1.02);
+    z-index: 0; 
+    content: "";
+}

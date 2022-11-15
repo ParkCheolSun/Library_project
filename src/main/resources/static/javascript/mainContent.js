@@ -14,7 +14,7 @@ var scroll = function(){
     });
     
     var init = function(){
-        $cnt = $(".content");
+        $cnt = $(".main-content");
         $nav = $(".header a");
     };
     

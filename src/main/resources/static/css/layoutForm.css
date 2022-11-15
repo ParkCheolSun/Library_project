@@ -8,14 +8,12 @@ html {
 
 body {
 	min-height: 100%;
+	background-color: transparent;
 }
 
 .header {
-	background-color: yellow;
-}
-
-.topbar {
-	background-color: pink;	
+	margin: 0;
+	padding: 0;
 }
 
 .footer {
@@ -26,12 +24,9 @@ body {
 }
 
 .content {
-	background-color: red;
 	width: 80%;
-	height: 1000px;
 }
 
 .sidebar {
-	background-color: skyblue;
 	width: 20%;
 }

@@ -22,9 +22,10 @@
 <th:block layout:fragment="css"></th:block>
 </head>
 <body>
+	<script src="/javascript/layoutForm.js"></script>
 	<div th:replace="fragments/header::header"></div>
 	<div id="content-wrapper" class="d-flex">
-		<div th:replace="fragments/sidebar::sidebar"></div>
+		<div th:replace="fragments/sidebar::sidebar" class="sidebar"></div>
 		<div layout:fragment="content" class="content"></div>
 	</div>
 	<div th:replace="fragments/footer::footer"></div>

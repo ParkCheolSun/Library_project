@@ -33,7 +33,7 @@ public class Board {
 	@Id
 	@Column(name = "board_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long number;
+	private Long id;
 
 	@NotNull
 	@ColumnDefault("0")
@@ -48,9 +48,11 @@ public class Board {
 
 	private LocalDateTime mDate; // 수정날짜
 
-	private int hits; // 조회수
+	private int readCnt; // 조회수
 
 	private String disclosure; // 공개여부
+	
+	private String registerId; // 작성자
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "mNumber")
@@ -61,19 +63,19 @@ public class Board {
 	private Category category;
 
 	@Builder
-	public Board(Long number, short blevel, String title, String contents, LocalDateTime cDate, LocalDateTime mDate,
-			int hits, String disclosure, Member member) {
+	public Board(Long id, short blevel, String title, String contents, LocalDateTime cDate, LocalDateTime mDate,
+			int readCnt, String disclosure, Member member, String registerId) {
 		this.member = member;
-		this.number = number;
+		this.id = id;
 		this.blevel = blevel;
 		this.title = title;
 		this.contents = contents;
 		this.cDate = cDate;
 		this.mDate = mDate;
-		this.hits = hits; // hits == cnt 
+		this.readCnt = readCnt; // hits == cnt 
 		this.disclosure = disclosure;
 		this.member = member;
 		this.category = category;
-		
+		this.registerId = registerId;
 	}
 }

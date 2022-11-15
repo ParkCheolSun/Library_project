@@ -15,35 +15,37 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BoardRequestDto {
-	private Long number;
+	private Long id;
 	private short blevel;
 	private String title;
 	private String contents;
 	private LocalDateTime cDate;
 	private LocalDateTime mDate;
-	private int hits;
+	private int readCnt;
 	private String disclosure;
 	private Member member;
 	private Category category;
+	private String registerId;
 	
 	public Board toEntity() {
 		return Board.builder()
 				.member(member)
-				.number(number)
+				.id(id)
 				.blevel(blevel)
 				.title(title)
 				.contents(contents)
 				.cDate(cDate)
 				.mDate(mDate)
-				.hits(hits)
+				.readCnt(readCnt)
 				.disclosure(disclosure)
-				.build();			
+				.registerId(registerId)
+				.build();	
 	}
 	
 	@Override
 	public String toString() {
-		return "BoardRequestDto [id = " + member + ", number=" + number + ","
-				+ "title=" + title + ", contents=" + contents + "]";
+		return "BoardRequestDto [id=" + id + ", title=" + title + ", contents=" + contents + ", registerId=" + registerId
+				+ "]";
 	}
 
 

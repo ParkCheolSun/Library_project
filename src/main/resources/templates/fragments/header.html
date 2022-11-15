@@ -72,13 +72,13 @@
 
 			<div id="btn_group">
 				<span style="float: right;"> 
-				<a href="/login/signUp" class="login-btn-a"> 
+				<a href="/login/signUp" class="login-btn-a" > 
 					<i class="input-icon uil uil-sign-in-alt login-btn-i"></i>
 				</a>
-				<a href="/logout" class="login-btn-a"> 
+				<a href="/logout" class="login-btn-a" sec:authorize="isAuthenticated()"> 
 					<i class="input-icon uil uil-sign-out-alt login-btn-i"></i>
 				</a>
-				<a href="/login/mypage" class="login-btn-a"> 
+				<a href="/login/mypage" class="login-btn-a" sec:authorize="isAuthenticated()"> 
 					<i class="input-icon uil uil-user-circle login-btn-i"></i>
 				</a>
 						

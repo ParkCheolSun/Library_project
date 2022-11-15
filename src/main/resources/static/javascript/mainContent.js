@@ -15,7 +15,7 @@ var scroll = function(){
     
     var init = function(){
         $cnt = $(".main-content");
-        $nav = $(".header a");
+        //$nav = $(".header a");
     };
     
     var initEvent = function(){
@@ -24,11 +24,11 @@ var scroll = function(){
         $(window).resize(function(){
             winResize();
         });
-        $nav.on("click", function(){
-            moveIndex = $(this).parent("li").index();
-            moving(moveIndex);
-            return false;
-        });
+        //$nav.on("click", function(){
+        //    moveIndex = $(this).parent("li").index();
+        //    moving(moveIndex);
+        //    return false;
+        //});
         $cnt.on("mousewheel", function(e){
             if(time === false){ // time 변수가 펄스일때만 휠 이벤트 실행
               wheel(e);
@@ -65,7 +65,7 @@ var scroll = function(){
         }, 650, function(){
           time = false; // 휠 이벤트가 끝나면 false로 변경
         });
-        $nav.parent("li").eq(index).addClass("on").siblings().removeClass("on");
+        //$nav.parent("li").eq(index).addClass("on").siblings().removeClass("on");
     };
     
 };

@@ -11,14 +11,22 @@ import com.library.entity.Board;
 
 public interface BoardRepository extends JpaRepository <Board, Long> {
 	
-	String UPDATE_BOARD = "UPDATE Board " +
-			"SET TITLE = :#{#boardRequestDto.title}, " +
-			"CONTENTS = :#{#boardRequestDto.contents}, " +
-			"UPDATE_TIME = NOW() " +
-			"WHERE ID = :#{#boardRequestDto.member}";
+	static final String UPDATE_BOARD = "UPDATE Board "
+			+ "SET TITLE = :#{#boardRequestDto.title}, "
+			+ "CONTENTS = :#{#boardRequestDto.contents}, "
+			+ "WHERE BOARD_ID = :#{#boardRequestDto.id}";
+	
+	static final String UPDATE_BOARD_READ_CNT_INC = "UPDATE Board "
+			+ "SET READ_CNT = READ_CNT + 1 "
+			+ "WHERE BOARD_ID = :id";
 	
 	@Transactional
 	@Modifying
 	@Query(value = UPDATE_BOARD, nativeQuery = true)
 	public int updateBoard(@Param("boardRequestDto") BoardRequestDto boardRequestDto);
+	
+	@Transactional
+	@Modifying
+	@Query(value = UPDATE_BOARD_READ_CNT_INC, nativeQuery = true)
+	public int updateBoardReadCntInc(@Param("id") Long id);
 }

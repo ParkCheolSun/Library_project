@@ -47,6 +47,10 @@
 	background: #6d7fcc;
 }
 
+.components li a {
+	color: #fff;
+}
+
 a[data-toggle="collapse"] {
 	position: relative;
 }
@@ -57,12 +61,6 @@ a[data-toggle="collapse"] {
 	top: 50%;
 	right: 20px;
 	transform: translateY(-50%);
-}
-
-ul ul a {
-	font-size: 0.9em !important;
-	padding-left: 30px !important;
-	background: #6d7fcc;
 }
 
 ul.CTAs {

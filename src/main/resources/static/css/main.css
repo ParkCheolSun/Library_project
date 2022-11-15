@@ -6,7 +6,7 @@
 
 .cnt01 {
 	background-image: url("../images/Library_main.jpg");
-	background-size : contain;
+	background-size: cover;
 }
 
 .cnt02 {

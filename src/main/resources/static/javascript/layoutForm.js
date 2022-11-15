@@ -10,3 +10,7 @@
 			});
 		}
 	});
+	
+	// manual - 복원안함 / auto - 복원
+	history.scrollRestoration = "manual"
+

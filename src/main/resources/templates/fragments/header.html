@@ -81,10 +81,9 @@
 				<a href="/login/mypage" class="login-btn-a" sec:authorize="isAuthenticated()"> 
 					<i class="input-icon uil uil-user-circle login-btn-i"></i>
 				</a>
-						
-					<!-- <button id="mypage-btn" class="custom-btn" type="button">마이페이지</button> -->
-
-					<!-- uil-sign-out-alt --> <!-- <button id="login-btn" class="custom-btn" type="button" onclick="location.href = '/login/signUp' ">로그인/회원가입</button> -->
+				<a href="/login/mypage" class="login-btn-a" sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')"> 
+					<i class="input-icon uil uil-setting login-btn-i"></i>
+				</a>
 				</span>
 			</div>
 		</div>

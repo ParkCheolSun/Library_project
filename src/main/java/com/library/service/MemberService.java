@@ -1,5 +1,6 @@
 package com.library.service;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.security.core.userdetails.User;
@@ -8,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.library.constant.Role;
+import com.library.dto.MemberDto;
 import com.library.entity.Member;
 import com.library.repository.MemberRepository;
 
@@ -20,8 +23,10 @@ public class MemberService implements UserDetailsService {
 	private final MemberRepository memberRepository;
 
 	public Member saveMember(Member member) {
-		System.out.println(member.toString());
+		System.out.println("Service : " + member.toString());
+		System.out.println("1차 성공");
 		validateDuplicateMember(member);
+		System.out.println("2차 성공");
 		return memberRepository.save(member);
 	}
 	

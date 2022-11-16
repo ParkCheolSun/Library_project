@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import com.library.constant.Role;
 import com.library.dto.MemberDto;
 import com.library.entity.Member;
 import com.library.service.MemberService;
@@ -35,6 +37,27 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
+	
+	@PostConstruct
+	private void createAdmin() {
+		// admin 계정 생성
+		boolean check = memberService.findById("1");
+		if(check)
+			return;
+		Member mem;
+		MemberDto memDto = new MemberDto();
+		memDto.setId("1");
+		memDto.setPassword("1");
+		memDto.setAddress("관리자");
+		memDto.setGender("M");
+		memDto.setName("총관리자");
+		memDto.setEmail("admin@admin.admin");
+		mem = Member.createMember(memDto, passwordEncoder);
+		String password = passwordEncoder.encode(memDto.getPassword());
+		mem.setPassword(password);
+		mem.setRole(Role.ADMIN);
+		memberService.saveMember(mem);
+	}
 
 	// 회원가입
 	@GetMapping(value = "/signUp")

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.dto.BoardRequestDto;
+import com.library.entity.Board;
 import com.library.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -70,11 +71,11 @@ private final BoardService boardService;
 	public String boardViewAction(Model model, BoardRequestDto boardRequestDto) throws Exception {
 		
 		try {
-			int result = boardService.updateBoard(boardRequestDto);
-			
-			if (result < 1) {
+			Board board = boardService.updateBoard(boardRequestDto);
+			if(board.getId() < 1) {
 				throw new Exception("#Exception boardViewAction!");
 			}
+			System.out.println("성공 : " + board);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage()); 
 		}

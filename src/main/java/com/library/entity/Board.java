@@ -1,7 +1,5 @@
 package com.library.entity;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +14,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 
+import com.library.constant.Role;
+import com.library.dto.BoardRequestDto;
+
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +30,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Board extends BaseTimeEntity{
+public class Board extends BaseEntity {
 	@Id
 	@Column(name = "board_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,14 +45,14 @@ public class Board extends BaseTimeEntity{
 
 	private String content; // 내용
 
-	private LocalDateTime cDate; // 작성날짜
-
-	private LocalDateTime mDate; // 수정날짜
+//	private LocalDateTime cDate; // 작성날짜
+//
+//	private LocalDateTime mDate; // 수정날짜
 
 	private int readCnt; // 조회수
 
 	private String disclosure; // 공개여부
-	
+
 	private String registerId; // 작성자
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -63,19 +64,31 @@ public class Board extends BaseTimeEntity{
 	private Category category;
 
 	@Builder
-	public Board(Long id, short blevel, String title, String content, LocalDateTime cDate, LocalDateTime mDate,
-			int readCnt, String disclosure, Member member, String registerId) {
+	public Board(Long id, short blevel, String title, String content, int readCnt, String disclosure, Member member,
+			String registerId) {
 		this.member = member;
 		this.id = id;
 		this.blevel = blevel;
 		this.title = title;
 		this.content = content;
-		this.cDate = cDate;
-		this.mDate = mDate;
-		this.readCnt = readCnt; // hits == cnt 
+		this.readCnt = readCnt; // hits == cnt
 		this.disclosure = disclosure;
 		this.member = member;
 		this.category = category;
 		this.registerId = registerId;
+	}
+
+	public static Board createBoard(BoardRequestDto boardDto) {
+		Board board = new Board();
+		board.setId(boardDto.getId());
+		board.setBlevel(boardDto.getBlevel());
+		board.setCategory(boardDto.getCategory());
+		board.setContent(boardDto.getContent());
+		board.setDisclosure(boardDto.getDisclosure());
+		board.setMember(boardDto.getMember());
+		board.setReadCnt(boardDto.getReadCnt());
+		board.setRegisterId(boardDto.getRegisterId());
+		board.setTitle(boardDto.getTitle());
+		return board;
 	}
 }

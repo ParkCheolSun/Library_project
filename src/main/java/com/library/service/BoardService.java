@@ -46,8 +46,11 @@ public class BoardService {
 		return new BoardResponseDto(boardRepository.findById(id).get());
 	}
 	
-	public int updateBoard(BoardRequestDto boardRequestDto) {
-		return boardRepository.updateBoard(boardRequestDto);
+	//public int updateBoard(BoardRequestDto boardRequestDto) {
+	public Board updateBoard(BoardRequestDto boardRequestDto) {
+		//return boardRepository.updateBoard(boardRequestDto);
+		Board board = Board.createBoard(boardRequestDto);
+		return boardRepository.save(board);
 	}
 	
 	public void deleteById(Long id) {

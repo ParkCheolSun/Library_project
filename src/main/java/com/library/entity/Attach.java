@@ -24,7 +24,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Attach {
+public class Attach extends BaseEntity {
 	@Id
 	@Column(name = "ata_number")
 	@GeneratedValue(strategy = GenerationType.AUTO)

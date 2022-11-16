@@ -19,8 +19,6 @@ public class BoardRequestDto {
 	private short blevel;
 	private String title;
 	private String content;
-	private LocalDateTime cDate;
-	private LocalDateTime mDate;
 	private int readCnt;
 	private String disclosure;
 	private Member member;
@@ -34,8 +32,6 @@ public class BoardRequestDto {
 				.blevel(blevel)
 				.title(title)
 				.content(content)
-				.cDate(cDate)
-				.mDate(mDate)
 				.readCnt(readCnt)
 				.disclosure(disclosure)
 				.registerId(registerId)

@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.mvcMatchers("/","/login/**","/email/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN") // /admin 경로 접근자는 ADMIN Role일 경우만 접근가능하도록 설정
                 .anyRequest().authenticated(); // 나머지 경로들은 모두 인증을 요구하도록 설정
-                
+
 
         
         http.formLogin()  //사용자가 로그인을 하는 경우 입니다.  

@@ -5,8 +5,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 import com.library.dto.BoardRequestDto;
 import com.library.dto.BoardResponseDto;
@@ -20,17 +23,30 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 
 	private final BoardRepository boardRepository;
+	private final BoardFileService boardFileService;
 
 	@Transactional
-	public Long save(BoardRequestDto boardSaveDto) {
-		return boardRepository.save(boardSaveDto.toEntity()).getId();
+	public boolean save(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest) throws Exception {
+
+		Board result = boardRepository.save(boardRequestDto.toEntity());
+
+		boolean resultFlag = false;
+
+		if (result != null) {
+			boardFileService.uploadFile(multiRequest, result.getId());
+			resultFlag = true;
+		}
+
+		return resultFlag;
 	}
 
 	@Transactional(readOnly = true)
-	public HashMap<String, Object> findAll(Integer page, Integer size) {
+	public HashMap<String, Object> findAll(Integer page, Integer size) throws Exception {
+
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		Page<Board> list = boardRepository.findAll(PageRequest.of(page, size));
+		Page<Board> list = boardRepository
+				.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")));
 
 		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
 		resultMap.put("paging", list.getPageable());
@@ -38,27 +54,45 @@ public class BoardService {
 		resultMap.put("totalPage", list.getTotalPages());
 
 		return resultMap;
-
 	}
 
-	public BoardResponseDto findById(Long id) {
+	public HashMap<String, Object> findById(Long id) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
 		boardRepository.updateBoardReadCntInc(id);
-		return new BoardResponseDto(boardRepository.findById(id).get());
+
+		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
+
+		resultMap.put("info", info);
+		resultMap.put("fileList", boardFileService.findByBoardId(info.getId()));
+
+		return resultMap;
 	}
-	
-	//public int updateBoard(BoardRequestDto boardRequestDto) {
-	public Board updateBoard(BoardRequestDto boardRequestDto) {
-		//return boardRepository.updateBoard(boardRequestDto);
-		Board board = Board.createBoard(boardRequestDto);
-		return boardRepository.save(board);
+
+	public boolean updateBoard(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest)
+			throws Exception {
+
+		int result = boardRepository.updateBoard(boardRequestDto);
+
+		boolean resultFlag = false;
+
+		if (result > 0) {
+			boardFileService.uploadFile(multiRequest, boardRequestDto.getId());
+			resultFlag = true;
+		}
+
+		return resultFlag;
 	}
-	
-	public void deleteById(Long id) {
+
+	public void deleteById(Long id) throws Exception {
+		Long[] idArr = { id };
+		boardFileService.deleteBoardFileYn(idArr);
 		boardRepository.deleteById(id);
 	}
-	
-	public void deleteAll(Long[] deleteId) {
-		boardRepository.deleteBoard(deleteId);
-	}
 
+	public void deleteAll(Long[] deleteIdList) throws Exception {
+		boardFileService.deleteBoardFileYn(deleteIdList);
+		boardRepository.deleteBoard(deleteIdList);
+	}
 }

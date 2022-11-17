@@ -2,6 +2,7 @@ package com.library.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,5 +153,11 @@ public class MemberController {
 	public String loginError(Model model) {
 		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
 		return "member/SignUpForm";
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/userId")
+	public String getUserId(Principal principal) {
+		return principal.getName();
 	}
 }

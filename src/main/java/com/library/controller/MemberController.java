@@ -1,7 +1,5 @@
 package com.library.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -69,12 +69,6 @@ public class MemberController {
 		} else {
 			model.addAttribute("memberDto", new MemberDto());
 		}
-		return "member/SignUpForm";
-	}
-
-	// 로그인
-	@PostMapping(value = "/signIn")
-	public String memberSignIn(Model model) {
 		return "member/SignUpForm";
 	}
 
@@ -149,7 +143,7 @@ public class MemberController {
 	}
 	
 	@GetMapping(value = "/error")
-	public String loginError(Model model) {
+	public String loginError(MemberDto memberDto, Model model) {
 		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
 		return "member/SignUpForm";
 	}

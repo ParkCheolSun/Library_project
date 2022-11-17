@@ -55,7 +55,7 @@ public class Member extends BaseEntity{
 	
 	private LocalDateTime lastLogin;	// 마지막 접속 날짜
 	
-	private InetAddress ipAddress;		// 접속한 ip주소
+	private String ipAddress;		// 접속한 ip주소
 	
 	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();

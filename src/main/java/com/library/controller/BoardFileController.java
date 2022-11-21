@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.library.dto.BoardFileRequestDto;
 import com.library.dto.BoardFileResponseDto;
@@ -109,14 +111,18 @@ public class BoardFileController {
 		}
 	}
 	
+	@ResponseBody
 	@PostMapping("/file/delete.ajax")
-	public String updateDeleteYn(Model model, BoardFileRequestDto boardFileRequestDto) throws Exception {
+	public HashMap<String, Integer> updateDeleteYn(Model model, BoardFileRequestDto boardFileRequestDto) throws Exception {
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		try {
-			model.addAttribute("result", boardFileService.updateDeleteYn(boardFileRequestDto.getIdArr()));
+			int result = boardFileService.updateDeleteYn(boardFileRequestDto.getIdArr());
+			model.addAttribute("result", result);
+			map.put("result", result);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 		
-		return "jsonView";
+		return map;
 	}
 }

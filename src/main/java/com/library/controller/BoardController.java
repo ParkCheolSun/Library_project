@@ -5,10 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.library.dto.BoardRequestDto;
-import com.library.entity.Board;
 import com.library.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -40,16 +40,16 @@ private final BoardService boardService;
 	
 	@GetMapping("/board/view")
 	public String getBoardViewPage(Model model, BoardRequestDto boardRequestDto) throws Exception {
-		
+		System.out.println(boardRequestDto.getId());
 		try {
 			if (boardRequestDto.getId() != null) {
-				model.addAttribute("info", boardService.findById(boardRequestDto.getId()));
+				model.addAttribute("test", boardService.findById(boardRequestDto.getId()));
 			}
 		} catch (Exception e) {
 			throw new Exception(e.getMessage()); 
 		}
 		
-		return "/board/view";
+		return "board/view";
 	}
 	
 	@PostMapping("/board/write/action")
@@ -84,7 +84,6 @@ private final BoardService boardService;
 	
 	@PostMapping("/board/view/delete")
 	public String boardViewDeleteAction(Model model, @RequestParam() Long id) throws Exception {
-		
 		try {
 			boardService.deleteById(id);
 		} catch (Exception e) {

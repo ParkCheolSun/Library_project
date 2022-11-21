@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Board List</title>
+<title>게시판인디유?</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!--부트스트랩 css 추가-->
 <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript"
+	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 </head>
 <body>
 	<div class="container">
-		<h1>Board View.</h1>
+		<h1>게시판 상세보기</h1>
 		<form id="frm" action="/board/view/action" method="post"
-			th:with="info=${resultMap.info}" enctype="multipart/form-data">
+			th:with="info=${test.info}" enctype="multipart/form-data">
 			<input type="hidden" name="id" th:value="${info.id}">
 			<div class="mb-3">
 				<label class="form-label font-weight-bold"><span
-					class="text-danger">* </span>Title.</label> <input type="text"
+					class="text-danger">* </span>제목</label> <input type="text"
 					class="form-control" name="title" th:value="${info.title}" required>
 			</div>
 			<div class="mb-3">
 				<label class="form-label font-weight-bold"><span
-					class="text-danger">* </span>Content.</label>
+					class="text-danger">* </span>내용</label>
 				<textarea class="form-control" rows="5" name="content"
 					th:text="${info.content}" required></textarea>
 			</div>
 			<div class="mb-3">
 				<label class="form-label font-weight-bold"><span
-					class="text-danger">* </span>Writer.</label> <input type="text"
+					class="text-danger">* </span>작성자</label> <input type="text"
 					class="form-control" name="registerId"
 					th:value="${info.registerId}" required>
 			</div>
 			<div class="mb-3">
-				<label class="form-label font-weight-bold mt-2">File Upload.</label>
+				<label class="form-label font-weight-bold mt-2">파일 업로드</label>
 				<div class="mb-3" id="fileDiv">
 					<div class="custom-file mt-1">
 						<input type="file" class="custom-file-input" id="customFile"
 							name="customFile" onchange="fnChngFile(this);"> <label
-							class="custom-file-label" for="customFile">Choose file</label>
+							class="custom-file-label" for="customFile">파일 선택</label>
 					</div>
 				</div>
 				<div class="float-right mt-2">
 					<a class="btn btn-primary text-white"
-						href="javascript:fnAddFileDiv();">+</a> <a
+						href="javascript:fnAddFileDiv();">파일 추가</a> <a
 						class="btn btn-danger text-white"
-						href="javascript:fnDelFileDiv();">-</a>
+						href="javascript:fnDelFileDiv();">파일 삭제</a>
 				</div>
-				<th:block th:if="${resultMap.fileList}">
-					<div class="fileList mt-3" th:each="id : ${resultMap.fileList}">
+				<th:block th:if="${test.fileList}">
+					<div class="fileList mt-3" th:each="id : ${test.fileList}">
 						<img alt="image file" style="width: 50%"
 							class="form-control img-thumbnail mt-3"
 							th:src="@{/file/download(id=${id})}">
 						<div class="mt-2">
-							<a class="btn btn-dark" th:href="@{/file/download(id=${id})}">Download</a>
+							<a class="btn btn-dark" th:href="@{/file/download(id=${id})}">내려받기</a>
 							<button type="button" class="btn btn-danger"
-								th:onclick="fnFileDelete(this, [[${id}]])">Delete File</button>
+								th:onclick="fnFileDelete(this, [[${id}]])">파일삭제</button>
 						</div>
 					</div>
 				</th:block>
@@ -61,10 +64,10 @@
 			<div class="clearfix mt-5">
 				<div class="">
 					<button type="button" class="btn btn-success"
-						onclick="javascript:location.href='/board/list'">Previous</button>
-					<button type="button" class="btn btn-primary" onclick="fnSubmit();">Edit</button>
+						onclick="javascript:location.href='/board/list'">이전</button>
+					<button type="button" class="btn btn-primary" onclick="fnSubmit();">수정</button>
 					<button type="button" class="btn btn-danger"
-						th:onclick="fnViewDelete()">Delete</button>
+						th:onclick="fnViewDelete()">삭제</button>
 				</div>
 			</div>
 		</form>
@@ -73,10 +76,11 @@
 		let frm = $("#frm");
 		let $origFileDiv = $(".custom-file");
 		let fileMaxCnt = 3, fileMaxSize = 10485760, fileAllowExt = [ "jpg",
-				"jpeg", "png" ];
+				"jpeg", "png", "gif" ];
 		let deleteFileIdArr = [];
 
 		function fnAddFileDiv() {
+			console.log("file add div");
 			let fileDivCnt = $(".custom-file").length;
 
 			if (fileDivCnt >= fileMaxCnt) {
@@ -129,14 +133,14 @@
 		}
 
 		function fnFileDelete(obj, id) {
-			if (confirm("Do you want to file delete it?")) {
+			if (confirm("파일을 삭제하시겠습니까?")) {
 				$(obj).parents(".fileList").remove();
 				deleteFileIdArr.push(id);
 			}
 		}
 
 		function fnViewDelete() {
-			if (confirm("Do you want to delete it?")) {
+			if (confirm("게시글을 삭제하시겠습니까?")) {
 				let frm = $("#frm");
 				frm.attr("action", "/board/view/delete");
 				frm.submit();
@@ -144,14 +148,13 @@
 		}
 
 		function fnSubmit() {
-			if (confirm("Do you want to edit it?")) {
+			if (confirm("수정하시겠습니까?")) {
 				$("#frm").submit();
 			}
 		}
 
 		$(function() {
-			frm
-					.validate({
+			frm.validate({
 						messages : {
 							title : {
 								required : "Custom required, Please enter a title."

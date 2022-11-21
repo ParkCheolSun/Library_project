@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<meta charset="UTF-8">
+<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+
+<link rel="stylesheet" th:href="@{/css/signUpForm.css}">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<!-- default header name is X-CSRF-TOKEN -->
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+</head>
+
+<div class="section" layout:fragment="content">
+	<script src="/javascript/findMemberForm.js"></script>
+	<div class="container">
+		<div class="row full-height justify-content-center">
+			<div class="col-12 text-center align-self-center py-5">
+				<div class="section pb-5 pt-5 pt-sm-2 text-center">
+					<h6 class="mb-0 pb-3 signup-font">
+						<span>아이디 찾기 </span><span>비밀번호 찾기</span>
+					</h6>
+					<input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
+					<label for="reg-log"></label>
+					<div class="card-3d-wrap mx-auto">
+						<div class="card-3d-wrapper">
+							<div class="card-front">
+								<form action="/login/signIn" role="form" method="post"
+									th:object="${memberDto}">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3 signup-font">아이디 찾기</h4>
+											<div class="form-group">
+												<input type="text" name="findEmail" class="form-style-id"
+													th:field="*{email}" placeholder="이메일" id="findEmail"
+													autocomplete="off"> <i
+													class="input-icon uil uil-at"></i>
+												<button type="button" class="btn-check btn-primary"
+													onclick="sendEmail()">인증번호 전송</button>
+											</div>
+											<div class="form-group mt-2">
+												<input type="text" name="findCode"
+													class="form-style input-email-code" placeholder="인증코드"
+													id="findCode" autocomplete="off"> <i
+													class="input-icon uil uil-lock input-icon-code"></i>
+											</div>
+											<div class="form-group mt-2">
+												<button type="button"
+													class="btn-check btn-primary btn-email-end"
+													onclick="sendEmail()">인증번호 재발행</button>
+												<button type="button"
+													class="btn-check btn-primary btn-email-end"
+													onclick="checkEmail()">인증확인</button>
+											</div>
+											<input type="hidden" th:name="${_csrf.parameterName}"
+												th:value="${_csrf.token}">
+											<p class="mb-0 mt-4 text-center explanation-font">
+												<a href="#0" class="link">Forgot your password?</a>
+											</p>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="card-back">
+								<form action="/login/mod" role="form" method="post"
+									th:object="${memberDto}" id="signupForm">
+
+									<div class="center-wrap">
+										<div class="section text-center">
+
+											<h4 class="mb-4 pb-3 signup-font">비밀번호 찾기</h4>
+											<div class="form-group mt-2">
+												<input type="text" name="id2" class="form-style result-hide"
+													width="80" th:field="*{id}" placeholder="아이디" id="id2"
+													autocomplete="off"> <i
+													class="input-icon uil uil-user result-hide"></i>
+												<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"
+													class="fieldError">해당 란은 공백일 수 없습니다.</p>
+												<input type="hidden" id="id_hidden" value="F">
+											</div>
+											<div class="form-group mt-2">
+												<input type="email" name="email2"
+													class="form-style result-hide" th:field="*{email}"
+													placeholder="이메일" id="email2" autocomplete="off"> <i
+													class="input-icon uil uil-at result-hide"></i>
+												<p th:if="${#fields.hasErrors('email')}"
+													th:errors="*{email}" class="fieldError">해당 란은 공백일 수
+													없습니다.</p>
+											</div>
+											<div class="form-group mt-2">
+												<button type="button"
+													class="btn-check btn-primary btn-email-start2 result-hide"
+													onclick="sendEmail2()">인증번호 전송</button>
+											</div>
+											<div class="form-group mt-2">
+												<input type="text" name="findCode2"
+													class="form-style input-email-code2 result-hide"
+													placeholder="인증코드" id="findCode2" autocomplete="off">
+												<i
+													class="input-icon uil uil-lock input-icon-code2 result-hide"></i>
+											</div>
+											<div class="form-group mt-2">
+												<button type="button"
+													class="btn-check btn-primary btn-email-end2 result-hide"
+													onclick="sendEmail()">인증번호 재발행</button>
+												<button type="button"
+													class="btn-check btn-primary btn-email-end2 result-hide"
+													onclick="checkEmail2()">인증확인</button>
+											</div>
+
+											<div class="form-group mt-2">
+												<input type="password" name="password1" class="form-style"
+													placeholder="비밀번호" id="password1" autocomplete="off"
+													minlength="8" maxlength="16"> <i
+													class="input-icon uil uil-lock-alt input-icon-pass"></i>
+												<p th:if="${#fields.hasErrors('password')}"
+													th:errors="*{password}" class="fieldError">해당 란은 공백일 수
+													없습니다.</p>
+											</div>
+
+											<div class="form-group mt-2">
+												<input type="password" name="password2" class="form-style"
+													th:field="*{password}" placeholder="비밀번호 확인" id="password2"
+													autocomplete="off" minlength="8" maxlength="16"> <i
+													class="input-icon uil uil-lock-alt input-icon-pass"></i>
+												<p th:if="${#fields.hasErrors('password')}"
+													th:errors="*{password}" class="fieldError">해당 란은 공백일 수
+													없습니다.</p>
+											</div>
+
+											<div class="form-group mt-2 ">
+												<button type="submit" class="btn btn-primary btn-change"
+													id="btn-change">변경하기</button>
+												<input type="hidden" th:name="${_csrf.parameterName}"
+													th:value="${_csrf.token}">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</html>

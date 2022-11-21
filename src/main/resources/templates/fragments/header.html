@@ -86,7 +86,10 @@
 				</a> <a href="/login/mypage" class="login-btn-a"
 					sec:authorize="isAuthenticated()"> <i
 						class="input-icon uil uil-user-circle login-btn-i"></i>
-				</a> <a href="/login/mypage" class="login-btn-a"
+						
+						
+					<!-- 관리자 페이지   -->
+				</a> <a href="/header/adminUserList" class="login-btn-a"
 					sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')"> <i
 						class="input-icon uil uil-setting login-btn-i"></i>
 				</a>

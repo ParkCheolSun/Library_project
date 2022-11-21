@@ -6,21 +6,22 @@
 <meta charset="UTF-8">
 <link rel='stylesheet'
 	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
-<link rel='stylesheet'
-	href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
+
 <link rel="stylesheet" th:href="@{/css/signUpForm.css}">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
-<!-- default header name is X-CSRF-TOKEN -->
 <meta id="_csrf_header" name="_csrf_header"
 	th:content="${_csrf.headerName}" />
 </head>
 
 <div class="section" layout:fragment="content">
 	<script src="/javascript/signUpForm.js"></script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<div class="container">
 		<div class="row full-height justify-content-center">
+			<input type="hidden" id="mes" th:value="${mes}">
 			<div class="col-12 text-center align-self-center py-5">
 				<div class="section pb-5 pt-5 pt-sm-2 text-center">
 					<h6 class="mb-0 pb-3 signup-font">
@@ -40,7 +41,7 @@
 												<input type="text" name="logid" class="form-style"
 													th:field="*{id}" placeholder="아이디" id="logid"
 													autocomplete="off"> <i
-													class="input-icon uil uil-at"></i>
+													class="input-icon uil uil-user"></i>
 											</div>
 											<div class="form-group mt-2">
 												<input type="password" name="logpass" class="form-style"
@@ -48,11 +49,13 @@
 													autocomplete="off"> <i
 													class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<button class="btn btn-primary" style="">Submit</button>
-											<input type="hidden" th:name="${_csrf.parameterName}"
-												th:value="${_csrf.token}">
+											<div class="form-group mt-2">
+												<button class="btn btn-primary" style="">로그인</button>
+												<input type="hidden" th:name="${_csrf.parameterName}"
+													th:value="${_csrf.token}">
+											</div>
 											<p class="mb-0 mt-4 text-center explanation-font">
-												<a href="#0" class="link">Forgot your password?</a>
+												<a href="find" class="link">Forgot your ID/Password?</a>
 											</p>
 										</div>
 									</div>
@@ -70,7 +73,7 @@
 												<input type="text" name="id" class="form-style-id"
 													width="80" th:field="*{id}" placeholder="아이디" id="id"
 													autocomplete="off"> <i
-													class="input-icon uil uil-lock-alt"></i>
+													class="input-icon uil uil-user"></i>
 												<button type="button" class="btn-check btn-primary"
 													onclick="checkId()">중복확인</button>
 												<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"
@@ -84,6 +87,24 @@
 													class="input-icon uil uil-user"></i>
 												<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
 													class="fieldError">해당 란은 공백일 수 없습니다.</p>
+											</div>
+											<div class="form-group mt-2">
+												<input type="text" name="address" class="form-style"
+													th:field="*{address}" placeholder="주소" id="address"
+													autocomplete="off" readonly> <i
+													class="input-icon uil uil-user"></i>
+												<p th:if="${#fields.hasErrors('address')}"
+													th:errors="*{address}" class="fieldError">해당 란은 공백일 수
+													없습니다.</p>
+											</div>
+											<div class="form-group mt-2">
+												<input type="text" name="address_detail" class="form-style"
+													th:field="*{address_detail}" placeholder="상세주소"
+													id="address_detail" autocomplete="off"> <i
+													class="input-icon uil uil-user"></i>
+												<p th:if="${#fields.hasErrors('address_detail')}"
+													th:errors="*{address_detail}" class="fieldError">해당 란은
+													공백일 수 없습니다.</p>
 											</div>
 											<div class="form-group mt-2">
 												<input type="email" name="email" class="form-style"
@@ -115,7 +136,7 @@
 											<div class="form-group mt-2">
 												<input type="password" name="password" class="form-style"
 													th:field="*{password}" placeholder="비밀번호" id="password"
-													autocomplete="off"> <i
+													autocomplete="off" minlength="8" maxlength="16"> <i
 													class="input-icon uil uil-lock-alt"></i>
 												<p th:if="${#fields.hasErrors('password')}"
 													th:errors="*{password}" class="fieldError">해당 란은 공백일 수

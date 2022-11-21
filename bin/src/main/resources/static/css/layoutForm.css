@@ -8,30 +8,68 @@ html {
 
 body {
 	min-height: 100%;
+	background-color: transparent;
+	overflow-y:scroll;
+	overflow-x:hidden;
 }
 
 .header {
-	background-color: yellow;
-}
-
-.topbar {
-	background-color: pink;	
+	margin: 0;
+	padding: 0;
 }
 
 .footer {
-	background-color: #997799;
 	width: 100%;
-	padding: 15px 0;
-	text-align: center;
-}
-
-.content {
-	background-color: red;
-	width: 80%;
-	height: 1000px;
+	height: 90px;
+	position: absolute;
+	border-top: 1px solid #c4c4c4;
+	padding-top: 15px;
+	color: #808080;
+	font-size: 11px;
 }
 
 .sidebar {
-	background-color: skyblue;
-	width: 20%;
+	margin-top: 120px;
+}
+
+footer a {
+	display: inline-block;
+	margin: 0 20px 10px 20px;
+	color: #808080;
+	font-size: 11px;
+}
+
+footer a:visited {
+	color: #808080;
+}
+
+footer p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+footer p span {
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.content {
+}
+
+.sidebar {
+}
+
+body::-webkit-scrollbar {
+    width: 8px;  /* 스크롤바의 너비 */
+}
+
+body::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #bbac77; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
 }

@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.intro-wapper {
+	margin-left: 50px;
+}
+
+.intro-title {
+	margin-top: 80px;
+	margin-bottom: 60px;
+}
+
+.intro01_area {
+	position: relative;
+	margin: 40px 0 30px 0;
+    min-height: 500px;
+    text-align: justify;
+    line-height: 140%;
+    color: #535353;
+    width: 800px;
+}
+
+.left_area {
+    width: 350px;
+    line-height: 160%;
+    color: #333;
+}
+
+.right_area {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    width: 350px;
+    line-height: 160%;
+    color: #333;
+}

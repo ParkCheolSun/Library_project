@@ -1,9 +1,86 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+<!-- Our Custom CSS -->
+
+<!-- Font Awesome JS -->
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+	integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+	crossorigin="anonymous"></script>
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+	integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+	crossorigin="anonymous"></script>
+
+<!-- jQuery CDN - Slim version (=without AJAX) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<!-- Popper.JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+	integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+	crossorigin="anonymous"></script>
+<!-- Bootstrap JS -->
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+	integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+	crossorigin="anonymous"></script>
+
+</head>
+
 <div class="sidebar" th:fragment="sidebar">
-	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-	사이트 테스트
-	</ul>
+	<link rel="stylesheet" th:href="@{/css/sideBar.css}">
+	<div class="wrapper">
+		<!-- Sidebar  -->
+		<nav id="sidebar">
+			<div class="sidebar-header">
+				<h3>목록</h3>
+			</div>
+			<script src="/javascript/sideBarForm.js"></script>
+			<ul class="list-unstyled components">
+				<li><a href="#homeSubmenu" data-toggle="collapse" id="guideMenu"
+					aria-expanded="false" class="dropdown-toggle">도서관 안내</a>
+					<ul class="collapse list-unstyled sub-content" id="homeSubmenu">
+						<li><a href="/header/greetings">인사말</a></li>
+						<li><a href="#">도서관 소개</a></li>
+						<li><a href="#">찾아오시는 길</a></li>
+					</ul></li>
+				<li><a href="#cultureMenu">문화 프로그램</a></li>
+				<li><a href="#noticeMenu">알림마당</a></li>
+				<li><a href="#pageSubmenu" data-toggle="collapse" id="openNoticeMenu"
+					aria-expanded="false" class="dropdown-toggle">열린마당</a>
+					<ul class="collapse list-unstyled sub-content" id="pageSubmenu">
+						<li><a href="#">질문과 답변</a></li>
+						<li><a href="#">자주하는 질문</a></li>
+						<li><a href="#">건의사항</a></li>
+						<li><a href="#">포토갤러리</a></li>
+					</ul></li>
+				<li><a href="#likeSubmenu" data-toggle="collapse" id="sLibraryMenu"
+					aria-expanded="false" class="dropdown-toggle">작은도서관</a>
+					<ul class="collapse list-unstyled sub-content" id="likeSubmenu">
+						<li><a href="#">작은도서관별 소개</a></li>
+						<li><a href="#">작은도서관 소식</a></li>
+					</ul></li>
+			</ul>
+
+			<!-- <ul class="list-unstyled CTAs">
+				<li><a
+					href="https://bootstrapious.com/tutorial/files/sidebar.zip"
+					class="download">이건 왜있지</a></li>
+				<li><a href="https://naver.com" target="_blank" class="article">홈페이지</a></li>
+			</ul> -->
+		</nav>
+	</div>
 </div>
 </html>

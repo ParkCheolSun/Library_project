@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<link rel="stylesheet" href="/css/adminUserList.css">
+
+</head>
+<body>
+	<div class="section" layout:fragment="content">
+		<table>
+			<thead>
+				<tr>
+					<th>User No.</th>
+					<th>Name</th>
+					<th>ID</th>
+					<th>Password</th>
+					<th>Email</th>
+					<th>Gender</th>
+					<th>Login</th>
+					<th>Role</th>
+					
+
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${memberList}" var="mb">
+					<tr>
+						<td><c:out value="${mb.m_number}">12</c:out></td>
+						<td><c:out value="${mb.NAME}">12</c:out></td>
+						<td><c:out value="${mb.ID}">12</c:out></td>
+						<td><c:out value="${mb.PASSWORD}">12</c:out></td>
+						<td><c:out value="${mb.EMAIL}">12</c:out></td>
+						<td><c:out value="${mb.GENDER}">12</c:out></td>
+						<td><c:out value="${mb.LAST_LOGIN}">12</c:out></td>
+						<td><c:out value="${mb.ROLE}">12</c:out></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

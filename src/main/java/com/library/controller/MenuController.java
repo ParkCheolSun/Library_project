@@ -107,4 +107,11 @@ public class MenuController {
 		System.out.println("도서관 소식");
 		return "redirect:/";
 	}
+	//관리자 페이지
+	@GetMapping(value = "/adminUserList")
+	public String e3(Model model) {
+		System.out.println("관리자 페이지");
+		return "/admin/adminUserList";
+	}
+
 }

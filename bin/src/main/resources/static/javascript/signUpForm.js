@@ -1,15 +1,37 @@
 		$(document).ready(function() {
-		$("#btn-signup").prop('disabled', true);
-		$("#logid").val("")
-		$("#logpass").val("")
-		if(checkIng()){
-			$("#reg-log").click();
-		}
-		$("#btn-signup").click(function(){
-			var result = checkInput();
-			return result;
+			$("#btn-signup").prop('disabled', true);
+			$("#logid").val("")
+			$("#logpass").val("")
+			if(checkIng()){
+				$("#reg-log").click();
+			}
+			$("#btn-signup").click(function(){
+				var result = checkInput();
+				return result;
+			});
+			var message = $('#mes').val();
+				var output = "";
+				if (message == "modPassword")
+					output = "비밀번호 변경이 완료되었습니다."
+				if(output != ""){
+					Swal.fire({
+						position : 'top-end',
+						icon : 'success',
+						title : output,
+						showConfirmButton : false,
+						timer : 1500
+					});
+				}
+			$("#address").click(function(){
+    	 		//카카오 지도 발생
+        		new daum.Postcode({
+            		oncomplete: function(data) { //선택시 입력값 세팅
+            			$("#address").val(data.address); // 주소 넣기
+            			$("#address_detail").focus(); //상세입력 포커싱
+            		}
+       			}).open();
+    		});
 		});
-	});
 		
 		function checkInput() {
 			var get_input = $(".card-back input");
@@ -38,18 +60,19 @@
 		
 		function checkIng() {
 			var get_input = $(".card-back input");
-			var textString = "";
+			var cnt = 0;
 			$.each(get_input, function(index, value) {
 				if ($(value).val() == null || $(value).val() == ""
 						&& $(value).attr("id") != "code") {
-						console.log(value);
+					console.log(value);
 					console.log('id =' + $(value).attr("id"));
 					console.log('name =' + $(value).attr("name"));
 					console.log('value =' + $(value).val());
-					return false;
+					cnt = cnt + 1;
 				}
 			});
-			if(textString == ""){
+			console.log(cnt);
+			if(cnt == 6){
 				return false;
 			}
 			return true;
@@ -65,7 +88,12 @@
 				return;
 			}
 			if ($("#id").val().trim() == '') {
-				alert($("#id").attr("placeholder") + " 항목을 입력하세요.");
+				Swal.fire({
+							icon : 'error',
+							title : '입력 오류',
+							text : $("#id").attr("placeholder") + " 항목을 입력하세요.",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 				return;
 			}
 			$.ajax({
@@ -83,6 +111,12 @@
 						hiddenCheck();
 					} else {
 						$('#id').val('');
+						Swal.fire({
+							icon : 'error',
+							title : '중복확인 결과',
+							text : "현재 사용중인 아이디입니다.",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 					}
 				},
 				error : function(xhr, ajaxOptions, thrownError) {
@@ -90,13 +124,23 @@
 					console.log(xhr.responseText)
 					console.log(ajaxOptions)
 					console.log(thrownError)
-					alert("에러입니다");
+					Swal.fire({
+							icon : 'error',
+							title : 'Error',
+							text : "데이터 수신 에러",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 				},
 				beforeSend : function(xhr) {
 					if (token && header) {
 						xhr.setRequestHeader(header, token); // 헤드의 csrf meta태그를 읽어 CSRF 토큰 함께 전송
 					} else {
-						alert("csrf 토큰 에러");
+						Swal.fire({
+							icon : 'error',
+							title : 'csrf Error',
+							text : "csrf 토큰 에러",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 					}
 				},
 			});
@@ -112,7 +156,12 @@
 				return;
 			}
 			if ($("#email").val().trim() == '') {
-				alert($("#email").attr("placeholder") + " 항목을 입력하세요.");
+				Swal.fire({
+							icon : 'error',
+							title : '입력 오류',
+							text : $("#email").attr("placeholder") + " 항목을 입력하세요.",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 				return;
 			}
 			$.ajax({
@@ -120,7 +169,8 @@
 				type : 'post', //POST 방식으로 전달
 				dataType : 'json',
 				data : {
-					'email' : email
+					'email' : email,
+					'action' : 'create'
 				},
 				success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
 					console.log("check : " + check.result)
@@ -136,6 +186,12 @@
 							"display" : "inline-block"
 						});
 					} else {
+						Swal.fire({
+							icon : 'error',
+							title : '이메일 오류',
+							text : "이메일 형식이 잘못되었거나 가입된 이메일입니다.",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 						console.log("실패");
 					}
 				},
@@ -144,13 +200,23 @@
 					console.log(xhr.responseText)
 					console.log(ajaxOptions)
 					console.log(thrownError)
-					alert("에러입니다");
+					Swal.fire({
+							icon : 'error',
+							title : 'Error',
+							text : "데이터 수신 에러",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 				},
 				beforeSend : function(xhr) {
 					if (token && header) {
 						xhr.setRequestHeader(header, token); // 헤드의 csrf meta태그를 읽어 CSRF 토큰 함께 전송
 					} else {
-						alert("csrf 토큰 에러");
+						Swal.fire({
+							icon : 'error',
+							title : 'csrf Error',
+							text : "csrf 토큰 에러",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 					}
 				},
 			});
@@ -167,7 +233,12 @@
 				return;
 			}
 			if ($("#email").val().trim() == '') {
-				alert($("#email").attr("placeholder") + " 항목을 입력하세요.");
+				Swal.fire({
+							icon : 'error',
+							title : '입력 오류',
+							text : $("#email").attr("placeholder") + " 항목을 입력하세요.",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 				return;
 			}
 			$.ajax({
@@ -176,7 +247,8 @@
 				dataType : 'json',
 				data : {
 					'email' : email,
-					'code' : code
+					'code' : code,
+					'action' : 'create'
 				},
 				success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
 					console.log("check : " + check.result)
@@ -194,13 +266,23 @@
 					console.log(xhr.responseText)
 					console.log(ajaxOptions)
 					console.log(thrownError)
-					alert("에러입니다");
+					Swal.fire({
+							icon : 'error',
+							title : 'Error',
+							text : "데이터 수신 에러",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 				},
 				beforeSend : function(xhr) {
 					if (token && header) {
 						xhr.setRequestHeader(header, token); // 헤드의 csrf meta태그를 읽어 CSRF 토큰 함께 전송
 					} else {
-						alert("csrf 토큰 에러");
+						Swal.fire({
+							icon : 'error',
+							title : 'csrf Error',
+							text : "csrf 토큰 에러",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 					}
 				}
 			});

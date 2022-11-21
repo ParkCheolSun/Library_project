@@ -7,14 +7,13 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link th:href="@{/css/main.css}" rel="stylesheet">
 <!-- Swiper -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <div layout:fragment="content">
 	<script src="/javascript/mainContent.js"></script>
-	<!-- 위 코드 주석 지울시 자바스크립트 적용 -->
+	<input type="hidden" id="mes" th:value="${session.mes}">
 	<div class="main-content">
 		<div class="cnt01">
 			<p>메인페이지1</p>

@@ -124,9 +124,7 @@ public class MemberController {
 	@PostMapping(value = "/save")
 	public String newMember(@Valid MemberDto memberDto, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
-		System.out.println(memberDto.toString());
 		if (bindingResult.hasErrors()) {
-			System.out.println("bindingResult : " + bindingResult.toString());
 			List<ObjectError> list = bindingResult.getAllErrors();
 			for (ObjectError e : list) {
 				System.out.println(e.getDefaultMessage());
@@ -142,6 +140,7 @@ public class MemberController {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "member/SignUpForm";
 		}
+		redirectAttributes.addFlashAttribute("mes", "createUSER");
 		return "redirect:/";
 	}
 

@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.library.service.MemberService;
@@ -59,7 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.logout()	//사용자가 로그아웃을 하는 경우 입니다.
                 .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))
                 .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+                .logoutSuccessHandler(successLogoutHandler())
+                .invalidateHttpSession(true)	//세션 초기화	
+                .deleteCookies("JSESSIONID");	//쿠키 삭제
 
         http.exceptionHandling()
                 .accessDeniedPage("/");
@@ -68,6 +71,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationSuccessHandler successHandler() {
       return new CustomLoginSuccessHandler("/");
+    }
+    
+    @Bean
+    public LogoutSuccessHandler successLogoutHandler() {
+      return new CustomLogoutSuccessHandler();
     }
 
     

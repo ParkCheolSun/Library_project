@@ -12,12 +12,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
+import com.library.constant.WorkNumber;
 import com.library.entity.Member;
+import com.library.entity.MemberLog;
+import com.library.repository.MemberLogRepository;
 import com.library.service.MemberService;
 
 public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 	@Autowired
 	private MemberService MemberService;
+	@Autowired
+	private MemberLogRepository memberLogRepository;
 	
 	public CustomLoginSuccessHandler(String defaultTargetUrl) {
 		setDefaultTargetUrl(defaultTargetUrl);
@@ -43,6 +48,9 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 		}
 		session.setAttribute("ipaddress", "접속IP : " + getClientIp(request));
 		session.setAttribute("name", mem.getName() + "님 환영합니다!");
+		String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 로그인 완료";
+		MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.USER_LOGIN, contents);
+		memberLogRepository.save(memLog);
 	}
 
 	public static String getClientIp(HttpServletRequest request) {

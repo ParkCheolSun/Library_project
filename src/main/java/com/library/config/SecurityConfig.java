@@ -11,11 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.library.service.MemberService;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
@@ -41,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	
         http.authorizeRequests()  //사용자의 로그인이 필요한 요청목록 입니다.
-        		.mvcMatchers("/","/login/**","/email/**").permitAll()
+        		.mvcMatchers("/","/login/**","/email/**","/header/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN") // /admin 경로 접근자는 ADMIN Role일 경우만 접근가능하도록 설정
                 .anyRequest().authenticated(); // 나머지 경로들은 모두 인증을 요구하도록 설정
 
@@ -61,8 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/login/logout"))
                 .logoutSuccessUrl("/")
                 .logoutSuccessHandler(successLogoutHandler())
+                .clearAuthentication(true)
                 .invalidateHttpSession(true)	//세션 초기화	
                 .deleteCookies("JSESSIONID");	//쿠키 삭제
+        
 
         http.exceptionHandling()
                 .accessDeniedPage("/");

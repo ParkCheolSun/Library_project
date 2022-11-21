@@ -11,12 +11,17 @@
 			});
 			var message = $('#mes').val();
 			var output = "";
+			var iconString = "success";
 			if (message == "modPassword")
 				output = "비밀번호 변경이 완료되었습니다."
+			else if(message == "USERLoginFail"){
+				output = "로그인 실패."
+				iconString = "error"
+			}
 			if(output != ""){
 				Swal.fire({
 					position : 'top-end',
-					icon : 'success',
+					icon : iconString,
 					title : output,
 					showConfirmButton : false,
 					timer : 1500

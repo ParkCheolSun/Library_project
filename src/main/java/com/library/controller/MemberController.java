@@ -179,7 +179,7 @@ public class MemberController {
 
 	@GetMapping(value = "/error")
 	public String loginError(MemberDto memberDto, Model model) {
-		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
+		model.addAttribute("mes", "USERLoginFail");
 		return "member/SignUpForm";
 	}
 }

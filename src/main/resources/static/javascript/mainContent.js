@@ -16,10 +16,11 @@ var scroll = function(){
     
     var messageControl = function(){
     	var message = $('#mes').val();
+    	var meslog = $('#meslog').val();
 		var output = "";
 		if (message == "createUSER")
 			output = "회원가입이 완료되었습니다."
-		else if(message == "USERLogout")
+		if(meslog == "USERLogout")
 			output = "로그아웃 되었습니다."
 		if(output != ""){
 			Swal.fire({
@@ -29,6 +30,7 @@ var scroll = function(){
 				showConfirmButton : false,
 				timer : 1500
 			});
+			$('#mes').val("");
 		}
     }
     

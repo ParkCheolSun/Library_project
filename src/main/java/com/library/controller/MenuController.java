@@ -1,9 +1,14 @@
 package com.library.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.library.entity.Member;
+import com.library.service.MemberListService;
 
 @Controller
 @RequestMapping(value = "/header")
@@ -109,8 +114,10 @@ public class MenuController {
 	}
 	//관리자 페이지
 	@GetMapping(value = "/adminUserList")
-	public String e3(Model model) {
-		System.out.println("관리자 페이지");
+	public String list(Model model) {
+//		List<Member> members = MemberListService.findAll();
+//		model.addAttribute("members", members);
+
 		return "/admin/adminUserList";
 	}
 

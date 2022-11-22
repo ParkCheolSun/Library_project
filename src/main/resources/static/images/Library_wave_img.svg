@@ -1,0 +1,12 @@
+<svg width="1600" height="198" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient spreadMethod="pad" y2="100%" y1="-10.959%" x2="NaN" x1="NaN" id="svg_8">
+   <stop offset="0%" stop-opacity="0.25" stop-color="#57BBC1"/>
+   <stop stop-opacity="0.98828" offset="0.20313" stop-color="#bf5f00"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <path fill-opacity="0.31" id="svg_2" d="m1599.995,121c-310.995,0 -409.893,-121.25 -810.995,-121c-400,0 -500,121 -789,121l0,77l1600,0s-0.005,-48 -0.005,-77z" fill-rule="evenodd" fill="url(#svg_8)"/>
+ </g>
+</svg>

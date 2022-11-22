@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title>Title</title>
+<title>남구통합도서관</title>
 <!-- CSS only -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -18,7 +18,7 @@
 <!-- icon -->
 <link rel='stylesheet'
 	href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
-	
+
 <th:block layout:fragment="script"></th:block>
 <th:block layout:fragment="css"></th:block>
 </head>
@@ -28,6 +28,10 @@
 	<div id="content-wrapper" class="d-flex">
 		<div th:replace="fragments/sidebar::sidebar" class="sidebar"></div>
 		<div layout:fragment="content" class="content"></div>
+		<div class="ocean">
+			<div class="wave"></div>
+			<div class="wave"></div>
+		</div>
 	</div>
 	<div th:replace="fragments/footer::footer"></div>
 </body>

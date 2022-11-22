@@ -53,12 +53,6 @@ footer p span {
 	margin-left: 20px;
 }
 
-.content {
-}
-
-.sidebar {
-}
-
 body::-webkit-scrollbar {
     width: 8px;  /* 스크롤바의 너비 */
 }
@@ -72,4 +66,48 @@ body::-webkit-scrollbar-thumb {
 
 body::-webkit-scrollbar-track {
     background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+.ocean { 
+  height: 5%;
+  width:100%;
+  position:absolute;
+  bottom:0;
+  left:0;
+  background: rgba(191, 95, 0, 0.31);
+}
+
+.wave {
+  background: url(/images/Library_wave_img.svg) repeat-x; 
+  position: absolute;
+  top: -198px;
+  width: 6400px;
+  height: 198px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+  transform: translate3d(0, 0, 0);
+  z-index: -999;
+}
+
+.wave:nth-of-type(2) {
+  top: -175px;
+  animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+  opacity: 1;
+}
+
+@keyframes wave {
+  0% {
+    margin-left: 0;
+  }
+  100% {
+    margin-left: -1600px;
+  }
+}
+
+@keyframes swell {
+  0%, 100% {
+    transform: translate3d(0,25px,0);
+  }
+  50% {
+    transform: translate3d(0,5px,0);
+  }
 }

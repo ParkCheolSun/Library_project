@@ -17,27 +17,27 @@
 .cnt03 {
 	background-image: url("../images/Library_second.jpg");
 	background-size: cover;
-    -webkit-filter: blur(5px); 
-    -moz-filter: blur(5px); 
-    -o-filter: blur(5px); 
-    -ms-filter: blur(5px); 
-    filter: blur(5px);
-    transform: scale(1.02);
-    z-index: 0; 
-    content: "";
+	-webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px);
+	transform: scale(1.02);
+	z-index: 0;
+	content: "";
 }
 
 .cnt04 {
 	background-image: url("../images/Library_therd.jpg");
 	background-size: cover;
-    -webkit-filter: blur(5px); 
-    -moz-filter: blur(5px); 
-    -o-filter: blur(5px); 
-    -ms-filter: blur(5px); 
-    filter: blur(5px);
-    transform: scale(1.02);
-    z-index: 0; 
-    content: "";
+	-webkit-filter: blur(5px);
+	-moz-filter: blur(5px);
+	-o-filter: blur(5px);
+	-ms-filter: blur(5px);
+	filter: blur(5px);
+	transform: scale(1.02);
+	z-index: 0;
+	content: "";
 }
 
 .swiper-title {
@@ -49,7 +49,7 @@
 	/* height: 500px; */
 	height: auto;
 	width: 750px;
-	margin-left: 200px!important;
+	margin-left: 200px !important;
 	float: left;
 }
 
@@ -60,9 +60,8 @@
 	justify-content: center; /* 좌우 기준 중앙정렬 */
 }
 
-
 .swiper-slide img {
-	/* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */ 
+	/* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 	max-width: 100%;
 }
 
@@ -75,4 +74,188 @@
 	height: 500px;
 	width: 700px;
 	background-color: orange;
+}
+
+.wrap {
+	width: 800px;
+	height: 236px;
+}
+
+/* 화면 전체를 감싸는 박스 */
+.aco-wrap {
+	position:absolute;
+	min-width: 250px;
+	width: 80%;
+	height: 600px;
+	top: 6%;
+	left: 10%;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+	justify-content: center;
+	align-items: center;
+	z-index: 999;
+}
+
+/* 라디오 인풋을 이용했으며 인풋에 라벨을 이어 버튼으로 사용하므로 인풋 자체는 보여질 필요가 없음, 인풋 자체는 보이지 않게 가림 */
+input.button {
+	display: none;
+}
+
+/* 라디오 인풋에 체크가 되면, 인접한 .contents 상자를 보이게 함 */
+input[type=radio]:checked+.aco-contents {
+	visibility: visible;
+	width: calc(100% - 250px);
+}
+/* 라디오 인풋, 모두 닫는 버튼 */
+.closer {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	background: #ADB4B0;
+	text-align: center;
+	font-family: "Arial Black";
+	font-size: 25px;
+	color: #fff;
+	-moz-box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.02);
+	-webkit-box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.02);
+	box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.02);
+	cursor: pointer;
+}
+
+/* 닫기 버튼 애니메이션 효과, 삭제시 기능상 무방함 */
+input[type=radio].close:checked+.closer {
+	transform: translate(0, 100%);
+	-webkit-transition: transform .2s ease;
+	transition: transform .2s ease;
+}
+
+input[type=radio].close:not(:checked)+.closer {
+	transform: translate(0, 0);
+	-webkit-transition: transform .2s ease;
+	transition: transform .2s ease;
+}
+
+/* 메뉴 버튼 디자인 */
+.label {
+	height: 100%;
+	width: 50px;
+	display: inline-block;
+	float: left;
+	overflow: hidden;
+	cursor: pointer;
+}
+/*  메뉴 버튼에 들어갈 아이콘을 100px * 100px, 투명한 PNG 로 저장하여 아래의 경로에 연동해주면 됨 
+    위쪽 코드 .label.a 부터 맨 아래코드 .label.e 까지가 메뉴버튼 오른쪽-> 왼쪽 순서 */
+.label.a {
+	/* background: #2E97B7; */
+	background: #6E2C00;
+}
+
+.label.b {
+	/* background: #32B9BE; */
+	background: #A04000;
+}
+
+.label.c {
+/* 	background: #5BCEBF; */
+	background: #BA4A00;
+}
+
+.label.d {
+	/* background: #74DCB9; */
+	background: #D35400;
+}
+
+.label.e {
+	/* background: #94DCB9; */
+	background: #DC7633;
+}
+
+.label .rotate {
+	display: inline-block;
+}
+
+.label .rotate p {
+	position: relative;
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	transform: rotate(90deg);
+	transform-origin: left;
+	font-size: 1.6em;
+	white-space: nowrap;
+	left: 18%;
+	font-family: "arial";
+	font-weight: 600;
+	color: #fff;
+	top: 30px;
+}
+
+/* 컨텐츠 본문 */
+.aco-contents {
+	position: relative;
+	visibility: collapse;
+	float: left;
+	height: 100%;
+	width: 0;
+	transition: all 0.2s ease-out;
+	z-index: -1;
+	overflow: hidden;
+	background: -moz-linear-gradient(-45deg, rgba(46, 151, 183, 0.4) 0%,
+		rgba(164, 220, 185, 0.9) 100%);
+	background: -webkit-linear-gradient(-45deg, rgba(46, 151, 183, 0.4) 0%,
+		rgba(164, 220, 185, 0.9) 100%);
+	background: linear-gradient(40deg, rgb(225 119 52 / 80%) 0%, rgb(220 203 164 / 80%) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66c0c60a',
+		endColorstr='#59007c33', GradientType=1);
+}
+
+.aco-inner {
+	display: table;
+	width: 400px;
+	height: 100%;
+	margin: 0 auto;
+	-moz-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.05);
+	box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.05);
+}
+
+.aco-description {
+	display: table-cell;
+	vertical-align: middle;
+	padding: 0 5%;
+	background: rgba(0, 0, 0, 0.04);
+}
+
+.aco-description h3 {
+	width: 100%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 50px;
+	color: #37a4ab;
+	line-height: 1;
+	margin: 0;
+	text-shadow: rgb(36, 127, 132) 2px 2px 0px;
+	margin-bottom: 20px;
+}
+
+.aco-description h3::first-letter {
+	font-size: 70px;
+	color: #0f848c;
+}
+
+.aco-description p {
+	font-size: 19px;
+	line-height: 1.7;
+	font-weight: 600;
+	color: #4e6b61;
+	padding-left: 50px;
+	overflow: auto;
+	letter-spacing: -1px;
 }

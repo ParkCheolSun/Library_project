@@ -7,17 +7,103 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <link th:href="@{/css/main.css}" rel="stylesheet">
 <!-- Swiper -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <div layout:fragment="content">
 	<script src="/javascript/mainContent.js"></script>
-	<input type="hidden" id="mes" th:value="${session.mes}">
-	<input type="hidden" id="meslog" th:value="${meslog}">
+	<input type="hidden" id="mes" th:value="${session.mes}"> <input
+		type="hidden" id="meslog" th:value="${meslog}">
 	<div class="main-content">
 		<div class="cnt01">
-			<p>메인페이지1</p>
+			<div class="aco-wrap">
+				<!--다섯번째 메뉴와 내용-->
+				<!--아코디언 기능구현 핵심 요소 : 실제기능을 하는 input, CSS로 가려놓았음-->
+				<input type="radio" name="navigation" id="menu1" class="button">
+				<!--콘텐츠가 보여질 요소 : 위의 input이 체크 되었을 때 .contents를 선택하여 넓이를 넓어지도록 조정함 (선택자 : input[radio]:checked + .contents) -->
+				<div class="aco-contents">
+					<div class="aco-inner">
+						<div class="aco-description">
+							<h3>TITLE 5</h3>
+							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+						</div>
+					</div>
+				</div>
+				<!--버튼 요소 : 콘텐츠가 좌측, 버튼이 우측에 보여질 것이고 float:left; 로 정렬시켰음.-->
+				<label for="menu1" class="label e"> <span class="rotate">
+						<p>MENU 5</p>
+				</span>
+				</label>
+
+				<!--이하의 메뉴와 내용 역시 위와 구조 동일함-->
+				<!--네번째 메뉴와 내용-->
+				<input type="radio" name="navigation" id="menu2" class="button">
+				<div class="aco-contents">
+					<div class="aco-inner">
+						<div class="aco-description">
+							<h3>TITLE 4</h3>
+							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+						</div>
+					</div>
+				</div>
+				<label for="menu2" class="label d"> <span class="rotate">
+						<p>MENU 4</p>
+				</span>
+				</label>
+
+				<!--세번째 메뉴와 내용-->
+				<input type="radio" name="navigation" id="menu3" class="button">
+				<div class="aco-contents">
+					<div class="aco-inner">
+						<div class="aco-description">
+							<h3>TITLE 3</h3>
+							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+						</div>
+					</div>
+				</div>
+				<label for="menu3" class="label c"> <span class="rotate">
+						<p>MENU 3</p>
+				</span>
+				</label>
+
+				<!--두번째 메뉴와 내용-->
+				<input type="radio" name="navigation" id="menu4" class="button">
+				<div class="aco-contents">
+					<div class="aco-inner">
+						<div class="aco-description">
+							<h3>TITLE 2</h3>
+							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+						</div>
+					</div>
+				</div>
+				<label for="menu4" class="label b"> <span class="rotate">
+						<p>게시판 검색</p>
+				</span>
+				</label>
+
+				<!--첫번째 메뉴와 내용-->
+				<input type="radio" name="navigation" id="menu5" class="button">
+				<div class="aco-contents">
+					<div class="aco-inner">
+						<div class="aco-description">
+							<h3>TITLE 1</h3>
+							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+						</div>
+					</div>
+				</div>
+				<label for="menu5" class="label a"> <span class="rotate">
+						<p>도서 검색</p>
+				</span>
+				</label>
+
+				<!--닫기 버튼-->
+				<input type="radio" name="navigation" id="menu6"
+					class="button close" checked> <label for="menu6"
+					class="closer"> X </label>
+			</div>
 		</div>
 		<div class="cnt02">
 			<div class="swiper-container">
@@ -59,8 +145,7 @@
 			</div>
 			<div class="notice">
 				<h1 class="swiper-title">공지사항</h1>
-				<div class="notice-area">
-				</div>
+				<div class="notice-area"></div>
 			</div>
 		</div>
 		<div class="cnt03">

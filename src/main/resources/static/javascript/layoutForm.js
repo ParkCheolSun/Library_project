@@ -8,6 +8,12 @@
 				"width" : "100%",
 				"height" : "100%"
 			});
+			$(".ocean").css({
+				"display" : "none"
+			});
+			$(".wave").css({
+				"display" : "none"
+			});
 		} else {
 			$("#main-header").css({
 				"border-bottom" : "solid 1px"

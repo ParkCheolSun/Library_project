@@ -51,9 +51,17 @@ public class Board extends BaseEntity {
 
 	private int readCnt; // 조회수
 
-	private String disclosure; // 공개여부
+	@NotNull
+	@Column(nullable = false)
+	private Boolean disclosure = false; // 공개여부 String >> Boolean 타입변경[2022-11-22]
 
 	private String registerId; // 작성자
+
+	public boolean getDisclosure() {
+		if(disclosure == null)
+			disclosure = false;
+		return disclosure; // disclosure 체크를 하지 않았을 경우 false / 이외 true [2022-11-22]
+	}
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "mNumber")
@@ -64,7 +72,7 @@ public class Board extends BaseEntity {
 	private Category category;
 
 	@Builder
-	public Board(Long id, short blevel, String title, String content, int readCnt, String disclosure, Member member,
+	public Board(Long id, short blevel, String title, String content, int readCnt, Boolean disclosure, Member member,
 			String registerId) {
 		this.member = member;
 		this.id = id;

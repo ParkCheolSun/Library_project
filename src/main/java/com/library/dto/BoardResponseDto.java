@@ -16,7 +16,7 @@ public class BoardResponseDto {
 	private String title;
 	private String content;
 	private LocalDateTime registerTime;
-	private String disclosure;
+	private Boolean disclosure;         // 공개여부  String >> Boolean 타입변경[2022-11-22]
 	private Member member;
 	private Category category;
 	private int readCnt;
@@ -28,7 +28,7 @@ public class BoardResponseDto {
 		this.title = entity.getTitle();
 		this.content = entity.getContent();
 		this.registerTime = entity.getRegisterTime();
-		this.disclosure = entity.getDisclosure();
+		this.disclosure = entity.getDisclosure();   
 		this.readCnt = entity.getReadCnt();
 		this.registerId = entity.getRegisterId();
 		

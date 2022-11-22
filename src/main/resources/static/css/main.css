@@ -46,8 +46,8 @@
 }
 
 .swiper-container {
-	/* height: 500px; */
-	height: auto;
+	/* height: 500px;  - 750*/
+	height: 500px;
 	width: 750px;
 	margin-left: 200px !important;
 	float: left;
@@ -56,13 +56,15 @@
 .swiper-slide {
 	text-align: center;
 	display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
-	/*align-items:center;  위아래 기준 중앙정렬 */
+	align-items:center; /*  위아래 기준 중앙정렬  */
 	justify-content: center; /* 좌우 기준 중앙정렬 */
 }
 
 .swiper-slide img {
 	/* 이미지 최대너비를 제한, 슬라이드에 이미지가 여러개가 보여질때 필요 */
 	max-width: 100%;
+	width: 200px;
+	height: 273px;
 }
 
 .notice {

@@ -107,33 +107,11 @@
 		</div>
 		<div class="cnt02">
 			<div class="swiper-container">
-				<h1 class="swiper-title">팝업존</h1>
+				<h1 class="swiper-title">인기 대출 도서</h1>
 				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<img
-							src="https://library.daegu.go.kr/data/popupZone/h32/1666577215439">
+					<div class="swiper-slide" th:each="bookList : ${bookDtoList}">
+						<img th:src="@{${bookList.bookImageURL}}" class="img-book">
 					</div>
-					<div class="swiper-slide">
-						<img
-							src="https://library.daegu.go.kr/data/popupZone/h32/1663307448253">
-					</div>
-					<div class="swiper-slide">
-						<img
-							src="https://library.daegu.go.kr/data/popupZone/h32/1656584022367">
-					</div>
-					<div class="swiper-slide">
-						<img
-							src="https://library.daegu.go.kr/data/popupZone/h32/1667357066868">
-					</div>
-					<div class="swiper-slide">
-						<img
-							src="https://library.daegu.go.kr/data/popupZone/h32/1661164896085">
-					</div>
-					<div class="swiper-slide">
-						<img
-							src="https://library.daegu.go.kr/data/popupZone/h32/1656584031883">
-					</div>
-
 				</div>
 
 				<!-- 네비게이션 -->

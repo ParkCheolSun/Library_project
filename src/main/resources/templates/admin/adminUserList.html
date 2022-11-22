@@ -10,10 +10,10 @@
 </head>
 
 <div class="section" layout:fragment="content">
-	<table>
+	<table><h2>회원 목록
 		<thead>
 			<tr>
-				<th>User No.</th>
+				
 				<th>Name</th>
 				<th>ID</th>
 				<th>Email</th>
@@ -26,13 +26,12 @@
 		</thead>
 		<tbody>
 			<tr th:each="mb : ${member}">
-				<td th:text="${mb.mnumber}"></td>
 				<td th:text="${mb.name}"></td>
 				<td th:text="${mb.id}"></td>
-				<td th:text="${mb.EMAIL}"></td>
-				<td th:text="${mb.GENDER}"></td>
-				<td th:text="${mb.LAST_LOGIN}"></td>
-				<td th:text="${mb.ROLE}"></td>
+				<td th:text="${mb.email}"></td>
+				<td th:text="${mb.gender}"></td>
+				<td th:text="${mb.lastLogin}"></td>
+				<td th:text="${mb.Role}"></td>
 			</tr>
 		</tbody>
 	</table>

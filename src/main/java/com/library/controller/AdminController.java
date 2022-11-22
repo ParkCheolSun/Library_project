@@ -5,16 +5,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.library.entity.Member;
 import com.library.service.MemberListService;
 
-@RestController
-@RequestMapping("adminUserList")
+@Controller
+@RequestMapping("/admin")
 public class AdminController {
 	// 기본형
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -23,11 +23,12 @@ public class AdminController {
 	MemberListService memberListService;
 
 	// 모든 회원 조회
-	@GetMapping("memberList")
+	@GetMapping("/memberList")
 	public String list(Model model) {
 		List<Member> members = memberListService.findAll();
-		model.addAttribute("members", members);
+		model.addAttribute("member", members);
 
-		return "/admin/adminUserList";
+		return "admin/adminUserList";
 	}
+
 }

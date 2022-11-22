@@ -112,13 +112,4 @@ public class MenuController {
 		System.out.println("도서관 소식");
 		return "redirect:/";
 	}
-	//관리자 페이지
-	@GetMapping(value = "/adminUserList")
-	public String list(Model model) {
-//		List<Member> members = MemberListService.findAll();
-//		model.addAttribute("members", members);
-
-		return "/admin/adminUserList";
-	}
-
 }

@@ -1,3 +1,19 @@
+@charset "UTF-8";
+
+:root { -
+	-font-default: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto,
+		"Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji"; - -
+	-font-primary: "Montserrat", sans-serif; -
+	-font-secondary: "Poppins", sans-serif;
+}
+
+h2{
+           font-size: 30px; 
+           
+        } 
+
 div {
 	padding: 0;
 	background: #f5f5f5
@@ -5,7 +21,7 @@ div {
 
 
 table{
-	max-width: 200%;
+	min-width: 200%;
 }
 
 th {

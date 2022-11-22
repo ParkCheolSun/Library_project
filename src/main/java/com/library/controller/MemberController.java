@@ -1,11 +1,11 @@
 package com.library.controller;
 
-<<<<<<< HEAD
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
-=======
->>>>>>> 2a358b2d2774314b3080a1e5bd9b8b9dccd16aca
+
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

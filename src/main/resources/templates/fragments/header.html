@@ -4,19 +4,21 @@
 
 <div class="header" th:fragment="header">
 
-<head>
-	<meta charset="UTF-8">
-	<!-- link connect code -->
-	<link href="/css/headerForm.css" rel="stylesheet">
-	<script src="http://code.jquery.com/jquery-latest.js"></script>   <!-- 2022-11-14 코드 추가됨 -->
-</head>
+	<head>
+<meta charset="UTF-8">
+<!-- link connect code -->
+<link href="/css/headerForm.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<!-- 2022-11-14 코드 추가됨 -->
+	</head>
 
-<!-- <body> -->
+	<!-- <body> -->
 
 	<!-- ======= Header ======= -->
 	<header id="main-header" class="main-header d-flex align-items-center"
 		th:fragment="header">
-		<script src="/javascript/headerForm.js"></script>     <!-- 2022-11-14 코드 추가됨 -->
+		<script src="/javascript/headerForm.js"></script>
+		<!-- 2022-11-14 코드 추가됨 -->
 		<div
 			class="container-fluid container-xl d-flex align-items-center justify-content-between">
 			<a href="/" class="logo d-flex align-items-center"> <img
@@ -71,23 +73,27 @@
 			<!-- .navbar End -->
 
 			<div id="btn_group">
-				<span style="float: right;"> 
-				<a href="/login/signUp" class="login-btn-a" sec:authorize="isAnonymous()"> 
-					<i class="input-icon uil uil-sign-in-alt login-btn-i"></i>
-				</a>
-				<a href="/login/logout" class="login-btn-a" sec:authorize="isAuthenticated()"> 
-					<i class="input-icon uil uil-sign-out-alt login-btn-i"></i>
-				</a>
-				<a href="/login/mypage" class="login-btn-a" sec:authorize="isAuthenticated()"> 
-					<i class="input-icon uil uil-user-circle login-btn-i"></i>
-				</a>
-				<a href="/login/mypage" class="login-btn-a" sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')"> 
-					<i class="input-icon uil uil-setting login-btn-i"></i>
+				<p class="sign-in" th:text="${session.ipaddress}"
+					th:unless="${session == null}" sec:authorize="isAuthenticated()"></p>
+				<p class="sign-in" th:text="${session.name}"
+					th:unless="${session == null}" sec:authorize="isAuthenticated()"></p>
+				<span style="float: right;"> <a href="/login/signUp"
+					class="login-btn-a" sec:authorize="isAnonymous()"> <i
+						class="input-icon uil uil-sign-in-alt login-btn-i"></i>
+				</a> <a href="/login/logout" class="login-btn-a"
+					sec:authorize="isAuthenticated()"> <i
+						class="input-icon uil uil-sign-out-alt login-btn-i"></i>
+				</a> <a href="/login/mypage" class="login-btn-a"
+					sec:authorize="isAuthenticated()"> <i
+						class="input-icon uil uil-user-circle login-btn-i"></i>
+				</a> <a href="/login/mypage" class="login-btn-a"
+					sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')"> <i
+						class="input-icon uil uil-setting login-btn-i"></i>
 				</a>
 				</span>
 			</div>
 		</div>
 	</header>
-<!--   </body> -->
+	<!--   </body> -->
 </div>
 </html>

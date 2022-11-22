@@ -11,7 +11,28 @@ var scroll = function(){
     $(document).ready(function(){
         init();
         initEvent();
+        messageControl();
     });
+    
+    var messageControl = function(){
+    	var message = $('#mes').val();
+    	var meslog = $('#meslog').val();
+		var output = "";
+		if (message == "createUSER")
+			output = "회원가입이 완료되었습니다."
+		if(meslog == "USERLogout")
+			output = "로그아웃 되었습니다."
+		if(output != ""){
+			Swal.fire({
+				position : 'top-end',
+				icon : 'success',
+				title : output,
+				showConfirmButton : false,
+				timer : 1500
+			});
+			$('#mes').val("");
+		}
+    }
     
     var init = function(){
         $cnt = $(".main-content");

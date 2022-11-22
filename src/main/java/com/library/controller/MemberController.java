@@ -1,8 +1,11 @@
 package com.library.controller;
 
+<<<<<<< HEAD
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
+=======
+>>>>>>> 2a358b2d2774314b3080a1e5bd9b8b9dccd16aca
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
@@ -38,18 +43,18 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
-	
+
 	@PostConstruct
 	private void createAdmin() {
 		// admin 계정 생성
 		boolean check = memberService.findById("1");
-		if(check)
+		if (check)
 			return;
 		Member mem;
 		MemberDto memDto = new MemberDto();
 		memDto.setId("1");
 		memDto.setPassword("1");
-		memDto.setAddress("관리자");
+		memDto.setAddress("관리자 주소");
 		memDto.setGender("M");
 		memDto.setName("총관리자");
 		memDto.setEmail("admin@admin.admin");
@@ -57,6 +62,41 @@ public class MemberController {
 		String password = passwordEncoder.encode(memDto.getPassword());
 		mem.setPassword(password);
 		mem.setRole(Role.ADMIN);
+		memberService.saveMember(mem);
+
+		// Manager 계정 생성
+		check = memberService.findById("2");
+		System.out.println(check);
+		if (check)
+			return;
+		memDto = new MemberDto();
+		memDto.setId("2");
+		memDto.setPassword("2");
+		memDto.setAddress("매니저 주소");
+		memDto.setGender("M");
+		memDto.setName("매니저");
+		memDto.setEmail("manager@manager.manager");
+		mem = Member.createMember(memDto, passwordEncoder);
+		password = passwordEncoder.encode(memDto.getPassword());
+		mem.setPassword(password);
+		mem.setRole(Role.MANAGER);
+		memberService.saveMember(mem);
+
+		// admin 계정 생성
+		check = memberService.findById("3");
+		if (check)
+			return;
+		memDto = new MemberDto();
+		memDto.setId("3");
+		memDto.setPassword("3");
+		memDto.setAddress("사용자 주소");
+		memDto.setGender("F");
+		memDto.setName("사용자");
+		memDto.setEmail("user@user.user");
+		mem = Member.createMember(memDto, passwordEncoder);
+		password = passwordEncoder.encode(memDto.getPassword());
+		mem.setPassword(password);
+		mem.setRole(Role.USER);
 		memberService.saveMember(mem);
 	}
 
@@ -70,12 +110,6 @@ public class MemberController {
 		} else {
 			model.addAttribute("memberDto", new MemberDto());
 		}
-		return "member/SignUpForm";
-	}
-
-	// 로그인
-	@PostMapping(value = "/signIn")
-	public String memberSignIn(Model model) {
 		return "member/SignUpForm";
 	}
 
@@ -96,9 +130,7 @@ public class MemberController {
 	@PostMapping(value = "/save")
 	public String newMember(@Valid MemberDto memberDto, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
-		System.out.println(memberDto.toString());
 		if (bindingResult.hasErrors()) {
-			System.out.println("bindingResult : " + bindingResult.toString());
 			List<ObjectError> list = bindingResult.getAllErrors();
 			for (ObjectError e : list) {
 				System.out.println(e.getDefaultMessage());
@@ -114,6 +146,7 @@ public class MemberController {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "member/SignUpForm";
 		}
+		redirectAttributes.addFlashAttribute("mes", "createUSER");
 		return "redirect:/";
 	}
 
@@ -139,7 +172,8 @@ public class MemberController {
 	}
 
 	@PostMapping(value = "/mod")
-	public String newMember(MemberDto memberDto, HttpServletResponse response, Model model, RedirectAttributes redirectAttributes) {
+	public String newMember(MemberDto memberDto, HttpServletResponse response, Model model,
+			RedirectAttributes redirectAttributes) {
 		Member member = memberService.findByEmail(memberDto.getEmail());
 		String password = passwordEncoder.encode(memberDto.getPassword());
 		member.setPassword(password);
@@ -148,10 +182,10 @@ public class MemberController {
 		redirectAttributes.addFlashAttribute("mes", "modPassword");
 		return "redirect:/login/signUp";
 	}
-	
+
 	@GetMapping(value = "/error")
-	public String loginError(Model model) {
-		model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
+	public String loginError(MemberDto memberDto, Model model) {
+		model.addAttribute("mes", "USERLoginFail");
 		return "member/SignUpForm";
 	}
 	

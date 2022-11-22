@@ -1,6 +1,5 @@
 package com.library.service;
 
-import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.security.core.userdetails.User;
@@ -9,9 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.library.constant.Role;
-import com.library.dto.MemberDto;
+import com.library.constant.WorkNumber;
 import com.library.entity.Member;
+import com.library.entity.MemberLog;
+import com.library.repository.MemberLogRepository;
 import com.library.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,17 +21,30 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
 	private final MemberRepository memberRepository;
+	private final MemberLogRepository memberLogRepository;
 
+	// 계정 생성
 	public Member saveMember(Member member) {
-		System.out.println("Service : " + member.toString());
-		System.out.println("1차 성공");
 		validateDuplicateMember(member);
-		System.out.println("2차 성공");
-		return memberRepository.save(member);
+		Member mem = memberRepository.save(member);
+		if(mem.getId() != null) {
+			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 계정 생성 완료";
+			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.CREATE_USER, contents);
+			memberLogRepository.save(memLog);
+		}
+		return mem;
 	}
 	
+	
+	// 계정 수정(비밀번호 변경)
 	public Member updateMember(Member member) {
-		return memberRepository.save(member);
+		Member mem = memberRepository.save(member);
+		if(mem.getId() != null) {
+			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 비밀번호 변경 완료";
+			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_USER, contents);
+			memberLogRepository.save(memLog);
+		}
+		return mem;
 	}
 	
 	// ajax를 통한 ID체크
@@ -45,11 +58,12 @@ public class MemberService implements UserDetailsService {
 	
 	// Email 체크
 	public Member findByEmail(String email) {
+		System.out.println(email);
 		Member mem = memberRepository.findByEmail(email);
 		return mem;
 	}
 	
-
+	// ID중복 확인
 	private void validateDuplicateMember(Member member) {
 		Member findMember = memberRepository.findById(member.getId());
 		if (findMember != null) {

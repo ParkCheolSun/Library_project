@@ -1,0 +1,7 @@
+package com.library.constant;
+
+public enum WorkNumber {
+	CREATE_USER, UPDATE_USER, DELETE_USER,
+	CREATE_NOTICE, UPDATE_NOTICE, DELETE_NOTICE,
+	USER_LOGIN, USER_LOGOUT
+}

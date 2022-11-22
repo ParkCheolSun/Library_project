@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/javascript/**", "/images/**", "/lib/**", "/board/**");  //로그인 여부를 조사 안할 요청값 입니다.
+        web.ignoring().antMatchers("/css/**", "/javascript/**", "/images/**", "/lib/**",  "/file/**");  //로그인 여부를 조사 안할 요청값 입니다.
     }
 
     @Override
@@ -71,6 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.exceptionHandling()
                 .accessDeniedPage("/");
+        
+        http.csrf().ignoringAntMatchers("/board/**");
     }
     
     @Bean

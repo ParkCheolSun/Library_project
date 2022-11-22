@@ -22,9 +22,10 @@
 				<label class="form-label">내용</label>
 				<textarea class="form-control" rows="5" cols="" name="content"></textarea>
 			</div>
-			<div class="mb-3">
-				<label class="form-label">작성자</label> <input type="text"
-					class="form-control" id="" name="registerId">
+			<div class="mb-3" >
+				<label class="form-label">작성자</label><input type="text" th:value="${session.id}"    
+					class="form-control" id="" name="registerId" readonly>
+					
 			</div>
 
 			<div class="mb-3">

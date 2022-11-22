@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head>
 <title>게시판인디유?</title>
 <meta charset="UTF-8">
@@ -31,7 +32,7 @@
 				<label class="form-label font-weight-bold"><span
 					class="text-danger">* </span>작성자</label> <input type="text"
 					class="form-control" name="registerId"
-					th:value="${info.registerId}" required>
+					th:value="${info.registerId}" readonly>
 			</div>
 			<div class="mb-3">
 				<label class="form-label font-weight-bold mt-2">파일 업로드</label>
@@ -65,9 +66,11 @@
 				<div class="">
 					<button type="button" class="btn btn-success"
 						onclick="javascript:location.href='/board/list'">이전</button>
-					<button type="button" class="btn btn-primary" onclick="fnSubmit();">수정</button>
-					<button type="button" class="btn btn-danger"
-						th:onclick="fnViewDelete()">삭제</button>
+					
+					<span class="btn btn-primary" onclick="fnSubmit()"
+					sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')" th:if="${session.id} == member.id">수정</span>
+					<span class="btn btn-danger" th:onclick="fnViewDelete()"
+					sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')">삭제</span>
 				</div>
 			</div>
 		</form>

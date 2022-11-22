@@ -1,11 +1,14 @@
 package com.library.controller;
 
+import java.security.Principal;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.library.dto.BoardRequestDto;
@@ -33,6 +36,13 @@ private final BoardService boardService;
 		return "/board/list";
 	}
 	
+	/*
+	 * @GetMapping("/board/write") public String getBoardWritePage(Principal
+	 * principal, Model model, BoardRequestDto boardRequestDto) { String userId =
+	 * principal.getName(); System.out.println("==============================");
+	 * System.out.println(userId); model.addAttribute("username",userId); return
+	 * "board/write"; }
+	 */
 	@GetMapping("/board/write")
 	public String getBoardWritePage(Model model, BoardRequestDto boardRequestDto) {
 		return "board/write";

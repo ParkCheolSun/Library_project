@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!--부트스트랩 css 추가-->
 <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+
 </head>
 <body>
 	<div id="wrapper">
@@ -24,7 +25,7 @@
 								<th width="">제목</th>
 								<th width="20%">작성자</th>
 								<th width="10%">조회수</th>
-								<th width="20%">작성일</th>
+								<th width="10%">작성일</th>
 							</tr>
 						</thead>
 						<tbody id="tbody">
@@ -35,11 +36,18 @@
 								<td><span
 									th:text="${(resultMap.totalCnt - index.index) - (paging.pageNumber * paging.pageSize)}"></span>
 								</td>
-								<td><a th:href="@{./view(id=${list.id})}"><span
-										th:text="${list.title}"></span></a></td>
+								
+								
+								<!-- 비밀글 잠금 표현 코드 추가 [2022-11-22] -->
+								<td>
+								<span th:if="${list.disclosure == true}">🔒︎</span>  <!-- 제목앞 비밀글표시 코드 -->
+								<a th:href="@{./view(id=${list.id})}"><span th:text="${list.title}"></span></a>
+								</td>
 								<td><span th:text="${list.registerId}"></span></td>
 								<td><span th:text="${list.readCnt}"></span></td>
 								<td><span th:text="${list.registerTime}"></span></td>
+								
+				
 							<tr>
 						</tbody>
 					</table>

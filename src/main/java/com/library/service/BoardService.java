@@ -63,6 +63,7 @@ public class BoardService {
 		boardRepository.updateBoardReadCntInc(id);
 
 		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
+		System.out.println("member : " + info.getMember());
 
 		resultMap.put("info", info);
 		resultMap.put("fileList", boardFileService.findByBoardId(info.getId()));

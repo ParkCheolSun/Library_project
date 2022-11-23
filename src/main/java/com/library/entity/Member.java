@@ -28,7 +28,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Member extends BaseEntity{
-	
+
 	@Id
 	@Column(name = "mNumber")
 	@GeneratedValue(strategy = GenerationType.AUTO)

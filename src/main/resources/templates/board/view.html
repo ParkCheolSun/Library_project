@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <title>게시판인디유?</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!--부트스트랩 css 추가-->
 <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript"
 	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
@@ -20,19 +23,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 			<div class="mb-3">
 				<label class="form-label font-weight-bold"><span
 					class="text-danger">* </span>제목</label> <input type="text"
-					class="form-control" name="title" th:value="${info.title}" required>
+					class="form-control txt-title" name="title" th:value="${info.title}" required>
 			</div>
 			<div class="mb-3">
 				<label class="form-label font-weight-bold"><span
 					class="text-danger">* </span>내용</label>
-				<textarea class="form-control" rows="5" name="content"
+				<textarea class="form-control txt-content" rows="5" name="content"
 					th:text="${info.content}" required></textarea>
 			</div>
 			<div class="mb-3">
 				<label class="form-label font-weight-bold"><span
 					class="text-danger">* </span>작성자</label> <input type="text"
-					class="form-control" name="registerId"
-					th:value="${info.registerId}" readonly>
+					class="form-control txt-register" name="registerId"
+					th:value="${info.registerId}" required>
 			</div>
 			<div class="mb-3">
 				<label class="form-label font-weight-bold mt-2">파일 업로드</label>
@@ -66,21 +69,36 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 				<div class="">
 					<button type="button" class="btn btn-success"
 						onclick="javascript:location.href='/board/list'">이전</button>
-					
 					<span class="btn btn-primary" onclick="fnSubmit()"
-					sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')" th:if="${session.id} == member.id">수정</span>
+					 th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">등록</span>
 					<span class="btn btn-danger" th:onclick="fnViewDelete()"
-					sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')">삭제</span>
+					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">삭제</span>
+					<button type="button" class="btn btn-success clear"
+						onclick="">수정</button>
 				</div>
 			</div>
+			<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}">
 		</form>
 	</div>
 	<script th:inline="javascript">
+		//document.getElementById('form-control').readOnly = true;
+		$('.txt-content').attr('readonly', true);
+		$('.txt-title').attr('readonly', true);
+		$('.txt-register').attr('readonly', true);
+		
+		$('.clear').click(function(){
+			  $('.txt-content').attr('readonly', false)
+			  $('.txt-title').attr('readonly', false);
+			  $('.clear').fadeOut();
+			}); // 내용 readonly 해제
+		
 		let frm = $("#frm");
 		let $origFileDiv = $(".custom-file");
 		let fileMaxCnt = 3, fileMaxSize = 10485760, fileAllowExt = [ "jpg",
 				"jpeg", "png", "gif" ];
 		let deleteFileIdArr = [];
+	
 
 		function fnAddFileDiv() {
 			console.log("file add div");
@@ -151,7 +169,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 		}
 
 		function fnSubmit() {
-			if (confirm("수정하시겠습니까?")) {
+			
+			if (confirm("등록하시겠습니까?")) {
 				$("#frm").submit();
 			}
 		}
@@ -190,6 +209,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 						}
 					});
 		});
+		
+		
 	</script>
 	</th:block>
 </html>

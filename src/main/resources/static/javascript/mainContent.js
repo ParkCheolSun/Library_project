@@ -94,6 +94,7 @@ var scroll = function(){
 scroll();
 
 $(function(){
+	 var windowWidth = $( window ).width();
     //initialize swiper when document ready
     var mySwiper = new Swiper('.swiper-container', {
         // Optional parameters 
@@ -136,8 +137,29 @@ $(function(){
             },
         }
     })
-});
+    var sly = new Sly($('.frame'), {
+			horizontal: 1,
+			itemNav: 'basic',
+			smart: 1,
+			activateOn: 'click',
+			mouseDragging: 1,
+			touchDragging: 1,
+			releaseSwing: 1,
+			startAt: 0,
+			speed: 3000,
+			elasticBounds: 1,
+			dragHandle: 1,
+			dynamicHandle: 1,
+			clickBar: 1,
 
+			// Cycling
+			cycleBy: 'items',
+			cycleInterval: 3000,
+			pauseOnHover: 0
+
+			}, null).init();
+	//sly.toStart();
+});
 
 
 

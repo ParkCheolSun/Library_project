@@ -12,6 +12,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
 </head>
 <div layout:fragment="content">
 	<script src="/javascript/mainContent.js"></script>
@@ -127,7 +129,11 @@
 			</div>
 		</div>
 		<div class="cnt03">
-			<p>메인페이지3</p>
+			<div class="frame" id="cycleitems">
+				<ul class="slidee">
+					<li th:each="bookList : ${bookDtoListToLib}"><img th:src="@{${bookList.bookImageURL}}"></li>
+				</ul>
+			</div>
 		</div>
 		<div class="cnt04">
 			<p>메인페이지4</p>

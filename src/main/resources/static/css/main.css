@@ -1,7 +1,13 @@
 @charset "UTF-8";
 
+
+@media (max-width: 1300px) {
+  .notice {
+    display: none;
+  }
+}
 .main-content {
-	
+	overflow:hidden;
 }
 
 .cnt01 {
@@ -11,20 +17,21 @@
 
 .cnt02 {
 	background-color: #fff;
-	padding-top: 200px;
+	padding-top: 250px;
+	padding-bottom: 50px;
 }
 
 .cnt03 {
 	background-image: url("../images/Library_second.jpg");
 	background-size: cover;
+/* 	z-index: -1;
 	-webkit-filter: blur(5px);
 	-moz-filter: blur(5px);
 	-o-filter: blur(5px);
 	-ms-filter: blur(5px);
 	filter: blur(5px);
 	transform: scale(1.02);
-	z-index: 0;
-	content: "";
+	content: "";  */
 }
 
 .cnt04 {
@@ -42,6 +49,7 @@
 
 .swiper-title {
 	font-size: 70px;
+	width: 700px;
 	text-align: center;
 }
 
@@ -49,7 +57,7 @@
 	/* height: 500px;  - 750*/
 	height: 500px;
 	width: 750px;
-	margin-left: 200px !important;
+	margin-left: 150px !important;
 	float: left;
 }
 
@@ -69,11 +77,13 @@
 
 .notice {
 	float: left;
-	margin-left: 100px;
+	margin-left: 150px;
+	z-index: -1;
 }
 
 .notice-area {
-	height: 500px;
+	position: absolute;
+	height: 400px;
 	width: 700px;
 	background-color: orange;
 }
@@ -260,4 +270,38 @@ input[type=radio].close:not(:checked)+.closer {
 	padding-left: 50px;
 	overflow: auto;
 	letter-spacing: -1px;
+}
+.frame {
+	position:relative;
+	/*top: 24%;*/
+	height: 100%;
+	line-height: 100%;
+	overflow: hidden;
+	backdrop-filter: blur(10px);
+}
+
+.frame ul {
+	list-style: none;
+	margin: 0;
+	padding: 20px;
+	padding-bottom:20%;
+	padding-top:20%;
+	height: 100%;
+	font-size: 50px;
+}
+
+.frame ul li {
+	float: left;
+	width: 350px;
+	margin: 0 100px 0 0;
+	padding: 0;
+	background: #333;
+	color: #ddd;
+	text-align: center;
+	cursor: pointer;
+}
+
+.frame ul li img{
+	height: 100%;
+	width: 100%;
 }

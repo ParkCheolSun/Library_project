@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class MainController {
 	private final MainService mainService;
 	private final List<BookDto> bookDtoList;
+	private final List<BookDto> bookDtoListToLib;
 	
 	@GetMapping(value = "/")
 	public String main(@SessionAttribute(name = "mes", required = false) String mes, HttpServletRequest request, Model model) {
@@ -29,9 +30,12 @@ public class MainController {
 		
 		// api book data
 		bookDtoList.clear();
+		bookDtoListToLib.clear();
 		bookDtoList.addAll(mainService.popularityBook());
-		System.out.println("bookList : " + bookDtoList);
+		bookDtoListToLib.addAll(mainService.popularityBookToLibrary());
+		System.out.println("bookDtoListToLib : " + bookDtoListToLib);
 		model.addAttribute("bookDtoList", bookDtoList);
+		model.addAttribute("bookDtoListToLib", bookDtoListToLib);
 		return "main";
 	}
 	

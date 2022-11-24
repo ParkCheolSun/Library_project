@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 
-@media (max-width: 1300px) {
+@media (max-width: 1700px) {
   .notice {
     display: none;
   }
@@ -285,7 +285,6 @@ input[type=radio].close:not(:checked)+.closer {
 	margin: 0;
 	padding: 20px;
 	padding-bottom:20%;
-	padding-top:20%;
 	height: 100%;
 	font-size: 50px;
 }
@@ -304,4 +303,16 @@ input[type=radio].close:not(:checked)+.closer {
 .frame ul li img{
 	height: 100%;
 	width: 100%;
+}
+
+.sly-title {
+	width: 100%;
+	height: 300px;
+	padding-top: 160px;
+	margin: 0px;
+	font-size: 60px;
+	text-align:center;
+	border-bottom:solid;
+	border-color: #BA4A00;
+	backdrop-filter: blur(10px);
 }

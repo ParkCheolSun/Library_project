@@ -53,44 +53,12 @@ public class MainService {
             String bookname = jarr.getJSONObject(i).getString("bookname");
             String authors = jarr.getJSONObject(i).getString("authors");
             String bookImageURL = jarr.getJSONObject(i).getString("bookImageURL");
-            BookDto book = new BookDto(bookname, authors, bookImageURL);
+            String isbn13 = jarr.getJSONObject(i).getString("isbn13");
+            BookDto book = new BookDto(0L, bookname, authors, isbn13, bookImageURL);
             bookDtoList.add(book);
         }
         
         return bookDtoList;
-	}
-	
-	public List<BookDto> popularityBookToLibrary(){
-		String oriUrl = "http://data4library.kr/api/loanItemSrchByLib";
-		String pageSize = "10";
-		for(LibCode code : LibCode.values()) {
-			String url = oriUrl + "?authKey="+ key+"&startDt=2022-01-01&endDt=2022-11-21" + "&pageNo=1&pageSize=" + pageSize +
-					"&libCode=" + code.getValue();
-			System.out.println("url : " + url);
-			
-			restTemplate = new RestTemplate();
-			String response = restTemplate.getForObject(url, String.class);
-			JSONObject jobj = XML.toJSONObject(response);
-	        
-	        JSONObject jobj1 = jobj.getJSONObject("response").getJSONObject("docs");
-	        
-	        JSONArray jarr = jobj1.getJSONArray("doc");
-	        
-	        if(!bookDtoListToLib.isEmpty()) {
-	        	bookDtoListToLib.clear();
-	        }
-	        
-	        for (int i = 1; i < jarr.length(); i++) {
-	            String bookname = jarr.getJSONObject(i).getString("bookname");
-	            String authors = jarr.getJSONObject(i).getString("authors");
-	            String bookImageURL = jarr.getJSONObject(i).getString("bookImageURL");
-	            BookDto book = new BookDto(bookname, authors, bookImageURL);
-	            bookDtoListToLib.add(book);
-	        }
-			break;
-		}
-		System.out.println(bookDtoListToLib);
-		return bookDtoListToLib;
 	}
 	
 }

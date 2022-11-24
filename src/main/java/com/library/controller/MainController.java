@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.library.dto.BookDto;
+import com.library.service.BookService;
 import com.library.service.MainService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MainController {
 	private final MainService mainService;
+	private final BookService bookService;
 	private final List<BookDto> bookDtoList;
 	private final List<BookDto> bookDtoListToLib;
 	
@@ -32,12 +34,11 @@ public class MainController {
 		bookDtoList.clear();
 		bookDtoListToLib.clear();
 		bookDtoList.addAll(mainService.popularityBook());
-		bookDtoListToLib.addAll(mainService.popularityBookToLibrary());
-		System.out.println("bookDtoListToLib : " + bookDtoListToLib);
+		bookDtoListToLib.addAll(bookService.popularityBookToLibrary());
 		model.addAttribute("bookDtoList", bookDtoList);
 		model.addAttribute("bookDtoListToLib", bookDtoListToLib);
+		
+		System.out.println();
 		return "main";
 	}
-	
-	
 }

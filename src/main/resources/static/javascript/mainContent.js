@@ -12,6 +12,8 @@ var scroll = function(){
         init();
         initEvent();
         messageControl();
+        var windowWidth = $( window ).width();
+        console.log(windowWidth);
     });
     
     var messageControl = function(){

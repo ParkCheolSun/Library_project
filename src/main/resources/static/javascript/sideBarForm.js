@@ -11,7 +11,7 @@
 							var id = $(item).attr('id');
 							//console.log("id : " + id);
 							if(id == "guideMenu" || id == "cultureMenu" || id == "noticeMenu" ||
-									id == "openNoticeMenu" || id == "sLibraryMenu ||id == "AdminMenu"){
+									id == "openNoticeMenu" || id == "sLibraryMenu" ||id == "AdminMenu"){
 								var temp = "#" + id;
 								//console.log("완성문자 : " + temp);
 								var search = $(item).parent().children('ul').children('li').children('a');

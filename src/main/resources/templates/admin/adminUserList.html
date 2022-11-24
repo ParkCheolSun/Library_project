@@ -10,10 +10,33 @@
 </head>
 
 <div class="section" layout:fragment="content">
-	<table><h2>회원 목록
+
+	<form action >
+	
+
+		<select id="RoleSelect" name="RoleSelect">
+			<option value="all">전체</option>
+			<option value="user">사용자</option>
+			<option value="manager">매니저</option>
+			<option value="admin">관리자</option>
+		</select>
+		<button id="button" type="button" onclick="clkBtn()">조회</button>
+	</form>
+	<!-- <script>
+	function clkBtn(){
+		console.log($("#RoleSelect").val()); //value값 가져오기
+		console.log($("select[name=RoleSelect] option:selected").text()); //text값 가져오기
+		
+		return false;
+	}
+		
+	</script> -->
+	<h2>회원 목록</h2>
+
+	<table>
 		<thead>
 			<tr>
-				
+
 				<th>Name</th>
 				<th>ID</th>
 				<th>Email</th>
@@ -35,6 +58,20 @@
 			</tr>
 		</tbody>
 	</table>
-</div>
 
+</div>
+<!-- 
+<script>
+	$("#RoleSelect option:selected").change(function() {
+		var value = $(this).val();
+		$(this).css('color', value);
+	});
+</script>
+<script type="text/javascript">
+function clkBtn(){
+	$('input[name="RoleSelect[value]"').each(function(idx, item) {
+		var tmpValue = $(item).val();
+		console.log(tmpValue);	
+	});
+</script> -->
 </html>

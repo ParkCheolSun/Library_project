@@ -14,7 +14,7 @@ import com.library.entity.Member;
 import com.library.service.MemberListService;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping(value = "/admin")
 public class AdminController {
 	// 기본형
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -23,12 +23,17 @@ public class AdminController {
 	MemberListService memberListService;
 
 	// 모든 회원 조회
-	@GetMapping("/memberList")
+	@GetMapping("/memberList/RoleSelect")
 	public String list(Model model) {
 		List<Member> members = memberListService.findAll();
 		model.addAttribute("member", members);
 
 		return "admin/adminUserList";
+	}
+
+	@GetMapping("/memberList/RoleSelect")
+	public String list(Model1 model) {
+		List<Member> members = memberListService.findById(id);
 	}
 
 }

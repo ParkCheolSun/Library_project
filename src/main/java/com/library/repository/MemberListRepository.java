@@ -26,19 +26,6 @@ public interface MemberListRepository extends JpaRepository<Member, Long> {
 
 	public List<Member> findByaddress(String address);
 
-	public List<Member> findByaddress(Role role) {
-		Member user = memberRe
-	}
-	
-	
-	
-	
-	// ajax를 통한 ID체크
-		public boolean findById(String id) {
-			Member mem = memberRepository.findById(id);
-			if(mem != null) {
-				return true;
-			}
-			return false;
+	public List<Member> findByaddress(Role role);
 
 }

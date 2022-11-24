@@ -10,7 +10,7 @@
 <link th:href="@{/css/layoutForm.css}" rel="stylesheet">
 
 <!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
@@ -28,12 +28,13 @@
 	<div id="content-wrapper" class="d-flex">
 		<div th:replace="fragments/sidebar::sidebar" class="sidebar"></div>
 		<div layout:fragment="content" class="content"></div>
-		<div class="ocean">
+		
+	</div>
+	<div th:replace="fragments/footer::footer"></div>
+	<div class="ocean">
 			<div class="wave"></div>
 			<div class="wave"></div>
 		</div>
-	</div>
-	<div th:replace="fragments/footer::footer"></div>
 </body>
 
 </html>

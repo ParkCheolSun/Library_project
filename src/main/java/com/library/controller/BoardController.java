@@ -32,13 +32,85 @@ private final BoardService boardService;
 		return "/board/list";
 	}
 	
-	/*
-	 * @GetMapping("/board/write") public String getBoardWritePage(Principal
-	 * principal, Model model, BoardRequestDto boardRequestDto) { String userId =
-	 * principal.getName(); System.out.println("==============================");
-	 * System.out.println(userId); model.addAttribute("username",userId); return
-	 * "board/write"; }
-	 */
+	// 공지사항 리스트
+	@GetMapping("/board/notice")
+	public String noticeBoardList(Model model
+			, @RequestParam(required = false, defaultValue = "0") Integer page
+			, @RequestParam(required = false, defaultValue = "5") Integer size) throws Exception {
+		
+		try {
+			model.addAttribute("resultMap", boardService.findAll(page, size));
+		} catch (Exception e) {
+			throw new Exception(e.getMessage()); 
+		}
+		
+		return "/board/noticeListView";
+	}
+	
+	// 공지사항 작성
+	@GetMapping("/board/noticeWrite")
+	public String noticeBoardWrite(Model model, BoardRequestDto boardRequestDto) {
+		return "board/noticeWrite";
+	}
+	
+	// 공지사항 작성 완료
+	@PostMapping("/board/noticeWrite/action")
+	public String noticeBoardWriteAction(Model model, BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest) throws Exception {
+		try {
+			if (!boardService.save(boardRequestDto, multiRequest)) {
+				throw new Exception("#Exception boardWriteAction!");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage()); 
+		}
+		
+		return "redirect:/board/notice";
+	}
+	
+	// 공지사항 세부사항 보기
+	@GetMapping("/board/noticeDetailView")
+	public String noticeBoardDetailView(Model model, BoardRequestDto boardRequestDto) throws Exception {
+		System.out.println(boardRequestDto.getId());
+		try {
+			if (boardRequestDto.getId() != null) {
+				model.addAttribute("test", boardService.findById(boardRequestDto.getId()));
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage()); 
+		}
+		
+		return "board/noticeDetailView";
+	}
+	
+	// 공지사항 세부사항 수정
+	@PostMapping("/board/noticeDetailView/action")
+	public String noticeBoardDetailViewAction(Model model, BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest) throws Exception {
+		
+		try {
+			boolean result = boardService.updateBoard(boardRequestDto, multiRequest);
+			
+			if (!result) {
+				throw new Exception("#Exception boardViewAction!");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage()); 
+		}
+		
+		return "redirect:/board/list";
+	}
+	
+	// 공지사항 세부사항 삭제
+	@PostMapping("/board/noticeDetailView/delete")
+	public String noticeBoardDetailViewDelete(Model model, @RequestParam() Long id) throws Exception {
+		try {
+			boardService.deleteById(id);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage()); 
+		}
+		
+		return "redirect:/board/list";
+	}
+	
 	@GetMapping("/board/write")
 	public String getBoardWritePage(Model model, BoardRequestDto boardRequestDto) {
 		return "board/write";

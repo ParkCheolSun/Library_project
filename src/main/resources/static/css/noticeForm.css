@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.notice-container {
+	padding-top: 100px;
+	padding-left: 30px;
+}
+
+#noticewrite-container {
+	padding-top: 30px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#noticedetailview-container {
+	padding-top: 30px;
+	padding-left: 50px;
+	padding-right: 50px;
+}

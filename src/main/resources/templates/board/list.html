@@ -10,6 +10,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	th:content="${_csrf.headerName}" />
 <!--부트스트랩 css 추가-->
 <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+
 </head>
 
 	<div id="wrapper">
@@ -42,11 +43,18 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 								<td><span
 									th:text="${(resultMap.totalCnt - index.index) - (paging.pageNumber * paging.pageSize)}"></span>
 								</td>
-								<td><a th:href="@{./view(id=${list.id})}"><span
-										th:text="${list.title}"></span></a></td>
+								
+								
+								<!-- 비밀글 잠금 표현 코드 추가 [2022-11-22] -->
+								<td>
+								<span th:if="${list.disclosure == true}">🔒︎</span>  <!-- 제목앞 비밀글표시 코드 -->
+								<a th:href="@{./view(id=${list.id})}"><span th:text="${list.title}"></span></a>
+								</td>
 								<td><span th:text="${list.registerId}"></span></td>
 								<td><span th:text="${list.readCnt}"></span></td>
 								<td><span th:text="${list.registerTime}"></span></td>
+								
+				
 							<tr>
 						</tbody>
 					</table>

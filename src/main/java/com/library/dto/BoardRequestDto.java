@@ -20,12 +20,14 @@ public class BoardRequestDto {
 	private String title;
 	private String content;
 	private int readCnt;
-	private String disclosure;
+	private Boolean disclosure;    // 공개여부  String >> Boolean 타입변경[2022-11-22]
 	private Member member;
 	private Category category;
 	private String registerId;
 	
 	public Board toEntity() {
+		if(disclosure==null)		// null값을 강제로 false으로 변환 [2022-11-22]
+			disclosure = false;
 		return Board.builder()
 				.member(member)
 				.id(id)
@@ -41,7 +43,7 @@ public class BoardRequestDto {
 	@Override
 	public String toString() {
 		return "BoardRequestDto [id=" + id + ", title=" + title + ", content=" + content + ", registerId=" + registerId
-				+ "]";
+				+ ", disclosure=" + disclosure + "]";
 	}
 
 

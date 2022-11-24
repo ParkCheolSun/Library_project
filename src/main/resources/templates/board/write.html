@@ -14,6 +14,14 @@
 	<div class="container">
 		<h1>Board Register.</h1>
 		<form action="/board/write/action" method="post" enctype="multipart/form-data">
+		
+			<!-- 비밀글 체크유무 [2022-11-22] -->
+			<div class="mb-3">
+				<label class="form-label">비밀글</label>
+				<input type="checkbox" name="disclosure" value="true" >
+			</div>
+			<!-- 비밀글 체크유무 [2022-11-22] -->
+		
 			<div class="mb-3">
 				<label class="form-label">제목</label> <input type="text"
 					class="form-control" id="" name="title">

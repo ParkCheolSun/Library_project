@@ -10,11 +10,13 @@ $(document).ready(
 				$('.txt-content').attr('readonly', true);
 				$('.txt-title').attr('readonly', true);
 				$('.txt-register').attr('readonly', true);
+				$('.btn-update').css({"display" : "none"});
 
 				$('.clear').click(function() {
 					$('.txt-content').attr('readonly', false)
 					$('.txt-title').attr('readonly', false);
 					$('.clear').fadeOut();
+					$('.btn-update').fadeIn();
 				}); // 내용 readonly 해제
 			});
 
@@ -87,10 +89,31 @@ $(document).ready(
 	}
 
 	function fnSubmit() {
+		const swalWithBootstrapButtons = Swal.mixin({
+  			customClass: {
+    			confirmButton: 'btn btn-success',
+    			cancelButton: 'btn btn-danger'
+  			},
+  			buttonsStyling: false
+		})
 
-		if (confirm("등록하시겠습니까?")) {
-			$("#frm").submit();
-		}
+		swalWithBootstrapButtons.fire({
+  			title: '수정사항을 저장하시겠습니까?',
+  			text: "저장하시면 이전 데이터는 삭제됩니다!",
+  			icon: 'warning',
+  			confirmButtonText: '수정완료',
+  			cancelButtonText: '취소',
+  			showCancelButton: true,
+  			reverseButtons: true
+			}).then((result) => {
+  				if (result.isConfirmed) {
+      				$("#frm").submit();
+  				} else if (
+    				/* Read more about handling dismissals below */
+    				result.dismiss === Swal.DismissReason.cancel
+  				) {
+  				}
+			})
 	}
 
 	$(function() {

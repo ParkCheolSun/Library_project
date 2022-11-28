@@ -96,7 +96,7 @@ private final BoardService boardService;
 			throw new Exception(e.getMessage()); 
 		}
 		
-		return "redirect:/board/list";
+		return "redirect:/board/notice";
 	}
 	
 	// 공지사항 세부사항 삭제

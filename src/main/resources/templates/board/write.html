@@ -23,12 +23,13 @@
 			<!-- 비밀글 체크유무 [2022-11-22] -->
 		
 			<div class="mb-3">
-				<label class="form-label">제목</label> <input type="text"
-					class="form-control" id="" name="title">
+				<label class="form-label">제목</label>
+				<input type="text" class="form-control" id="" name="title"	maxlength="20" placeholder="제목은 20자 이내로 작성해주세요." required>
 			</div>
 			<div class="mb-3">
 				<label class="form-label">내용</label>
-				<textarea class="form-control" rows="5" cols="" name="content"></textarea>
+				<textarea class="form-control content_area" rows="5" cols="" name="content" maxlength="200" placeholder="내용을 입력하세요."></textarea>
+				<span style="color:#aaa;" id="counter">(0 / 200)</span>
 			</div>
 			<div class="mb-3" >
 				<label class="form-label">작성자</label><input type="text" th:value="${session.id}"    
@@ -56,9 +57,9 @@
 			<button type="button" class="btn btn-success"
 				onclick="javascript:location.href='/board/list'">이전</button>
 			<button type="submit" class="btn btn-primary">작성</button>
-			<input type="hidden" th:name="${_csrf.parameterName}"
-				th:value="${_csrf.token}">
 		</form>
+		<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}">
 	</div>
 	<!--부트스트랩 js, jquery 추가-->
 	<script src="/javascript/lib/jquery.min.js"></script>
@@ -128,7 +129,7 @@
 				messages : {
 					// Message Custom..
 					title : {
-						required : "Custom required, Please enter a title."
+						required : "제목을 입력해주세요."
 					}
 				},
 				submitHandler : function(form) {
@@ -137,6 +138,18 @@
 				}
 			});
 		});
+		
+		$('.content_area').keyup(function(e){
+			var content = $(this).val();
+		    $('#counter').html("("+content.length+" / 200)");    //글자수 실시간 카운팅
+
+		    if (content.length > 200){
+		        alert("최대 200자까지 입력 가능합니다.");
+		        $(this).val(content.substring(0, 200));
+		        $('#counter').html("(200 / 최대 200자)");
+		    }
+		});
+		
 	</script>
 	</th:block>
 </html>

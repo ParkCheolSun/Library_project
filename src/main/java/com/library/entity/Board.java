@@ -11,10 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.ColumnDefault;
 
-import com.library.constant.Role;
 import com.library.dto.BoardRequestDto;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
@@ -39,8 +39,10 @@ public class Board extends BaseEntity {
 	@NotNull
 	@ColumnDefault("0")
 	private short blevel; // 깊이(댓글)
-
+	
+	
 	@NotNull
+	@NotEmpty(message = "제목은 필수입니다.")
 	private String title; // 제목
 
 	private String content; // 내용

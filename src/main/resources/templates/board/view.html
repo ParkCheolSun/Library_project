@@ -17,6 +17,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 	<div class="container">
 		<h1>게시판 상세보기</h1>
+		<div class="mb-3">
+				<label class="form-label">비밀글</label>
+				<input type="checkbox" name="disclosure" value="true" >
+			</div>
+		
 		<form id="frm" action="/board/view/action" method="post"
 			th:with="info=${test.info}" enctype="multipart/form-data">
 			<input type="hidden" name="id" th:value="${info.id}">

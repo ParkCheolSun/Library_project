@@ -1,15 +1,17 @@
 package com.library.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 
 import com.library.dto.BoardRequestDto;
 import com.library.dto.BoardResponseDto;
@@ -45,8 +47,22 @@ public class BoardService {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		Page<Board> list = boardRepository
-				.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")));
+		Page<Board> list = boardRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")));
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	@Transactional
+	public HashMap<String, Object> findByTitleContaining(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByTitleContaining(pageable, searchKeyword);
 
 		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
 		resultMap.put("paging", list.getPageable());

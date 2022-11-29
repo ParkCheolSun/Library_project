@@ -1,6 +1,5 @@
 package com.library.repository;
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,5 +40,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 	public int deleteBoard(@Param("deleteList") Long[] deleteList);
 	
 	public Page<Board> findByTitleContaining(Pageable pageable, String searchKeyword);
+	public Page<Board> findByContentContaining(Pageable pageable, String searchKeyword);
+	
+	
 
 }

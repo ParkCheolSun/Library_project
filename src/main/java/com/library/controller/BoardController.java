@@ -19,20 +19,28 @@ public class BoardController {
 	private final BoardService boardService;
 
 	@GetMapping("/board/list")
-	public String getBoardListPage(Model model,@RequestParam(value="searchKeyword", required = false)String searchKeyword, 
+	public String getBoardListPage(Model model, @RequestParam(value = "kind", required = false) String kind,
+			@RequestParam(value = "searchKeyword", required = false) String searchKeyword,
 			@RequestParam(required = false, defaultValue = "0") Integer page,
 			@RequestParam(required = false, defaultValue = "10") Integer size) throws Exception {
-		
-		if(searchKeyword == null) {
 
-		try {
-			model.addAttribute("resultMap", boardService.findAll(page, size));
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
-		
-		}else {
-			model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+		if (searchKeyword == null) {
+
+			try {
+				model.addAttribute("resultMap", boardService.findAll(page, size));
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			}
+
+		} else {
+			String test2 = "제목";
+
+			if (test2.equals(kind) == true) {
+				model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+			} else {
+
+				model.addAttribute("resultMap", boardService.findByContentContaining(page, size, searchKeyword));
+			}
 		}
 		System.out.println(boardService.findAll(page, size));
 		return "board/list";
@@ -40,7 +48,7 @@ public class BoardController {
 
 	@GetMapping("/board/write")
 	public String getBoardWritePage(Model model, BoardRequestDto boardRequestDto) {
-		
+
 		return "board/write";
 	}
 

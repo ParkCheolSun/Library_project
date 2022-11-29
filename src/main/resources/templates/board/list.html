@@ -58,6 +58,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				
 							<tr>
 						</tbody>
+						
 					</table>
 					<div class="row">
 						<div class="col">
@@ -72,8 +73,18 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							</ul>
 						</div>
 					</div>
+					
 					<div class="search">
-		
+					<select id="comCd" name="kind" th:value="${kind}">
+					<option>전체</option>
+  <option th:selected="${kind}=='title'">제목</option>
+  <option th:selected="${kind}=='content'">내용</option>
+</select>
+		<!-- <select name ="type" class="type1">
+            	<option selected value="">전체</option>
+            	<option value = "title" >제목</option>
+            	<option value = "content">내용</option>
+        	</select> -->
         <input type="text" name="searchKeyword" class="text1">
         <button type="submit" class="submit1">검색</button>
     	</div>

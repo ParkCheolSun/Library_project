@@ -24,8 +24,7 @@ import lombok.ToString;
 public class Category {
 	@Id
 	@Column(name = "category_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long number;
+	private Long category_id;
 	
-	private String cName;
+	private String category_name;
 }

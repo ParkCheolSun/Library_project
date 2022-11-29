@@ -27,7 +27,6 @@ public class BoardService {
 
 	@Transactional
 	public boolean save(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest) throws Exception {
-
 		Board result = boardRepository.save(boardRequestDto.toEntity());
 
 		boolean resultFlag = false;

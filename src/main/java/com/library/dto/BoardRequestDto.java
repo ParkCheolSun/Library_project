@@ -36,6 +36,7 @@ public class BoardRequestDto {
 				.content(content)
 				.readCnt(readCnt)
 				.disclosure(disclosure)
+				.category(category)
 				.registerId(registerId)
 				.build();	
 	}

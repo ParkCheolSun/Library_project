@@ -126,6 +126,10 @@ public class BoardFileService {
 
 		return (files.size() == resultList.size()) ? true : false;
 	}
+	
+	public void deleteFiles(Long[] deleteIdList) throws Exception {
+		boardFileRepository.deleteByIdIn(deleteIdList);
+	}
 
 	public int updateDeleteYn(Long[] deleteIdList) throws Exception {
 		return boardFileRepository.updateDeleteYn(deleteIdList);

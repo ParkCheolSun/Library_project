@@ -12,12 +12,16 @@ let deleteFileIdArr = [];
 				$('.txt-title').attr('readonly', true);
 				$('.txt-register').attr('readonly', true);
 				$('.btn-update').css({"display" : "none"});
+				$('.btn-filedelete').css({"display" : "none"});
+				$('.btn-fileupdate').css({"display" : "none"});
 
 				$('.clear').click(function() {
 					$('.txt-content').attr('readonly', false)
 					$('.txt-title').attr('readonly', false);
 					$('.clear').fadeOut();
 					$('.btn-update').delay(1000).fadeIn();
+					$('.btn-filedelete').delay(1000).fadeIn();
+					$('.btn-fileupdate').delay(1000).fadeIn();
 				}); // 내용 readonly 해제
 			});
 		
@@ -125,8 +129,7 @@ let deleteFileIdArr = [];
 					},
 					submitHandler : function(form) {
 						if (deleteFileIdArr.length > 0) {
-							$
-									.ajax({
+							$.ajax({
 										url : "/file/delete.ajax",
 										type : "post",
 										data : {

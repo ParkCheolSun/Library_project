@@ -49,9 +49,9 @@
 				</div>
 			</div>
 			<div class="float-right mt-2">
-				<a class="btn btn-primary text-white"
+				<a class="btn btn-primary text-white btn-fileupdate"
 					href="javascript:fnAddFileDiv();">파일 추가</a> <a
-					class="btn btn-danger text-white" href="javascript:fnDelFileDiv();">파일
+					class="btn btn-danger text-white btn-fileupdate" href="javascript:fnDelFileDiv();">파일
 					삭제</a>
 			</div>
 			<th:block th:if="${test.fileList}">
@@ -59,7 +59,7 @@
 					<div class="mt-2">
 						<span th:text="${fileList.origFileName}">이름없음</span>
 						<a class="btn btn-dark" th:href="@{/file/download(id=${fileList.id})}">다운로드</a>
-						<button type="button" class="btn btn-danger"
+						<button type="button" class="btn btn-danger btn-filedelete"
 							th:onclick="fnFileDelete(this, [[${fileList.id}]])">파일삭제</button>
 					</div>
 				</div>

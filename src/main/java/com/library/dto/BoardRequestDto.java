@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BoardRequestDto {
 	private Long id;
-	private short blevel;
+	private Long blevel;			// Long 타입변경[2022-11-30]
 	private String title;
 	private String content;
 	private int readCnt;

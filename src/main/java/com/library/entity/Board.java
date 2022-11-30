@@ -38,7 +38,7 @@ public class Board extends BaseEntity {
 
 	@NotNull
 	@ColumnDefault("0")
-	private short blevel; // 깊이(댓글)
+	private Long blevel; // 깊이(댓글)		// Long 타입변경[2022-11-30]
 	
 	
 	@NotNull
@@ -55,14 +55,14 @@ public class Board extends BaseEntity {
 
 	@NotNull
 	@Column(nullable = false)
-	private Boolean disclosure = false; // 공개여부 String >> Boolean 타입변경[2022-11-22]
+	private Boolean disclosure = false; 	// 공개여부 String >> Boolean 타입변경[2022-11-22]
 
 	private String registerId; // 작성자
 
 	public boolean getDisclosure() {
 		if(disclosure == null)
 			disclosure = false;
-		return disclosure; // disclosure 체크를 하지 않았을 경우 false / 이외 true [2022-11-22]
+		return disclosure; 					// disclosure 체크를 하지 않았을 경우 false / 이외 true [2022-11-22]
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -74,7 +74,7 @@ public class Board extends BaseEntity {
 	private Category category;
 
 	@Builder
-	public Board(Long id, short blevel, String title, String content, int readCnt, Boolean disclosure, Member member,
+	public Board(Long id, Long blevel, String title, String content, int readCnt, Boolean disclosure, Member member,
 			String registerId) {
 		this.member = member;
 		this.id = id;

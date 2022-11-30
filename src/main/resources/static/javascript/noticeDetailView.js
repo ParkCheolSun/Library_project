@@ -15,6 +15,8 @@ let deleteFileIdArr = [];
 				$('.btn-filedelete').css({"display" : "none"});
 				$('.btn-fileupdate').css({"display" : "none"});
 				$('.custom-file-input').prop('disabled', true);
+				var content = $('.content_area').val();
+				$('#counter').html("(" + content.length + " / 500)");
 				
 				$('.clear').click(function() {
 					$('.txt-content').attr('readonly', false)
@@ -27,6 +29,23 @@ let deleteFileIdArr = [];
 					$('.custom-file-input').prop('disabled', false);
 					
 				}); // 내용 readonly 해제
+				
+				$('.content_area').keyup(function(e) {
+					var content = $(this).val();
+					$('#counter').html("(" + content.length + " / 500)"); //글자수 실시간 카운팅
+
+					if (content.length > 500) {
+						Swal.fire({
+							position : 'top-end',
+							icon : 'error',
+							title : "최대 500자까지 입력 가능합니다.",
+							showConfirmButton : false,
+							timer : 1500
+						});
+						$(this).val(content.substring(0, 500));
+						$('#counter').html("(500 / 최대 500자)");
+					}
+				});
 			});
 		
 

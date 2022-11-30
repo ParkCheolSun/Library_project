@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -45,6 +46,7 @@ public class Board extends BaseEntity {
 	@NotEmpty(message = "제목은 필수입니다.")
 	private String title; // 제목
 
+	@Column(length = 500)
 	private String content; // 내용
 
 //	private LocalDateTime cDate; // 작성날짜

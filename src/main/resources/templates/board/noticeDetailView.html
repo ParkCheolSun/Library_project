@@ -24,14 +24,15 @@
 		<div class="mb-3">
 			<label class="form-label font-weight-bold"><span
 				class="text-danger">* </span>제목</label> <input type="text"
-				class="form-control txt-title" name="title" th:value="${info.title}"
-				required>
+				class="form-control txt-title" name="title" th:value="${info.title}" maxlength="20"
+					placeholder="제목은 20자 이내로 작성해주세요." required>
 		</div>
 		<div class="mb-3">
 			<label class="form-label font-weight-bold"><span
 				class="text-danger">* </span>내용</label>
-			<textarea class="form-control txt-content" rows="5" name="content"
-				th:text="${info.content}" required></textarea>
+			<textarea class="form-control txt-content content_area" rows="5" name="content"
+				th:text="${info.content}" maxlength="500" placeholder="내용을 입력하세요."></textarea>
+				<span style="color: #aaa;" id="counter">(0 / 500)</span>
 		</div>
 		<div class="mb-3">
 			<label class="form-label font-weight-bold"><span

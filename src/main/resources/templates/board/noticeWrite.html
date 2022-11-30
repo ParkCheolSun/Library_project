@@ -12,8 +12,11 @@
 <meta id="_csrf_header" name="_csrf_header"
 	th:content="${_csrf.headerName}" />
 <link th:href="@{/css/noticeForm.css}" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <div id="noticewrite-container" layout:fragment="content">
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 	<script src="/javascript/noticeWrite.js"></script>
 	<h1>공지사항 작성</h1>
 	<form action="/board/noticeWrite/action" method="post"
@@ -21,11 +24,14 @@
 
 		<div class="mb-3">
 			<label class="form-label">제목</label> <input type="text"
-				class="form-control" id="" name="title">
+				class="form-control" id="" name="title" maxlength="20"
+					placeholder="제목은 20자 이내로 작성해주세요." required>
 		</div>
 		<div class="mb-3">
 			<label class="form-label">내용</label>
-			<textarea class="form-control" rows="5" cols="" name="content"></textarea>
+			<textarea class="form-control content_area" rows="5" cols="" name="content"
+			maxlength="500" placeholder="내용을 입력하세요."></textarea>
+			<span style="color: #aaa;" id="counter">(0 / 500)</span>
 		</div>
 		<div class="mb-3">
 			<label class="form-label">작성자</label><input type="text"

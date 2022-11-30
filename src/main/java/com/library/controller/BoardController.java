@@ -1,7 +1,5 @@
 package com.library.controller;
 
-import java.util.Optional;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Controller;
@@ -23,8 +21,30 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 
 	private final BoardService boardService;
-<<<<<<< HEAD
+	private final CategoryService categoryService;
 
+	@PostConstruct
+	private void createCategory() {
+		// 카테고리 DB 체크
+		boolean check = categoryService.findAll();
+		if (check)
+			return;
+		Category category = new Category();
+		category.setCategory_id(10l);
+		category.setCategory_name("공지사항");
+		categoryService.saveCategory(category);
+		
+		category = new Category();
+		category.setCategory_id(11l);
+		category.setCategory_name("자유게시판");
+		categoryService.saveCategory(category);
+		
+		category = new Category();
+		category.setCategory_id(12l);
+		category.setCategory_name("사진게시판");
+		categoryService.saveCategory(category);
+	}
+	
 	@GetMapping("/board/list")
 	public String getBoardListPage(Model model, @RequestParam(value = "kind", required = false) String kind,
 			@RequestParam(value = "searchKeyword", required = false) String searchKeyword,
@@ -51,44 +71,6 @@ public class BoardController {
 		}
 		System.out.println(boardService.findAll(page, size));
 		return "board/list";
-	}
-
-=======
-	private final CategoryService categoryService;
-
-	@PostConstruct
-	private void createCategory() {
-		// 카테고리 DB 체크
-		boolean check = categoryService.findAll();
-		if (check)
-			return;
-		Category category = new Category();
-		category.setCategory_id(10l);
-		category.setCategory_name("공지사항");
-		categoryService.saveCategory(category);
-		
-		category = new Category();
-		category.setCategory_id(11l);
-		category.setCategory_name("자유게시판");
-		categoryService.saveCategory(category);
-		
-		category = new Category();
-		category.setCategory_id(12l);
-		category.setCategory_name("사진게시판");
-		categoryService.saveCategory(category);
-	}
-
-	@GetMapping("/board/list")
-	public String getBoardListPage(Model model, @RequestParam(required = false, defaultValue = "0") Integer page,
-			@RequestParam(required = false, defaultValue = "5") Integer size) throws Exception {
-
-		try {
-			model.addAttribute("resultMap", boardService.findAll(page, size));
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
-
-		return "/board/list";
 	}
 
 	// 공지사항 리스트
@@ -185,7 +167,6 @@ public class BoardController {
 		return "redirect:/board/notice";
 	}
 
->>>>>>> Library_noticeBoard
 	@GetMapping("/board/write")
 	public String getBoardWritePage(Model model, BoardRequestDto boardRequestDto) {
 

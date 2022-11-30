@@ -16,3 +16,8 @@
 	padding-left: 50px;
 	padding-right: 50px;
 }
+
+.pagination {
+	width: 0px;
+	margin: auto;
+}

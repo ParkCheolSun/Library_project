@@ -116,7 +116,6 @@ public class BoardFileController {
 	@PostMapping("/file/delete.ajax")
 	public HashMap<String, Boolean> updateDeleteYn(Model model, BoardFileRequestDto boardFileRequestDto) throws Exception {
 		HashMap<String, Boolean> map = new HashMap<String, Boolean>();
-		System.out.println("boardFileRequestDto : " + boardFileRequestDto.getIdArr().length);
 		try {
 			boardFileService.deleteFiles(boardFileRequestDto.getIdArr());
 			map.put("result", true);

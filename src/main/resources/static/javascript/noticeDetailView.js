@@ -14,14 +14,18 @@ let deleteFileIdArr = [];
 				$('.btn-update').css({"display" : "none"});
 				$('.btn-filedelete').css({"display" : "none"});
 				$('.btn-fileupdate').css({"display" : "none"});
-
+				$('.custom-file-input').prop('disabled', true);
+				
 				$('.clear').click(function() {
 					$('.txt-content').attr('readonly', false)
 					$('.txt-title').attr('readonly', false);
 					$('.clear').fadeOut();
 					$('.btn-update').delay(1000).fadeIn();
+					$(".custom-file").attr('readonly', false)
 					$('.btn-filedelete').delay(1000).fadeIn();
 					$('.btn-fileupdate').delay(1000).fadeIn();
+					$('.custom-file-input').prop('disabled', false);
+					
 				}); // 내용 readonly 해제
 			});
 		
@@ -31,13 +35,13 @@ let deleteFileIdArr = [];
 		var fileListCnt = $(".fileList").length;
 
 		if (fileDivCnt+fileListCnt >= fileMaxCnt) {
-			alert("Can't add any more file.");
+			alert("파일은 최대 3개까지만 업로드가 가능합니다!");
 			return false;
 		}
 
 		var copyFileDiv = origFileDiv.clone(true);
 		copyFileDiv.find("input").val("");
-		copyFileDiv.find("label").text("Choose file");
+		copyFileDiv.find("label").text("파일 선택");
 		copyFileDiv.find("label").attr("for", "customFile" + fileDivCnt);
 		copyFileDiv.find("input").attr("id", "customFile" + fileDivCnt);
 		copyFileDiv.find("input").attr("name", "customFile" + fileDivCnt);
@@ -48,7 +52,7 @@ let deleteFileIdArr = [];
 
 	function fnDelFileDiv() {
 		if ($(".custom-file").length <= 1) {
-			alert("Can't Delete any more file.");
+			alert("더이상 삭제할 파일이 존재하지않습니다!");
 			return false;
 		}
 		$(".custom-file")[$(".custom-file").length - 1].remove();
@@ -63,9 +67,9 @@ let deleteFileIdArr = [];
 		let flag = true;
 
 		if (fileSize > fileMaxSize) {
-			alert("Attachments can be registered up to 10MB.");
+			alert("최대 10MB 파일만 업로드가 가능합니다.");
 		}  else if (($(".fileList").length + $(".custom-file-input").length) > 3) {
-			alert("Attachments can be registered up to 3 number.");
+			alert("파일은 최대 3개까지만 업로드가 가능합니다!");
 		} else {
 			flag = false;
 			$(obj).next("label").text(fileVal);
@@ -73,7 +77,7 @@ let deleteFileIdArr = [];
 
 		if (flag) {
 			$(obj).val("");
-			$(obj).next("label").text("Choose file");
+			$(obj).next("label").text("파일 선택");
 		}
 	}
 

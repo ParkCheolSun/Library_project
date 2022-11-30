@@ -64,13 +64,13 @@ public class BoardService {
 
 		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
 		resultMap.put("info", info);
+		
 		List<BoardFile> fileList = boardFileService.findByBoardId(info.getId());
-		System.out.println("fileList : " + fileList.get(0).getId());
 		if(!fileList.isEmpty()) {
-			//System.out.println("opTemp : " + opTemp.get());
+			resultMap.put("fileList", fileList);
+		} else {
+			resultMap.put("fileList", "empty");
 		}
-		resultMap.put("fileList", fileList);
-
 		return resultMap;
 	}
 

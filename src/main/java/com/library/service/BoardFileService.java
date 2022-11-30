@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
@@ -16,8 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.library.dto.BoardFileResponseDto;
+import com.library.entity.Board;
 import com.library.entity.BoardFile;
 import com.library.repository.BoardFileRepository;
+import com.library.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardFileService {
 
 	private final BoardFileRepository boardFileRepository;
+	private final BoardRepository boardRepository;
 
 	public BoardFileResponseDto findById(Long id) throws Exception {
 		return new BoardFileResponseDto(boardFileRepository.findById(id).get());
@@ -115,7 +117,7 @@ public class BoardFileService {
 					// 이용해서 업로드처리한다.
 					mFile.transferTo(saveFile);
 				}
-
+				
 				BoardFile boardFile = BoardFile.builder().boardId(boardId).origFileName(realFileName)
 						.saveFileName(saveFileName).fileSize(fileSize).fileExt(fileExt).filePath(filePath).deleteYn("N")
 						.build();
@@ -135,7 +137,7 @@ public class BoardFileService {
 		return boardFileRepository.updateDeleteYn(deleteIdList);
 	}
 
-	public int deleteBoardFileYn(Long[] boardIdList) throws Exception {
-		return boardFileRepository.deleteBoardFileYn(boardIdList);
+	public void deleteBoardFileYn(Long[] boardIdList) throws Exception {
+		boardFileRepository.deleteByBoardIdIn(boardIdList);
 	}
 }

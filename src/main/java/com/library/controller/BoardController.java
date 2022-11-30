@@ -113,7 +113,6 @@ public class BoardController {
 	// 공지사항 세부사항 보기
 	@GetMapping("/board/noticeDetailView")
 	public String noticeBoardDetailView(Model model, BoardRequestDto boardRequestDto) throws Exception {
-		System.out.println(boardRequestDto.getId());
 		try {
 			if (boardRequestDto.getId() != null) {
 				model.addAttribute("test", boardService.findById(boardRequestDto.getId()));

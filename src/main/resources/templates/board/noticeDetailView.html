@@ -14,12 +14,12 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <div id="noticedetailview-container" layout:fragment="content">
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="/javascript/noticeDetailView.js"></script>
 	<h1>게시판 상세보기</h1>
 	<form id="frm" action="/board/noticeDetailView/action" method="post"
 		th:with="info=${test.info}" enctype="multipart/form-data">
-		<script
-			src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-		<script src="/javascript/noticeDetailView.js"></script>
 		<input type="hidden" name="id" th:value="${info.id}">
 		<div class="mb-3">
 			<label class="form-label font-weight-bold"><span
@@ -55,14 +55,12 @@
 					삭제</a>
 			</div>
 			<th:block th:if="${test.fileList}">
-				<div class="fileList mt-3" th:each="id : ${test.fileList}">
-					<img alt="image file" style="width: 50%"
-						class="form-control img-thumbnail mt-3"
-						th:src="@{/file/download(id=${id})}">
+				<div class="fileList mt-3" th:each="fileList : ${test.fileList}">
 					<div class="mt-2">
-						<a class="btn btn-dark" th:href="@{/file/download(id=${id})}">내려받기</a>
+						<span th:text="${fileList.origFileName}">이름없음</span>
+						<a class="btn btn-dark" th:href="@{/file/download(id=${fileList.id})}">다운로드</a>
 						<button type="button" class="btn btn-danger"
-							th:onclick="fnFileDelete(this, [[${id}]])">파일삭제</button>
+							th:onclick="fnFileDelete(this, [[${fileList.id}]])">파일삭제</button>
 					</div>
 				</div>
 			</th:block>

@@ -8,9 +8,11 @@
 <meta id="_csrf_header" name="_csrf_header"
 	th:content="${_csrf.headerName}" />
 <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link th:href="@{/css/noticeForm.css}" rel="stylesheet">
 </head>
 <div id="notice-wrapper" layout:fragment="content">
+	<script src="/javascript/noticeListView.js"></script>
 	<div class="notice-container">
 		<h1>공지사항</h1>
 		<form action="/board/list" id="frm" method="get">
@@ -56,7 +58,7 @@
 								th:each="index : ${#numbers.sequence(1, resultMap.totalPage)}"
 								th:with="paging=${resultMap.paging}"><a class="page-link"
 								th:classappend="${paging.pageNumber ==  (index-1)} ? bg-primary : bg-secondary"
-								th:href="@{./notice(page=${index - 1},page=${paging.pageSize})}"
+								th:href="@{./notice(page=${index - 1})}"
 								th:if="${index != 0}">
 									<span class="text-white" th:text="${index}"></span>
 							</a></li>
@@ -69,44 +71,4 @@
 		</form>
 	</div>
 </div>
-<!--부트스트랩 js, jquery 추가-->
-<script src="/javascript/lib/jquery.min.js"></script>
-<script src="/javascript/lib/bootstrap.min.js"></script>
-<script>
-	// header checkbox event
-	$("#chkAll").click(function() {
-		if (this.checked) {
-			$("input[name='deleteId']").prop("checked", true);
-		} else {
-			$("input[name='deleteId']").prop("checked", false);
-		}
-	});
-
-	// body checkbox event
-	$("input[name='deleteId']").click(function() {
-		let delInpLen = $("input[name='deleteId']").length;
-		let delInpChkLen = $("input[name='deleteId']:checked").length;
-
-		if (delInpLen == delInpChkLen) {
-			$("#chkAll").prop("checked", true);
-		} else {
-			$("#chkAll").prop("checked", false);
-		}
-	});
-
-	function fnDelete() {
-		let delInpChkLen = $("input[name='deleteId']:checked").length;
-
-		if (delInpChkLen > 0) {
-			if (confirm("삭제하시겠습니까?")) {
-				let frm = $("#frm");
-				frm.attr("action", "/board/delete");
-				frm.attr("method", "post");
-				frm.submit();
-			}
-		} else {
-			alert("선택된 게시글이 없습니다.");
-		}
-	}
-</script>
 </html>

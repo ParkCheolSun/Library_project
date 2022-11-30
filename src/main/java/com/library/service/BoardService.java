@@ -1,6 +1,7 @@
 package com.library.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -10,10 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-
 import com.library.dto.BoardRequestDto;
 import com.library.dto.BoardResponseDto;
 import com.library.entity.Board;
+import com.library.entity.BoardFile;
 import com.library.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -62,10 +63,13 @@ public class BoardService {
 		boardRepository.updateBoardReadCntInc(id);
 
 		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
-		System.out.println("member : " + info.getMember());
-
 		resultMap.put("info", info);
-		resultMap.put("fileList", boardFileService.findByBoardId(info.getId()));
+		List<BoardFile> fileList = boardFileService.findByBoardId(info.getId());
+		System.out.println("fileList : " + fileList.get(0).getId());
+		if(!fileList.isEmpty()) {
+			//System.out.println("opTemp : " + opTemp.get());
+		}
+		resultMap.put("fileList", fileList);
 
 		return resultMap;
 	}

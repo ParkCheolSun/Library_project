@@ -23,8 +23,11 @@ public interface BoardFileRepository extends JpaRepository<BoardFile, Long> {
 			+ "SET DELETE_YN = 'Y' "
 			+ "WHERE BOARD_ID IN (:boardIdList)";
 	
-	@Query(value = SELECT_FILE_ID, nativeQuery = true)
-	public List<Long> findByBoardId(@Param("boardId") Long boardId);
+	/*
+	 * @Query(value = SELECT_FILE_ID, nativeQuery = true) public List<Long>
+	 * findByBoardId(@Param("boardId") Long boardId);
+	 */
+	List<BoardFile> findByBoardId(@Param("boardId") Long boardId);
 	
 	@Transactional
 	@Modifying

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class BoardFileService {
 		return new BoardFileResponseDto(boardFileRepository.findById(id).get());
 	}
 
-	public List<Long> findByBoardId(Long boardId) throws Exception {
+	public List<BoardFile> findByBoardId(Long boardId) throws Exception {
 		return boardFileRepository.findByBoardId(boardId);
 	}
 

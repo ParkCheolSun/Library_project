@@ -1,12 +1,13 @@
 
 let frm = $("#frm");
-let $origFileDiv = $(".custom-file");
+let origFileDiv;
 let fileMaxCnt = 3, fileMaxSize = 10485760, fileAllowExt = [
 						"jpg", "jpeg", "png", "gif" ];
 let deleteFileIdArr = [];
 				
-$(document).ready(
+	$(document).ready(
 			function() {
+				origFileDiv = $(".custom-file");
 				$('.txt-content').attr('readonly', true);
 				$('.txt-title').attr('readonly', true);
 				$('.txt-register').attr('readonly', true);
@@ -16,28 +17,29 @@ $(document).ready(
 					$('.txt-content').attr('readonly', false)
 					$('.txt-title').attr('readonly', false);
 					$('.clear').fadeOut();
-					$('.btn-update').fadeIn();
+					$('.btn-update').delay(1000).fadeIn();
 				}); // 내용 readonly 해제
 			});
+		
 
 	function fnAddFileDiv() {
-		console.log("file add div");
-		let fileDivCnt = $(".custom-file").length;
+		var fileDivCnt = $(".custom-file").length;
+		var fileListCnt = $(".fileList").length;
 
-		if (fileDivCnt >= fileMaxCnt) {
+		if (fileDivCnt+fileListCnt >= fileMaxCnt) {
 			alert("Can't add any more file.");
 			return false;
 		}
 
-		let $copyFileDiv = $origFileDiv.clone(true);
+		var copyFileDiv = origFileDiv.clone(true);
+		copyFileDiv.find("input").val("");
+		copyFileDiv.find("label").text("Choose file");
+		copyFileDiv.find("label").attr("for", "customFile" + fileDivCnt);
+		copyFileDiv.find("input").attr("id", "customFile" + fileDivCnt);
+		copyFileDiv.find("input").attr("name", "customFile" + fileDivCnt);
+		console.log("copyFileDiv : " + copyFileDiv.html());
 
-		$copyFileDiv.find("input").val("");
-		$copyFileDiv.find("label").text("Choose file");
-		$copyFileDiv.find("label").attr("for", "customFile" + fileDivCnt);
-		$copyFileDiv.find("input").attr("id", "customFile" + fileDivCnt);
-		$copyFileDiv.find("input").attr("name", "customFile" + fileDivCnt);
-
-		$("#fileDiv").append($copyFileDiv);
+		$("#fileDiv").append(copyFileDiv);
 	}
 
 	function fnDelFileDiv() {
@@ -56,11 +58,9 @@ $(document).ready(
 				fileVal.length);
 		let flag = true;
 
-		if (fileAllowExt.indexOf(fileExt.toLowerCase()) < 0) {
-			alert("It is not a registrable extension.");
-		} else if (fileSize > fileMaxSize) {
+		if (fileSize > fileMaxSize) {
 			alert("Attachments can be registered up to 10MB.");
-		} else if (($(".fileList").length + $(".custom-file-input").length) > 3) {
+		}  else if (($(".fileList").length + $(".custom-file-input").length) > 3) {
 			alert("Attachments can be registered up to 3 number.");
 		} else {
 			flag = false;

@@ -63,7 +63,7 @@ public class BoardController {
 	// 공지사항 리스트
 	@GetMapping("/board/notice")
 	public String noticeBoardList(Model model, @RequestParam(required = false, defaultValue = "0") Integer page,
-			@RequestParam(required = false, defaultValue = "5") Integer size) throws Exception {
+			@RequestParam(required = false, defaultValue = "10") Integer size) throws Exception {
 
 		try {
 			model.addAttribute("resultMap", boardService.findAll(page, size));
@@ -78,6 +78,19 @@ public class BoardController {
 	@GetMapping("/board/noticeWrite")
 	public String noticeBoardWrite(Model model, BoardRequestDto boardRequestDto) {
 		return "board/noticeWrite";
+	}
+	
+	// 공지사항 삭제
+	@PostMapping("/board/notice/delete")
+	public String noticeBoardDelete(Model model, @RequestParam() Long[] deleteId) throws Exception {
+
+		try {
+			boardService.deleteAll(deleteId);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+		return "redirect:/board/notice";
 	}
 
 	// 공지사항 작성 완료
@@ -139,7 +152,7 @@ public class BoardController {
 			throw new Exception(e.getMessage());
 		}
 
-		return "redirect:/board/list";
+		return "redirect:/board/notice";
 	}
 
 	@GetMapping("/board/write")

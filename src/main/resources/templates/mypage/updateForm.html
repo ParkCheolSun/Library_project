@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<meta charset="UTF-8">
+<link rel='stylesheet'
+	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+
+<link rel="stylesheet" th:href="@{/css/signUpForm.css}">
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+
+
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<div class="section" layout:fragment="content">
+
+
+
+
+
+
+	<script src="/javascript/updateForm.js"></script>
+
+
+
+	<c:if test="${signIn==null}">
+		<div>
+			<h1 class="text-dark text-center">
+				회원 정보 수정 <br>페이지입니다.
+			</h1>
+			<p class="text-center">
+				<span>로그인 후 사용하여 주시면 감사하겠습니다.</span>
+			</p>
+		</div>
+
+	</c:if>
+
+	<section class="bg-light">
+		<div class="container py-4">
+
+			<c:if test="${signIn!=null}">
+				<form action="updateMembers.do" method="post">
+
+					<div class="form-group">
+						<label for="exampleInputEmail1" class="form-label mt-4">아이디</label>
+						<input type="text" class="form-control" id="mb_id" readonly>
+					</div>
+
+
+
+					<div class="form-group has-success">
+						<label class="form-label mt-4" for="inputValid">비밀번호</label> <input
+							type="password" class="form-control" id="mb_pwd1" name="mb_pwd">
+						<div class="valid-feedback"></div>
+					</div>
+
+					<div class="form-group has-danger">
+						<label class="form-label mt-4" for="inputInvalid">비밀번호 재확인</label>
+						<input type="password" class="form-control" id="mb_pwd2">
+						<div>
+							<font id="pwd_feedback" size="2"></font>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="mb_email" class="form-label mt-4">본인 확인 이메일</label> <input
+							type="email" class="form-control" name="mb_email">
+
+					</div>
+
+					<div class="form-group">
+						<label for="mb_sex" class="form-label mt-4">성별</label> <select
+							class="form-select" name="mb_gender">
+							<option value="" selected disabled hidden>성별</option>
+							<option value="남자">남자</option>
+							<option value="여자">여자</option>
+						</select>
+					</div>
+
+					<div class="d-grid gap-2">
+						<button class="btn btn-primary btn-lg" type="submit">수정</button>
+						<button type="button" class="btn btn-primary btn-lg"
+							onclick="location.href='login.do'">목록으로</button>
+					</div>
+
+
+				</form>
+			</c:if>
+
+
+		</div>
+	</section>
+</div>
+
+</html>

@@ -107,4 +107,24 @@ public class MenuController {
 		System.out.println("도서관 소식");
 		return "redirect:/";
 	}
+
+	// 마이페이지
+	@GetMapping(value = "header/bookLoanReturn")
+	public String bookLoanReturn(Model model) {
+		return "mypage/bookLoanReturn";
+	}
+	
+	@GetMapping(value = "header/bookHope")
+	public String bookHope(Model model) {
+		return "mypage/bookHope";
+	}
+	
+	@GetMapping(value = "header/application")
+	public String application(Model model) {
+		return "mypage/application";
+	}	
+	@GetMapping(value = "header/applicationPage1")
+	public String applicationPage1(Model model) {
+		return "mypage/ applicationPage1";
+	}	
 }

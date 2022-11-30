@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/contents.css}">
+<link rel="stylesheet" th:href="@{/css/application.css}">
+</head>
+<div layout:fragment="content">
+	<div class="intro-wapper">
+		<section id="content">
+			<section class="content_info">
+				<h3 class="title">수강 신청</h3>
+			</section>
+
+			<div style="padding: 10px 15px; margin-bottom: 10px; background-color: #f5f5f5;">
+				<span style="font-weight: bold;">&middot;해당 강좌명을 클릭하면 강좌 상세내용을 확인할 수 있습니다.<br /></span> 
+				<span style="font-weight: bold;">&middot;접수는 서버 시각을 기준으로 합니다.<br />&middot;새로고침 하셔서 
+				<span style="color: #3250a4;">현재시각</span>을 조회하세요.
+				(<span style="color: #3250a4;">새로고침</span>은 F5키를 누르시면 됩니다.)</span> 
+				<span style="padding-left: 10px">&middot;현재 서버 시각 :
+				 <span	style="color: red">2022-11-28 11:16:41.0</span></span><br />
+
+			</div>
+
+			<div class="appt_top">
+				<form name="srhForm" method="post" action="/lecture.es?mid=b40402000000">
+					<input type="hidden" name="actionUrl" value="/lecture.es" /> 
+					<input type="hidden" name="nPage" value="" /> 
+					<input type="hidden" name="mid" value="b40402000000" /> 
+					<input type="hidden" name="act" value="list" />
+
+					<fieldset>
+						<select class="formLineSel" name="selYear" id="selYear" title="년도를 선택하세요">
+							<option value="" selected="selected">년도 전체</option>
+							<option value="2022">2022</option>
+							<option value="2021">2021</option>
+							<option value="2020">2020</option>
+							<option value="2019">2019</option>
+							<option value="2018">2018</option>
+							<option value="2017">2017</option>
+							<option value="2016">2016</option>
+							<option value="2015">2015</option>
+							<option value="2014">2014</option>
+							<option value="2013">2013</option>
+						</select> 
+						<select class="formLineSel" name="selQuarter" id="selQuarter" title="분기를 선택하세요">
+							<option value="" selected="selected">분기 전체</option>
+							<option value="SEAS001">봄</option>
+							<option value="SEAS002">여름</option>
+							<option value="SEAS003">가을</option>
+							<option value="SEAS004">겨울</option>
+						</select> 
+						<input name="keyWord" title="검색할 내용을 입력하세요" class="textbox" type="text" size="20" value="">
+						<button class="Btn-Gray Xs" onclick="goPage('1'); return false;" type="submit">검색</button>
+					</fieldset>
+				</form>
+			</div><br />
+			<table class="tstyle_list">
+				<colgroup>
+					<col />
+					<col width="130px" />
+					<col width="180px" />
+					<col width="150px" />
+					<col width="80px" />
+					<col width="50px" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th>강좌명</th>
+						<th>대상</th>
+						<th>운영기간</th>
+						<th>인터넷접수</th>
+						<th><span class="edu-state01">신청</span>/<spanclass="color-pink font13">정원</span><br />(대기인원)</th>
+						<th>상태</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="header/applicationPage1"  target='_blank'>전래놀이A</a>
+						</td>
+						
+						
+					
+
+						<td>
+							<!-- 대상 --> 6~7세
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-08-03 ~<br />2022-08-24 <br />
+							<!-- 시간 --> 수 16:00 ~ 17:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-15 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">0</span> / <span
+							class="edu-state02">8</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">전래놀이B</a>
+						</td>
+						<td>
+							<!-- 대상 --> 초등1~6학년
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-08-03 ~<br />2022-08-24 <br />
+							<!-- 시간 --> 수 11:00 ~ 12:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-15 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">0</span> / <span
+							class="edu-state02">8</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">초등 종이접기</a>
+						</td>
+						<td>
+							<!-- 대상 --> 초등3~4학년
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-08-05 ~<br />2022-08-26 <br />
+							<!-- 시간 --> 금 11:00 ~ 12:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-07 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">12</span> / <span
+							class="edu-state02">8</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">2</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">피부관리</a>
+						</td>
+						<td>
+							<!-- 대상 --> 중·고등학생
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-08-04 ~<br />2022-08-25 <br />
+							<!-- 시간 --> 목 14:00 ~ 16:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-15 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">1</span> / <span
+							class="edu-state02">10</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">리딩푸드</a>
+						</td>
+						<td>
+							<!-- 대상 --> 6~7세
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-09-23 ~<br />2022-11-11 <br />
+							<!-- 시간 --> 금 16:00 ~ 17:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-29 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">4</span> / <span
+							class="edu-state02">10</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">초등미술</a>
+						</td>
+						<td>
+							<!-- 대상 --> 초등1~6학년
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-09-20 ~<br />2022-11-08 <br />
+							<!-- 시간 --> 화 15:00 ~ 17:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-29 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">7</span> / <span
+							class="edu-state02">10</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">보드게임</a>
+						</td>
+						<td>
+							<!-- 대상 --> 초등1~6학년
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-09-24 ~<br />2022-11-12 <br />
+							<!-- 시간 --> 토 10:00 ~ 11:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-29 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">3</span> / <span
+							class="edu-state02">10</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">서양화(초급)</a>
+						</td>
+						<td>
+							<!-- 대상 --> 일반
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-09-21 ~<br />2022-11-09 <br />
+							<!-- 시간 --> 수 14:00 ~ 16:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-29 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">8</span> / <span
+							class="edu-state02">15</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">서양화(중급)</a>
+						</td>
+						<td>
+							<!-- 대상 --> 일반
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-09-21 ~<br />2022-11-09 <br />
+							<!-- 시간 --> 수 10:00 ~ 12:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-29 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">8</span> / <span
+							class="edu-state02">15</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a
+							href="">오행기공 	태극권(야간)</a>
+						</td>
+						<td>
+							<!-- 대상 --> 일반
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-09-21 ~<br />2022-11-09 <br />
+							<!-- 시간 --> 수 19:00 ~ 20:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-29 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">14</span> / <span
+							class="edu-state02">15</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">프랑스 	자수(초급)</a>
+						</td>
+						<td>
+							<!-- 대상 --> 일반
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-09-22 ~<br />2022-11-10 <br />
+							<!-- 시간 --> 목 14:00 ~ 16:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-29 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">1</span> / <span
+							class="edu-state02">15</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">프랑스 	자수(중급)</a>
+						</td>
+						<td>
+							<!-- 대상 --> 일반
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-09-22 ~<br />2022-11-10 <br />
+							<!-- 시간 --> 목 10:00 ~ 12:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-29 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">8</span> / <span
+							class="edu-state02">15</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">스피치(심화)</a>
+						</td>
+						<td>
+							<!-- 대상 --> 일반
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-07-06 ~<br />2022-07-27 <br />
+							<!-- 시간 --> 수 19:00 ~ 21:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-04 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">7</span> / <span
+							class="edu-state02">10</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">3</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+					<tr>
+						<td scope="row" class="txt_left t_title">
+							<!-- 강좌명 --> <a href="">인형극(동아리)</a>
+						</td>
+						<td>
+							<!-- 대상 --> 일반
+						</td>
+						<td>
+							<!-- 운영기간 -->2022-07-12 ~<br />2022-11-22 <br />
+							<!-- 시간 --> 화 10:00 ~ 13:00
+						</td>
+						<td>
+							<!-- 인터넷접수 -->2022-06-28 10:00 ~<br />2022-07-07 18:00
+						</td>
+						<td>
+							<!-- 신청현황 --> <span class="edu-state01">11</span> / <span
+							class="edu-state02">10</span> <br /> ( <span class="edu-state01">0</span>
+							/ <span class="edu-state02">0</span> )
+						</td>
+						<td>
+							<!-- 상태 --> <!-- 상태 --> <span class="w_close">마감</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div class="board_pager"><span class="inner">
+
+
+
+		<a href="/lecture.es?mid=b40402000000&amp;nPage=1" class="first" onclick="goPage('1'); return false;"><img alt="첫페이지" src="https://yalib.jne.go.kr/upload/skin/board/basic/btn_page_first.gif"></a>
+		<a href="/lecture.es?mid=b40402000000&amp;nPage=1" class="pre" onclick="goPage('1'); return false;"><img alt="이전페이지" src="https://yalib.jne.go.kr/upload/skin/board/basic/btn_page_pre.gif"></a>
+<a class="pageNow" href="/lecture.es?mid=b40402000000&amp;nPage=1" onclick="goPage('1'); return false;">1</a>
+		<a href="/lecture.es?mid=b40402000000&amp;nPage=1" class="next" onclick="goPage('1'); return false;"><img alt="다음페이지" src="https://yalib.jne.go.kr/upload/skin/board/basic/btn_page_next.gif"></a>
+		<a href="/lecture.es?mid=b40402000000&amp;nPage=1" class="last" onclick="goPage('1'); return false;"><img alt="마지막페이지" src="https://yalib.jne.go.kr/upload/skin/board/basic/btn_page_last.gif"></a>
+
+</span></div>
+	</div>
+</div>
+</html>

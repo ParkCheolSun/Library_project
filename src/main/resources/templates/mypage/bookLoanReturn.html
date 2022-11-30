@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/contents.css}">
+<link rel="stylesheet" th:href="@{/css/bookLoanReturn.css}">
+</head>
+
+<div layout:fragment="content">
+	<div class="intro-wapper">
+	
+	
+	
+	
+	
+<div class="res_page">
+  <div class="info_box">
+    <p>인터넷으로 도서를 예약하고 도서관 업무시간 외에도 도서를 대출할 수 있는 무인대출시스템으로</p>
+<p><span class="str01">"자료검색-소장자료검색"에서 원하는 도서를 검색 후 예약이 가능</span>합니다.</p>
+<p><span class="str02">(※ 문화정보도서관 소장도서만 신청 가능)</span></p>
+  </div>
+
+  <h4>이용안내</h4>
+  <div class="ct_box">
+    <h5 class="t01">이용대상 : 광주남구통합도서관 회원증 발급 회원</h5>
+    <h5 class="t01">신청가능 : 1인 2권 / 14일</h5>    
+    <h5 class="t01">대출방법<br>
+        <div>- 대출장소 : 무인예약대출반납기(남구문화정보도서관 1층 출입구)<br>
+            <strong class="str">- 대출요일 : 신청한 다음날(월요일, 공휴일 제외)<br>
+                    - 이용시간 : 5시 ~ 23시<br></strong>
+            </div><br>
+            <table class="tb01">
+              <thead>
+                <tr>
+                  <th>신청</th>
+                  <th>수령시간</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>토/일/월요일</td>
+                  <td>화요일 15시 ~ 수요일 14시</td>
+                </tr>
+                <tr>
+                  <td>화요일</td>
+                  <td>수요일 15시 ~ 목요일 14시</td>
+                </tr>
+                <tr>
+                  <td>수요일</td>
+                  <td>목요일 15시 ~ 금요일 14시</td>
+                </tr>
+                <tr>
+                  <td>목요일</td>
+                  <td>금요일 15시 ~ 토요일 14시</td>
+                </tr>
+                <tr>
+                  <td>금요일</td>
+                  <td>토요일 15시 ~ 일요일 14시</td>
+                </tr>
+              </tbody>
+            </table>
+           </div></h5>
+    <h5 class="t01">반납방법<br> - 무인예약대출반납기 또는 문화정보, 푸른길, 청소년도서관 자료실(즉시 반납처리)<br></h5>
+          <h6>※ 기기 옆 일반반납함에 넣으신 도서는 일괄수거 후 반납 처리(연체 가능성 주의)<br>
+          		 ※ 남구공공도서관 3개관 외의 도서는 무인반납, 일반반납함 이용 불가! 자료실에서 반납가능</h6>
+  </div>
+
+  <h4>주의사항</h4>
+  <div class="ct_box">
+      <h5 class="t01">도서대출 시 신청자의 회원증 및 모바일회원증과 카드비밀번호(4자리) 입력이 필요합니다.<br>비밀번호 초기화는 도서관으로 문의 바랍니다.</h5>
+      <h5 class="t01">대출가능 권수 초과(1인 5권) 또는 대출정지 상태인 경우 대출이 제한될 수 있습니다.</h5>
+      <h5 class="t01">연체 시 연체일 수 만큼 대출이 정지됩니다.</h5>
+  </div>
+
+
+  <h4>신청이 되지 않는 경우</h4>
+  <div class="ct_box">
+      <h5 class="t01">신청도서가 대출중이거나 예약중인 경우</h5>
+      <h5 class="t01">대출불가 자료(부록자료/정기간행물 등)</h5>
+      <h5 class="t01">무인예약대출반납기 이용 가능권수(2권)을 초과하여 신청하는 도서</h5>
+      <h5 class="t01">신청자가 도서 연체·반납 등으로 대출정지 중인 경우</h5>
+      <h5 class="t01">기계의 수용 한도 초과 시(36명)</h5>
+  </div>
+
+  <h4>이용방법(대출)</h4>
+  <div class="product-list">
+			<a href="#" class="product"> 
+			<img src="https://lib.namgu.gwangju.kr/img/sub/reserv_img01.jpg"width="300" alt="대출하기" />
+				<div class="product-name">
+				1.메인 화면에서 도서대출버튼을 누릅니다.
+				</div>
+			</a>
+		</div>
+
+		<div class="product-list">
+			<a href="#" class="product"> 
+			<img src="https://lib.namgu.gwangju.kr/img/sub/reserv_img02.jpg" width="300" alt="대출하기" />
+				<div class="product-name">
+					2.회원인증 : 그림과 같이 회원카드 또는 <br>모바일 회원증으로 인증받습니다.
+				</div>
+			</a>
+		</div>
+
+		<div class="product-list">
+			<a href="#" class="product"> 
+			<img src="https://lib.namgu.gwangju.kr/img/sub/reserv_img03.jpg" width="300" alt="대출하기" />
+				<div class="product-name">
+					3.예약목록 확인 : 예약하신 목록을 확인하신 후 <br>확인 버튼을 눌러주십시오.
+				</div>
+			</a>
+		</div>
+
+		<div class="product-list">
+			<a href="#" class="product"> 
+			<img src="https://lib.namgu.gwangju.kr/img/sub/reserv_img04.jpg" width="300" alt="대출하기" />
+				<div class="product-name">
+					4.예약자료 대출 : 보관함의 문이 열리면 해당<br> 도서를 수령 후 보관함 문을 닫아 주십시오.<br>
+					영수증 출력을 누르면 영수증 발급 후 대출이 완료되면 <br>대출완료를 누르면 영수증 발급 없이 대출이
+					완료됩니다.
+				</div> <br> <br> <br> <br> <br> <br>
+			</a>
+		</div>
+
+
+
+ <h4>이용방법(반납)</h4>
+		<div class="product-list">
+			<a href="#" class="product"> 
+			<img src="https://lib.namgu.gwangju.kr/img/sub/reserv_img05.jpg" width="300" alt="반납하기" />
+				<div class="product-name">
+				1.메인 화면에서 도서반납 버튼을 누릅니다.
+				</div>
+			</a>
+		</div>
+
+		<div class="product-list">
+			<a href="#" class="product">
+			<img src="https://lib.namgu.gwangju.kr/img/sub/reserv_img06.jpg" width="300" alt="반납하기" />
+				<div class="product-name">
+				2.위 그림과 같이 반납 할 도서를 한권만 인식 시킵니다.
+				</div>
+			</a>
+		</div>
+
+		<div class="product-list">
+			<a href="#" class="product"> 
+			<img src="https://lib.namgu.gwangju.kr/img/sub/reserv_img07.jpg" width="300" alt="반납하기" />
+				<div class="product-name">
+					3.도서를 인식시키면 위 그림과 같이 투입할<br> 도서 정보가 표시되면 도서 투입구가 열리면<br>
+					인식 시킨 도서를 도서 투입구에 투입합니다.
+				</div>
+			</a>
+		</div>
+    </div>
+
+	</div>
+
+</html>

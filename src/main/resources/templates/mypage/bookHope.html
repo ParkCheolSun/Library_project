@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/contents.css}">
+<link rel="stylesheet" th:href="@{/css/bookHope.css}">
+</head>
+
+<div layout:fragment="content">
+	<div class="intro-wapper">	
+	<div class="conTitle">
+	 	<h3>희망도서신청</h3>
+    </div>
+    
+    
+    <h4 class="mt0">희망도서 신청안내</h4>
+
+    <h5>신청자격</h5>
+    <ul class="h6_ul">
+        <li>도서관 회원증을 발급받은 회원만 신청이 가능합니다.</li>
+        <li>희망도서는 1주일 동안 1인 2권까지 신청가능합니다.</li>
+    </ul>
+
+    <h5 class="mt25">신청방법</h5>
+    <ul class="h6_ul">
+        <li>남구통합도서관 로그인 -&gt; 정보검색 -&gt; 희망도서신청 클릭</li>
+        <li>홈페이지 좌측 사이드 메뉴 -&gt; 마이페이지 클릭 -&gt; 희망도서신청 클릭</li>
+    </ul>
+
+    <h5 class="mt25">희망도서 선정제외 기준</h5>
+    <ul class="h6_ul">
+        <li>소장도서, 구입&middot;정리중인 도서, 중복신청된 도서 </li>
+        <li>서지정보 불명확한 경우, 미출간, 품절 및 절판 도서 </li>
+        <li>자료의 형태가 부적합한 도서 : 스프링도서, 퍼즐북, 스티커북, 팝업북, 소책자 등</li>
+        <li>각종 수험서, 학습참고서, 문제집, 교과서, 학교 교재 등 개인 학습서, 특정 분야의 전문적인 도서</li>
+        <li>판타지, 인터넷소설, 무협지, 로맨스, 선정적·폭력적인 도서, 만화류, 게임가이드북 등<br />(단, 문학적 가치가 인정되는 소설 및 교양만화는 선정 가능)</li>
+        <li>고가의 도서(한 권당 40,000원 초과 도서) 및 해외주문도서(직수입원서)</li>
+        <li>3권 이상의 시리즈, 전집류  </li>
+        <li>최신성이 떨어지는 도서(희망도서 신청시 발행된 지 5년 이상 된 도서)</li>
+        <li>유사자료가 다수 소장되어 있는 경우</li>
+        <li>기타 공공도서관의 목적에 위배되는 도서</li>
+    </ul>
+
+    <h5 class="mt25">신청도서 처리</h5>
+    <ul class="h6_ul">
+        <li>신청도서가 선정절차를 거쳐 구입되어 이용되기까지는 2~3주 간의 시간소요</li>
+        <li>신청결과는 홈페이지(마이페이지)에서 확인할 수 있습니다.</li>
+        <li>자료실 비치후 이용가능시점에 SMS 전송(개인정보제공 동의한 경우)</li>
+        <li>홈페이지 희망도서신청화면에 소장도서로 표기하여 비치 안내</li>
+        <li>신청자는 비치일 기준 일주일간 우선 대출 가능 합니다.</li>
+    </ul>
+
+    <h5 class="mt25">유의사항</h5>
+    <ul class="h6_ul">
+        <li>도서정보가 부정확할 경우 구입 지연 또는 구입불가 처리될 수도 있습니다.</li>
+        <li>고가의 도서, 해외주문도서(직수입 원서), 비도서(전자책, 정기간행물, DVD 등), 전집(시리즈) 등은 신청사유(비고)란에 ‘정기구입요청’이라고 기재하시면 도서 정기구입시 자료선정실무자회의 심의를 통해 구입여부를 결정합니다.</li>
+        <li>비도서 희망도서 신청시 신청사유(비고)란에 “전자책(또는 정기간행물, DVD 등)” 기재해 주시기 바랍니다.</li>
+    </ul>
+
+    <h5 class="mt25">희망도서 신청</h5>
+    <ul class="h6_ul">
+        <li><strong class="cl_orange">예산 소진시 까지</strong></li>                                
+    </ul>
+    
+    
+	
+	</div>
+</div>
+
+</html>

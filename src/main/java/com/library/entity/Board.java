@@ -74,8 +74,13 @@ public class Board extends BaseEntity {
 	private Category category;
 
 	@Builder
+<<<<<<< HEAD
 	public Board(Long id, Long blevel, String title, String content, int readCnt, Boolean disclosure, Member member,
 			String registerId) {
+=======
+	public Board(Long id, short blevel, String title, String content, int readCnt, Boolean disclosure, Member member,
+			Category category ,String registerId) {
+>>>>>>> Library_noticeBoard
 		this.member = member;
 		this.id = id;
 		this.blevel = blevel;

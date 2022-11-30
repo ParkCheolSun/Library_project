@@ -52,10 +52,10 @@ public class MenuController {
 		return "redirect:/header/c1";
 	}
 
-	@GetMapping(value = "/c1")
+	@GetMapping(value = "/notice")
 	public String c1(Model model) {
 		System.out.println("공지사항");
-		return "redirect:/";
+		return "redirect:/board/notice";
 	}
 
 	// 열린마당

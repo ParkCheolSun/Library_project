@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.library.dto.BoardRequestDto;
 import com.library.dto.BoardResponseDto;
 import com.library.entity.Board;
+import com.library.entity.BoardFile;
 import com.library.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,6 @@ public class BoardService {
 
 	@Transactional
 	public boolean save(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest) throws Exception {
-
 		Board result = boardRepository.save(boardRequestDto.toEntity());
 
 		boolean resultFlag = false;
@@ -94,11 +94,14 @@ public class BoardService {
 		boardRepository.updateBoardReadCntInc(id);
 
 		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
-		System.out.println("member : " + info.getMember());
-
 		resultMap.put("info", info);
-		resultMap.put("fileList", boardFileService.findByBoardId(info.getId()));
-
+		
+		List<BoardFile> fileList = boardFileService.findByBoardId(info.getId());
+		if(!fileList.isEmpty()) {
+			resultMap.put("fileList", fileList);
+		} else {
+			resultMap.put("fileList", "empty");
+		}
 		return resultMap;
 	}
 

@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -113,12 +114,11 @@ public class BoardFileController {
 	
 	@ResponseBody
 	@PostMapping("/file/delete.ajax")
-	public HashMap<String, Integer> updateDeleteYn(Model model, BoardFileRequestDto boardFileRequestDto) throws Exception {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
+	public HashMap<String, Boolean> updateDeleteYn(Model model, BoardFileRequestDto boardFileRequestDto) throws Exception {
+		HashMap<String, Boolean> map = new HashMap<String, Boolean>();
 		try {
-			int result = boardFileService.updateDeleteYn(boardFileRequestDto.getIdArr());
-			model.addAttribute("result", result);
-			map.put("result", result);
+			boardFileService.deleteFiles(boardFileRequestDto.getIdArr());
+			map.put("result", true);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

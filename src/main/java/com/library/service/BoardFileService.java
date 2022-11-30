@@ -15,8 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.library.dto.BoardFileResponseDto;
+import com.library.entity.Board;
 import com.library.entity.BoardFile;
 import com.library.repository.BoardFileRepository;
+import com.library.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,12 +27,13 @@ import lombok.RequiredArgsConstructor;
 public class BoardFileService {
 
 	private final BoardFileRepository boardFileRepository;
+	private final BoardRepository boardRepository;
 
 	public BoardFileResponseDto findById(Long id) throws Exception {
 		return new BoardFileResponseDto(boardFileRepository.findById(id).get());
 	}
 
-	public List<Long> findByBoardId(Long boardId) throws Exception {
+	public List<BoardFile> findByBoardId(Long boardId) throws Exception {
 		return boardFileRepository.findByBoardId(boardId);
 	}
 
@@ -114,7 +117,7 @@ public class BoardFileService {
 					// 이용해서 업로드처리한다.
 					mFile.transferTo(saveFile);
 				}
-
+				
 				BoardFile boardFile = BoardFile.builder().boardId(boardId).origFileName(realFileName)
 						.saveFileName(saveFileName).fileSize(fileSize).fileExt(fileExt).filePath(filePath).deleteYn("N")
 						.build();
@@ -125,12 +128,16 @@ public class BoardFileService {
 
 		return (files.size() == resultList.size()) ? true : false;
 	}
+	
+	public void deleteFiles(Long[] deleteIdList) throws Exception {
+		boardFileRepository.deleteByIdIn(deleteIdList);
+	}
 
 	public int updateDeleteYn(Long[] deleteIdList) throws Exception {
 		return boardFileRepository.updateDeleteYn(deleteIdList);
 	}
 
-	public int deleteBoardFileYn(Long[] boardIdList) throws Exception {
-		return boardFileRepository.deleteBoardFileYn(boardIdList);
+	public void deleteBoardFileYn(Long[] boardIdList) throws Exception {
+		boardFileRepository.deleteByBoardIdIn(boardIdList);
 	}
 }

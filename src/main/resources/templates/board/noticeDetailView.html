@@ -55,6 +55,7 @@
 					href="javascript:fnDelFileDiv();">파일 삭제</a>
 			</div>
 			<th:block th:if="${test.fileList != 'empty'}">
+				<label class="form-label font-weight-bold mt-2">첨부 파일</label>
 				<div class="fileList mt-3" th:each="fileList : ${test.fileList}">
 					<div class="mt-2">
 						<span th:text="${fileList.origFileName}">이름없음</span> <a

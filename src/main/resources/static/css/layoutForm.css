@@ -117,3 +117,13 @@ body::-webkit-scrollbar-track {
     transform: translate3d(0,5px,0);
   }
 }
+
+.btn-swal-success{
+	margin-left: 20px;
+	width: 100px;
+}
+
+.btn-swal-danger{
+	margin-right: 20px;
+	width: 100px;
+}

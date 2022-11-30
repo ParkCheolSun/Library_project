@@ -25,8 +25,8 @@
 		if (delInpChkLen > 0) {
 			const swalWithBootstrapButtons = Swal.mixin({
   				customClass: {
-    				confirmButton: 'btn btn-success',
-    				cancelButton: 'btn btn-danger'
+    				confirmButton: 'btn btn-success btn-swal-success',
+    				cancelButton: 'btn btn-danger btn-swal-danger'
   				},
   				buttonsStyling: false
 			})

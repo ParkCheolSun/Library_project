@@ -82,25 +82,69 @@ let deleteFileIdArr = [];
 	}
 
 	function fnFileDelete(obj, id) {
-		if (confirm("파일을 삭제하시겠습니까?")) {
-			$(obj).parents(".fileList").remove();
+		const swalWithBootstrapButtons = Swal.mixin({
+  			customClass: {
+    			confirmButton: 'btn btn-success btn-swal-success',
+    			cancelButton: 'btn btn-danger btn-swal-danger'
+  			},
+  			buttonsStyling: false
+		})
+
+		swalWithBootstrapButtons.fire({
+  			title: '게시글을 삭제하시겠습니까?',
+  			text: "게시글 및 첨부파일이 영구적으로 삭제됩니다!",
+  			icon: 'warning',
+  			confirmButtonText: '삭제',
+  			cancelButtonText: '취소',
+  			showCancelButton: true,
+  			reverseButtons: true
+			}).then((result) => {
+  				if (result.isConfirmed) {
+      				$(obj).parents(".fileList").remove();
 			deleteFileIdArr.push(id);
-		}
+  				} else if (
+    				/* Read more about handling dismissals below */
+    				result.dismiss === Swal.DismissReason.cancel
+  				) {
+  				}
+			})
 	}
 
 	function fnViewDelete() {
-		if (confirm("게시글을 삭제하시겠습니까?")) {
-			let frm = $("#frm");
-			frm.attr("action", "/board/noticeDetailView/delete");
-			frm.submit();
-		}
+		const swalWithBootstrapButtons = Swal.mixin({
+  			customClass: {
+    			confirmButton: 'btn btn-success btn-swal-success',
+    			cancelButton: 'btn btn-danger btn-swal-danger'
+  			},
+  			buttonsStyling: false
+		})
+
+		swalWithBootstrapButtons.fire({
+  			title: '게시글을 삭제하시겠습니까?',
+  			text: "게시글 및 첨부파일이 영구적으로 삭제됩니다!",
+  			icon: 'warning',
+  			confirmButtonText: '삭제',
+  			cancelButtonText: '취소',
+  			showCancelButton: true,
+  			reverseButtons: true
+			}).then((result) => {
+  				if (result.isConfirmed) {
+      				let frm = $("#frm");
+					frm.attr("action", "/board/noticeDetailView/delete");
+					frm.submit();
+  				} else if (
+    				/* Read more about handling dismissals below */
+    				result.dismiss === Swal.DismissReason.cancel
+  				) {
+  				}
+			})
 	}
 
 	function fnSubmit() {
 		const swalWithBootstrapButtons = Swal.mixin({
   			customClass: {
-    			confirmButton: 'btn btn-success',
-    			cancelButton: 'btn btn-danger'
+    			confirmButton: 'btn btn-success btn-swal-success',
+    			cancelButton: 'btn btn-danger btn-swal-danger'
   			},
   			buttonsStyling: false
 		})

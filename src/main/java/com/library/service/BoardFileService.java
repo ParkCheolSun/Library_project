@@ -15,10 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.library.dto.BoardFileResponseDto;
-import com.library.entity.Board;
 import com.library.entity.BoardFile;
 import com.library.repository.BoardFileRepository;
-import com.library.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,7 +25,6 @@ import lombok.RequiredArgsConstructor;
 public class BoardFileService {
 
 	private final BoardFileRepository boardFileRepository;
-	private final BoardRepository boardRepository;
 
 	public BoardFileResponseDto findById(Long id) throws Exception {
 		return new BoardFileResponseDto(boardFileRepository.findById(id).get());

@@ -6,7 +6,7 @@
 								$(item).attr('href') == "#pageSubmenu" ||
 								$(item).attr('href') == "#likeSubmenu" ||
 								$(item).attr('href') == "#cultureMenu" ||
-								$(item).attr('href') == "#noticeMenu"){
+								$(item).attr('href') == "#noticeSubMenu"){
 							var id = $(item).attr('id');
 							//console.log("id : " + id);
 							if(id == "guideMenu" || id == "cultureMenu" || id == "noticeMenu" ||

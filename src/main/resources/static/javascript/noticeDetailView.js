@@ -61,7 +61,13 @@ let deleteFileIdArr = [];
 		var fileListCnt = $(".fileList").length;
 
 		if (fileDivCnt+fileListCnt >= fileMaxCnt) {
-			alert("파일은 최대 3개까지만 업로드가 가능합니다!");
+			Swal.fire({
+				position : 'top-end',
+				icon : 'error',
+				title : "파일은 최대 3개까지만 업로드가 가능합니다!",
+				showConfirmButton : false,
+				timer : 1500
+			});
 			return false;
 		}
 
@@ -78,7 +84,13 @@ let deleteFileIdArr = [];
 
 	function fnDelFileDiv() {
 		if ($(".custom-file").length <= 1) {
-			alert("더이상 삭제할 파일이 존재하지않습니다!");
+			Swal.fire({
+				position : 'top-end',
+				icon : 'error',
+				title : "더이상 삭제할 파일이 존재하지않습니다!",
+				showConfirmButton : false,
+				timer : 1500
+			});
 			return false;
 		}
 		$(".custom-file")[$(".custom-file").length - 1].remove();
@@ -93,9 +105,21 @@ let deleteFileIdArr = [];
 		let flag = true;
 
 		if (fileSize > fileMaxSize) {
-			alert("최대 10MB 파일만 업로드가 가능합니다.");
+			Swal.fire({
+				position : 'top-end',
+				icon : 'error',
+				title : "최대 10MB 파일만 업로드가 가능합니다.",
+				showConfirmButton : false,
+				timer : 1500
+			});
 		}  else if (($(".fileList").length + $(".custom-file-input").length) > 3) {
-			alert("파일은 최대 3개까지만 업로드가 가능합니다!");
+			Swal.fire({
+				position : 'top-end',
+				icon : 'error',
+				title : "파일은 최대 3개까지만 업로드가 가능합니다!",
+				showConfirmButton : false,
+				timer : 1500
+			});
 		} else {
 			flag = false;
 			$(obj).next("label").text(fileVal);
@@ -117,8 +141,8 @@ let deleteFileIdArr = [];
 		})
 
 		swalWithBootstrapButtons.fire({
-  			title: '게시글을 삭제하시겠습니까?',
-  			text: "게시글 및 첨부파일이 영구적으로 삭제됩니다!",
+  			title: '첨부파일을 삭제하시겠습니까?',
+  			text: "수정 완료 시 첨부파일이 영구적으로 삭제됩니다!",
   			icon: 'warning',
   			confirmButtonText: '삭제',
   			cancelButtonText: '취소',
@@ -214,7 +238,13 @@ let deleteFileIdArr = [];
 											if (r.result) {
 												form.submit();
 											} else {
-												alert("A problem occurred, and progress is interrupted. Try again in a few minutes.");
+												Swal.fire({
+													position : 'top-end',
+													icon : 'error',
+													title : "A problem occurred, and progress is interrupted. Try again in a few minutes.",
+													showConfirmButton : false,
+													timer : 1500
+												});
 											}
 										},
 										error : function(e) {

@@ -18,6 +18,11 @@
 			$("#chkAll").prop("checked", false);
 		}
 	});
+	
+	function searchSubmit() {
+		$('.csrf-hidden').attr("disabled", true);
+		frm.submit();
+	}
 
 	function fnDelete() {
 		var delInpChkLen = $("input[name='deleteId']:checked").length;

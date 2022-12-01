@@ -33,18 +33,18 @@ public class BoardController {
 		category.setCategory_id(10l);
 		category.setCategory_name("공지사항");
 		categoryService.saveCategory(category);
-		
+
 		category = new Category();
 		category.setCategory_id(11l);
 		category.setCategory_name("자유게시판");
 		categoryService.saveCategory(category);
-		
+
 		category = new Category();
 		category.setCategory_id(12l);
 		category.setCategory_name("사진게시판");
 		categoryService.saveCategory(category);
 	}
-	
+
 	@GetMapping("/board/list")
 	public String getBoardListPage(Model model, @RequestParam(value = "kind", required = false) String kind,
 			@RequestParam(value = "searchKeyword", required = false) String searchKeyword,
@@ -75,13 +75,28 @@ public class BoardController {
 
 	// 공지사항 리스트
 	@GetMapping("/board/notice")
-	public String noticeBoardList(Model model, @RequestParam(required = false, defaultValue = "0") Integer page,
+	public String noticeBoardList(Model model, @RequestParam(value = "kind", required = false) String kind,
+			@RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+			@RequestParam(required = false, defaultValue = "0") Integer page,
 			@RequestParam(required = false, defaultValue = "10") Integer size) throws Exception {
 
-		try {
-			model.addAttribute("resultMap", boardService.findAll(page, size));
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
+		if (searchKeyword == null) {
+
+			try {
+				model.addAttribute("resultMap", boardService.findAll(page, size));
+			} catch (Exception e) {
+				throw new Exception(e.getMessage());
+			}
+
+		} else {
+			String kindTitle = "제목";
+
+			if (kindTitle.equals(kind) == true) {
+				model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+			} else {
+
+				model.addAttribute("resultMap", boardService.findByContentContaining(page, size, searchKeyword));
+			}
 		}
 
 		return "/board/noticeListView";
@@ -92,7 +107,7 @@ public class BoardController {
 	public String noticeBoardWrite(Model model, BoardRequestDto boardRequestDto) {
 		return "board/noticeWrite";
 	}
-	
+
 	// 공지사항 삭제
 	@PostMapping("/board/notice/delete")
 	public String noticeBoardDelete(Model model, @RequestParam() Long[] deleteId) throws Exception {

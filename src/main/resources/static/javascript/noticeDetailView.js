@@ -56,7 +56,6 @@ let deleteFileIdArr = [];
 				});
 			});
 		
-
 	function fnAddFileDiv() {
 		var fileDivCnt = $(".custom-file").length;
 		var fileListCnt = $(".fileList").length;

@@ -199,7 +199,7 @@
 }
 
 .bg-primary {
-	background-color: #ff5e00 !important;	
+	background-color: #ff5e00 !important;
 }
 
 .bg-secondary {
@@ -212,20 +212,44 @@
 
 .btn-pre {
 	background-color: #787268;
-	border-color:#787268;
+	border-color: #787268;
 }
 
 .btn-pre:hover {
 	background-color: #44423d;
-	border-color:#44423d;
+	border-color: #44423d;
 }
 
 .btn-primary {
 	background-color: #e18718;
-	border-color:#e18718;
+	border-color: #e18718;
 }
 
 .btn-primary:hover {
 	background-color: #a56516;
-	border-color:#a56516;
+	border-color: #a56516;
+}
+
+.search {
+	display: flex; 
+	align-items : center;
+	padding-top: 20px;
+	vertical-align: middle;
+	justify-content: center;
+	align-items: center;
+}
+
+.search-input {
+	width: 70%;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.searchSubmit {
+	height: 35px;
+}
+
+#comCd {
+	width: 12%;
+	height: 33px;
 }

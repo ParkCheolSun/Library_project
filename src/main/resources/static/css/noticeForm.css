@@ -253,3 +253,7 @@
 	width: 12%;
 	height: 33px;
 }
+
+.clearfix {
+	padding-top: 20px;	
+}

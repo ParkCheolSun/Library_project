@@ -1,6 +1,5 @@
 package com.library.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +16,7 @@ import com.library.dto.BoardRequestDto;
 import com.library.dto.BoardResponseDto;
 import com.library.entity.Board;
 import com.library.entity.BoardFile;
+import com.library.entity.Category;
 import com.library.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -47,7 +47,26 @@ public class BoardService {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-		Page<Board> list = boardRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")));
+		Page<Board> list = boardRepository
+				.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")));
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	@Transactional(readOnly = true)
+	public HashMap<String, Object> findAllNotice(Integer page, Integer size) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(10l);
+		Page<Board> list = boardRepository
+				.findAllByCategory(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category);
 
 		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
 		resultMap.put("paging", list.getPageable());
@@ -71,21 +90,55 @@ public class BoardService {
 
 		return resultMap;
 	}
-	
+
 	@Transactional
-	   public HashMap<String, Object> findByContentContaining(Integer page, Integer size, String searchKeyword) {
-	      HashMap<String, Object> resultMap = new HashMap<String, Object>();
-	     
-	      Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
-	      Page<Board> list = boardRepository.findByContentContaining(pageable, searchKeyword);
-	   
-	      resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
-	      resultMap.put("paging", list.getPageable());
-	      resultMap.put("totalCnt", list.getTotalElements());
-	      resultMap.put("totalPage", list.getTotalPages());
-	      
-	      return resultMap;
-	   }
+	public HashMap<String, Object> findByTitleContainingNotice(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(10l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByTitleContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	@Transactional
+	public HashMap<String, Object> findByContentContaining(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByContentContaining(pageable, searchKeyword);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	@Transactional
+	public HashMap<String, Object> findByContentContainingNotice(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(10l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByContentContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
 
 	public HashMap<String, Object> findById(Long id) throws Exception {
 
@@ -95,9 +148,9 @@ public class BoardService {
 
 		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
 		resultMap.put("info", info);
-		
+
 		List<BoardFile> fileList = boardFileService.findByBoardId(info.getId());
-		if(!fileList.isEmpty()) {
+		if (!fileList.isEmpty()) {
 			resultMap.put("fileList", fileList);
 		} else {
 			resultMap.put("fileList", "empty");

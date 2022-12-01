@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.library.dto.BoardRequestDto;
 import com.library.entity.Board;
+import com.library.entity.Category;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 	
@@ -39,8 +40,14 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 	@Query(value = DELETE_BOARD, nativeQuery = true)
 	public int deleteBoard(@Param("deleteList") Long[] deleteList);
 	
+	// 전체 게시판 
 	public Page<Board> findByTitleContaining(Pageable pageable, String searchKeyword);
 	public Page<Board> findByContentContaining(Pageable pageable, String searchKeyword);
+	
+	// 공지사항 게시판
+	public Page<Board> findAllByCategory(Pageable pageable,Category category);
+	public Page<Board> findByTitleContainingAndCategory(Pageable pageable, String searchKeyword,Category category);
+	public Page<Board> findByContentContainingAndCategory(Pageable pageable, String searchKeyword,Category category);
 	
 	
 

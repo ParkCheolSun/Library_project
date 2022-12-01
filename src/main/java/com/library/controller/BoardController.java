@@ -83,7 +83,7 @@ public class BoardController {
 		if (searchKeyword == null) {
 
 			try {
-				model.addAttribute("resultMap", boardService.findAll(page, size));
+				model.addAttribute("resultMap", boardService.findAllNotice(page, size));
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());
 			}
@@ -92,10 +92,10 @@ public class BoardController {
 			String kindTitle = "제목";
 
 			if (kindTitle.equals(kind) == true) {
-				model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByTitleContainingNotice(page, size, searchKeyword));
 			} else {
 
-				model.addAttribute("resultMap", boardService.findByContentContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByContentContainingNotice(page, size, searchKeyword));
 			}
 		}
 

@@ -125,14 +125,31 @@
 			</div>
 			<div class="notice">
 				<h1 class="swiper-title">공지사항</h1>
-				<div class="notice-area"></div>
+				<div class="notice-area">
+					<table
+						class="table table-striped table-horizontal table-bordered mt-3">
+						<tbody id="tbody">
+							<tr th:each="list,index : ${resultMap.list}"
+								th:with="paging=${resultMap.paging}"
+								class="mainNotice-tr">
+								<td width="18%" class="td-date"><span class="time-year"
+									th:text="${#temporals.format(list.registerTime, 'yyyy')}"></span><br>
+									<span class="time-monthday"
+									th:text="${#temporals.format(list.registerTime, 'MM.dd')}"></span></td>
+								<td class="td-title"><a
+									th:href="@{./board/noticeDetailView(id=${list.id})}"><span
+										th:text="${list.title}"></span></a></td>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 		<div class="cnt03">
 			<p class="sly-title">남구도서관 인기대출도서</p>
 			<div class="frame" id="cycleitems">
 				<ul class="slidee">
-					<li th:each="bookList : ${bookDtoListToLib}"><img th:src="@{${bookList.bookImageURL}}"></li>
+					<li th:each="bookList : ${bookDtoListToLib}"><img
+						th:src="@{${bookList.bookImageURL}}"></li>
 				</ul>
 			</div>
 		</div>

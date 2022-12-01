@@ -48,7 +48,7 @@
 }
 
 .swiper-title {
-	font-size: 70px;
+	font-size: 3em;
 	width: 700px;
 	text-align: center;
 }
@@ -85,7 +85,6 @@
 	position: absolute;
 	height: 400px;
 	width: 700px;
-	background-color: orange;
 }
 
 .wrap {
@@ -315,4 +314,45 @@ input[type=radio].close:not(:checked)+.closer {
 	border-bottom:solid;
 	border-color: #BA4A00;
 	backdrop-filter: blur(10px);
+}
+
+#tbody {
+	border-left: hidden;
+	border-right: hidden;
+}
+
+.mainNotice-tr:hover td, .mainNotice-tr:hover td a{
+	color: #000000;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(255 170 81/ 9%);
+}
+
+#tbody > tr > td{
+	border-left: hidden;
+	border-right: hidden;
+	line-height: 40px;
+}
+
+.td-date {
+	text-align: center;
+	color: #00000088;
+}
+
+.td-title > a {
+	color: #00000059;
+	font-size: 150%;
+}
+
+.td-title > a > span {
+	line-height: 80px;
+}
+
+.time-year {
+	font-size: 110%;
+}
+
+.time-monthday {
+	font-size: 150%;
 }

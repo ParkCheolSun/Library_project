@@ -17,31 +17,41 @@
 	<script
 		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 	<script src="/javascript/noticeDetailView.js"></script>
-	<h1>게시판 상세보기</h1>
+	<h1 class="noticeDetail-title">공지사항</h1>
 	<form id="frm" action="/board/noticeDetailView/action" method="post"
 		th:with="info=${test.info}" enctype="multipart/form-data">
 		<input type="hidden" name="id" th:value="${info.id}">
-		<div class="mb-3">
-			<label class="form-label font-weight-bold"><span
+		<div class="mb-3 noticeDetail-div-title">
+			<label class="form-label font-weight-bold noticeDetail-label"><span
 				class="text-danger">* </span>제목</label> <input type="text"
-				class="form-control txt-title" name="title" th:value="${info.title}" maxlength="20"
-					placeholder="제목은 20자 이내로 작성해주세요." required>
+				class="form-control font-weight-bold txt-title" name="title"
+				th:value="${info.title}" maxlength="20"
+				placeholder="제목은 20자 이내로 작성해주세요." required>
 		</div>
-		<div class="mb-3">
-			<label class="form-label font-weight-bold"><span
+		<div class="mb-3 noticeDetail-flex">
+			<label class="form-label noticeDetail-label-writer">작성자 :</label> <input
+				type="text" class="form-control txt-register" name="registerId"
+				th:value="${info.registerId}" required> <label
+				class="form-label noticeDetail-label-readCnt">조회수 :</label> <input
+				type="text" class="form-control txt-register txt-readCnt"
+				name="registerReadCnt" th:value="${info.readCnt}" required>
+			<label class="form-label noticeDetail-label-time">작성일 :</label> <input
+				type="text" class="form-control txt-register txt-time"
+				name="registerTime"
+				th:value="${#temporals.format(info.registerTime, 'yyyy-MM-dd HH:mm')}"
+				required>
+		</div>
+		<div class="mb-3 noticeDetail-content">
+			<label class="form-label font-weight-bold noticeDetail-label"><span
 				class="text-danger">* </span>내용</label>
-			<textarea class="form-control txt-content content_area" rows="5" name="content"
-				th:text="${info.content}" maxlength="500" placeholder="내용을 입력하세요."></textarea>
-				<span style="color: #aaa;" id="counter">(0 / 500)</span>
+			<textarea class="form-control txt-content content_area" rows="5"
+				name="content" th:text="${info.content}" maxlength="1000"
+				placeholder="내용을 입력하세요."></textarea>
+			<span style="color: #aaa;" id="counter">(0 / 1000)</span>
 		</div>
 		<div class="mb-3">
-			<label class="form-label font-weight-bold"><span
-				class="text-danger">* </span>작성자</label> <input type="text"
-				class="form-control txt-register" name="registerId"
-				th:value="${info.registerId}" required>
-		</div>
-		<div class="mb-3">
-			<label class="form-label font-weight-bold mt-2">파일 업로드</label>
+			<label class="form-label font-weight-bold mt-2 label-fileupload">파일
+				업로드</label>
 			<div class="mb-3" id="fileDiv">
 				<div class="custom-file mt-1">
 					<input type="file" class="custom-file-input" id="customFile"
@@ -70,14 +80,14 @@
 
 		</div>
 		<div class="clearfix mt-5">
-			<div class="">
-				<button type="button" class="btn btn-success"
+			<div class="noticeDetail-result">
+				<button type="button" class="btn btn-success btn-pre"
 					onclick="javascript:location.href='/board/notice'">이전</button>
 				<span class="btn btn-danger" th:onclick="fnViewDelete()"
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">삭제</span>
-				<button type="button" class="btn btn-success clear" onclick=""
-				th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">수정</button>
-				<span class="btn btn-primary btn-update" onclick="fnSubmit()"
+				<button type="button" class="btn btn-success btn-update-start clear" onclick=""
+					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">수정</button>
+				<span class="btn btn-primary btn-update btn-update-end" onclick="fnSubmit()"
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">수정완료</span>
 			</div>
 		</div>

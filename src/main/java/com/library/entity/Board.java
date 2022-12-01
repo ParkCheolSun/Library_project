@@ -46,7 +46,7 @@ public class Board extends BaseEntity {
 	@NotEmpty(message = "제목은 필수입니다.")
 	private String title; // 제목
 
-	@Column(length = 500)
+	@Column(length = 1000)
 	private String content; // 내용
 
 //	private LocalDateTime cDate; // 작성날짜

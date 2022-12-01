@@ -16,7 +16,11 @@ let deleteFileIdArr = [];
 				$('.btn-fileupdate').css({"display" : "none"});
 				$('.custom-file-input').prop('disabled', true);
 				var content = $('.content_area').val();
-				$('#counter').html("(" + content.length + " / 500)");
+				$('#counter').html("(" + content.length + " / 1000)");
+				$('.label-fileupload').css({"display" : "none"});
+				$('#fileDiv').css({"display" : "none"});
+				$('.noticeDetail-label').css({"display" : "none"});
+				$('#counter').css({"display" : "none"});
 				
 				$('.clear').click(function() {
 					$('.txt-content').attr('readonly', false)
@@ -27,23 +31,27 @@ let deleteFileIdArr = [];
 					$('.btn-filedelete').delay(1000).fadeIn();
 					$('.btn-fileupdate').delay(1000).fadeIn();
 					$('.custom-file-input').prop('disabled', false);
+					$('.label-fileupload').delay(1000).fadeIn();
+					$('#fileDiv').delay(1000).fadeIn();
+					$('.noticeDetail-label').delay(1000).fadeIn();
+					$('#counter').delay(1000).fadeIn();
 					
 				}); // 내용 readonly 해제
 				
 				$('.content_area').keyup(function(e) {
 					var content = $(this).val();
-					$('#counter').html("(" + content.length + " / 500)"); //글자수 실시간 카운팅
+					$('#counter').html("(" + content.length + " / 1000)"); //글자수 실시간 카운팅
 
-					if (content.length > 500) {
+					if (content.length > 1000) {
 						Swal.fire({
 							position : 'top-end',
 							icon : 'error',
-							title : "최대 500자까지 입력 가능합니다.",
+							title : "최대 1000자까지 입력 가능합니다.",
 							showConfirmButton : false,
 							timer : 1500
 						});
-						$(this).val(content.substring(0, 500));
-						$('#counter').html("(500 / 최대 500자)");
+						$(this).val(content.substring(0, 1000));
+						$('#counter').html("(1000 / 최대 1000자)");
 					}
 				});
 			});

@@ -48,7 +48,7 @@ public class MenuController {
 	// 알람마당
 	@GetMapping(value = "/test3")
 	public String test3(Model model) {
-		System.out.println("알람마당");
+		System.out.println("알림마당");
 		return "redirect:/header/c1";
 	}
 
@@ -62,19 +62,19 @@ public class MenuController {
 	@GetMapping(value = "/test4")
 	public String test4(Model model) {
 		System.out.println("열린마당");
-		return "redirect:/";
+		return "redirect:/board/list";
 	}
 
-	@GetMapping(value = "/d1")
+	@GetMapping(value = "/board")
 	public String d1(Model model) {
-		System.out.println("질문과 답변");
-		return "redirect:/";
+		System.out.println("자유게시판");
+		return "redirect:/board/list";
 	}
 
-	@GetMapping(value = "/d2")
+	@GetMapping(value = "/faq")
 	public String d2(Model model) {
 		System.out.println("자주하는 질문");
-		return "redirect:/";
+		return "redirect:/faq/list";
 	}
 
 	@GetMapping(value = "/d3")

@@ -41,7 +41,7 @@ public class BoardController {
 
 		category = new Category();
 		category.setCategory_id(12l);
-		category.setCategory_name("사진게시판");
+		category.setCategory_name("FAQ");
 		categoryService.saveCategory(category);
 	}
 
@@ -72,6 +72,35 @@ public class BoardController {
 		System.out.println(boardService.findAll(page, size));
 		return "board/list";
 	}
+	
+	// FAQ 리스트
+		@GetMapping("/faq/list")
+		public String getBoardFAQListPage(Model model, @RequestParam(value = "kind", required = false) String kind,
+				@RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+				@RequestParam(required = false, defaultValue = "0") Integer page,
+				@RequestParam(required = false, defaultValue = "10") Integer size) throws Exception {
+
+			if (searchKeyword == null) {
+
+				try {
+					model.addAttribute("resultMap", boardService.findAll(page, size));
+				} catch (Exception e) {
+					throw new Exception(e.getMessage());
+				}
+
+			} else {
+				String findTitle = "제목";
+
+				if (findTitle.equals(kind) == true) {
+					model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+				} else {
+
+					model.addAttribute("resultMap", boardService.findByContentContaining(page, size, searchKeyword));
+				}
+			}
+			System.out.println(boardService.findAll(page, size));
+			return "faq/list";
+		}
 
 	// 공지사항 리스트
 	@GetMapping("/board/notice")
@@ -187,6 +216,12 @@ public class BoardController {
 
 		return "board/write";
 	}
+	
+	// FAQ 작성
+		@GetMapping("/faq/write")
+		public String BoardFAQWrite(Model model, BoardRequestDto boardRequestDto) {
+			return "faq/write";
+		}
 
 	@GetMapping("/board/view")
 	public String getBoardViewPage(Model model, BoardRequestDto boardRequestDto) throws Exception {
@@ -200,6 +235,20 @@ public class BoardController {
 		}
 
 		return "board/view";
+	}
+	// FAQ 상세보기
+	@GetMapping("/faq/view")
+	public String getBoardFAQViewPage(Model model, BoardRequestDto boardRequestDto) throws Exception {
+		System.out.println(boardRequestDto.getId());
+		try {
+			if (boardRequestDto.getId() != null) {
+				model.addAttribute("test", boardService.findById(boardRequestDto.getId()));
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+		return "faq/view";
 	}
 
 	@PostMapping("/board/write/action")
@@ -215,6 +264,23 @@ public class BoardController {
 		}
 
 		return "redirect:/board/list";
+	}
+	// FAQ 작성 완료
+	@PostMapping("/faq/write/action")
+	public String boardFAQWriteAction(Model model, BoardRequestDto boardRequestDto,
+			MultipartHttpServletRequest multiRequest) throws Exception {
+
+		try {
+			Category category = categoryService.findCategory(12L);
+			boardRequestDto.setCategory(category);
+			if (!boardService.save(boardRequestDto, multiRequest)) {
+				throw new Exception("#Exception boardWriteAction!");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+		return "redirect:/faq/list";
 	}
 
 	@PostMapping("/board/view/action")
@@ -233,6 +299,23 @@ public class BoardController {
 
 		return "redirect:/board/list";
 	}
+	// FAQ 수정 완료
+	@PostMapping("/faq/view/action")
+	public String boardFAQViewAction(Model model, BoardRequestDto boardRequestDto,
+			MultipartHttpServletRequest multiRequest) throws Exception {
+
+		try {
+			boolean result = boardService.updateBoard(boardRequestDto, multiRequest);
+
+			if (!result) {
+				throw new Exception("#Exception boardViewAction!");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+		return "redirect:/faq/list";
+	}
 
 	@PostMapping("/board/view/delete")
 	public String boardViewDeleteAction(Model model, @RequestParam() Long id) throws Exception {
@@ -243,6 +326,17 @@ public class BoardController {
 		}
 
 		return "redirect:/board/list";
+	}
+	// FAQ 세부사항 삭제
+	@PostMapping("/faq/view/delete")
+	public String boardFAQViewDeleteAction(Model model, @RequestParam() Long id) throws Exception {
+		try {
+			boardService.deleteById(id);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+		return "redirect:/faq/list";
 	}
 
 	@PostMapping("/board/delete")
@@ -255,6 +349,18 @@ public class BoardController {
 		}
 
 		return "redirect:/board/list";
+	}
+	// FAQ 삭제
+	@PostMapping("/faq/delete")
+	public String boardFAQDeleteAction(Model model, @RequestParam() Long[] deleteId) throws Exception {
+
+		try {
+			boardService.deleteAll(deleteId);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+		return "redirect:/faq/list";
 	}
 
 }

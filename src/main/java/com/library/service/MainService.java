@@ -40,6 +40,7 @@ public class MainService {
         
         // XML을 JSON Object로 변환하기
         JSONObject jobj = XML.toJSONObject(response);
+        System.out.println(jobj);
         
         JSONObject jobj1 = jobj.getJSONObject("response").getJSONObject("docs");
         

@@ -1,13 +1,13 @@
 @charset "UTF-8";
 
-
-@media (max-width: 1700px) {
-  .notice {
-    display: none;
-  }
+@media ( max-width : 1700px) {
+	.notice {
+		display: none;
+	}
 }
+
 .main-content {
-	overflow:hidden;
+	overflow: hidden;
 }
 
 .cnt01 {
@@ -24,7 +24,7 @@
 .cnt03 {
 	background-image: url("../images/Library_second.jpg");
 	background-size: cover;
-/* 	z-index: -1;
+	/* 	z-index: -1;
 	-webkit-filter: blur(5px);
 	-moz-filter: blur(5px);
 	-o-filter: blur(5px);
@@ -64,7 +64,7 @@
 .swiper-slide {
 	text-align: center;
 	display: flex; /* 내용을 중앙정렬 하기위해 flex 사용 */
-	align-items:center; /*  위아래 기준 중앙정렬  */
+	align-items: center; /*  위아래 기준 중앙정렬  */
 	justify-content: center; /* 좌우 기준 중앙정렬 */
 }
 
@@ -94,7 +94,7 @@
 
 /* 화면 전체를 감싸는 박스 */
 .aco-wrap {
-	position:absolute;
+	position: absolute;
 	min-width: 250px;
 	width: 80%;
 	height: 600px;
@@ -173,7 +173,7 @@ input[type=radio].close:not(:checked)+.closer {
 }
 
 .label.c {
-/* 	background: #5BCEBF; */
+	/* 	background: #5BCEBF; */
 	background: #BA4A00;
 }
 
@@ -222,7 +222,8 @@ input[type=radio].close:not(:checked)+.closer {
 		rgba(164, 220, 185, 0.9) 100%);
 	background: -webkit-linear-gradient(-45deg, rgba(46, 151, 183, 0.4) 0%,
 		rgba(164, 220, 185, 0.9) 100%);
-	background: linear-gradient(40deg, rgb(225 119 52 / 80%) 0%, rgb(220 203 164 / 80%) 100%);
+	background: linear-gradient(40deg, rgb(225 119 52/ 80%) 0%,
+		rgb(220 203 164/ 80%) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66c0c60a',
 		endColorstr='#59007c33', GradientType=1);
 }
@@ -270,8 +271,9 @@ input[type=radio].close:not(:checked)+.closer {
 	overflow: auto;
 	letter-spacing: -1px;
 }
+
 .frame {
-	position:relative;
+	position: relative;
 	/*top: 24%;*/
 	height: 100%;
 	line-height: 100%;
@@ -283,7 +285,7 @@ input[type=radio].close:not(:checked)+.closer {
 	list-style: none;
 	margin: 0;
 	padding: 20px;
-	padding-bottom:20%;
+	padding-bottom: 20%;
 	height: 100%;
 	font-size: 50px;
 }
@@ -293,25 +295,69 @@ input[type=radio].close:not(:checked)+.closer {
 	width: 350px;
 	margin: 0 100px 0 0;
 	padding: 0;
-	background: #333;
 	color: #ddd;
 	text-align: center;
 	cursor: pointer;
 }
 
-.frame ul li img{
+.frame ul li img {
 	height: 100%;
 	width: 100%;
 }
 
+/* card start */
+@import
+	url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css")
+	;
+
+.book-flip {
+	width: 350px;
+	height: 500px;
+	position: relative;
+	perspective: 1100px;
+	background-color: transparent;
+}
+
+.book-card {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	transition: .4s;
+	transform-style: preserve-3d;
+}
+
+.book-front, .book-back {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+}
+
+.book-front {
+	background: tomato;
+}
+
+.book-back {
+	background: royalblue;
+	transform: rotateY(180deg);
+}
+
+.book-flip:hover .book-card {
+	transform: rotateY(180deg);
+}
+/* card end */
 .sly-title {
 	width: 100%;
 	height: 300px;
 	padding-top: 160px;
 	margin: 0px;
 	font-size: 60px;
-	text-align:center;
-	border-bottom:solid;
+	text-align: center;
+	border-bottom: solid;
 	border-color: #BA4A00;
 	backdrop-filter: blur(10px);
 }
@@ -321,15 +367,15 @@ input[type=radio].close:not(:checked)+.closer {
 	border-right: hidden;
 }
 
-.mainNotice-tr:hover td, .mainNotice-tr:hover td a{
+.mainNotice-tr:hover td, .mainNotice-tr:hover td a {
 	color: #000000;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-    background-color: rgb(255 170 81/ 9%);
+	background-color: rgb(255 170 81/ 9%);
 }
 
-#tbody > tr > td{
+#tbody>tr>td {
 	border-left: hidden;
 	border-right: hidden;
 	line-height: 40px;
@@ -340,12 +386,12 @@ input[type=radio].close:not(:checked)+.closer {
 	color: #00000088;
 }
 
-.td-title > a {
+.td-title>a {
 	color: #00000059;
 	font-size: 150%;
 }
 
-.td-title > a > span {
+.td-title>a>span {
 	line-height: 80px;
 }
 

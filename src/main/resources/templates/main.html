@@ -130,8 +130,7 @@
 						class="table table-striped table-horizontal table-bordered mt-3">
 						<tbody id="tbody">
 							<tr th:each="list,index : ${resultMap.list}"
-								th:with="paging=${resultMap.paging}"
-								class="mainNotice-tr">
+								th:with="paging=${resultMap.paging}" class="mainNotice-tr">
 								<td width="18%" class="td-date"><span class="time-year"
 									th:text="${#temporals.format(list.registerTime, 'yyyy')}"></span><br>
 									<span class="time-monthday"
@@ -148,8 +147,18 @@
 			<p class="sly-title">남구도서관 인기대출도서</p>
 			<div class="frame" id="cycleitems">
 				<ul class="slidee">
-					<li th:each="bookList : ${bookDtoListToLib}"><img
-						th:src="@{${bookList.bookImageURL}}"></li>
+					<li th:each="bookList : ${bookDtoListToLib}">
+						<div class="book-flip">
+							<div class="book-card">
+								<div class="book-front">
+									<img th:src="@{${bookList.bookImageURL}}">
+								</div>
+								<div class="book-back">
+									<img th:src="@{/file/bookImage(isbn=${bookList.isbn13})}">
+								</div>
+							</div>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>

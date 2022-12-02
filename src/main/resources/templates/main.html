@@ -14,6 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 </head>
 <div layout:fragment="content">
 	<script src="/javascript/mainContent.js"></script>
@@ -163,7 +164,38 @@
 			</div>
 		</div>
 		<div class="cnt04">
-			<p>메인페이지4</p>
+			<div class="section02" >
+				<div class="s2_wrap">
+					<span data-show="con_A" data-button="button_A" class="btn_A on">남구문화정보도서관</span>
+					<span data-show="con_B" data-button="button_B" class="btn_B">광주광역시립사직도서관</span>
+					<span data-show="con_C" data-button="button_C" class="btn_C">남구청소년도서관</span>
+					<span data-show="con_D" data-button="button_D" class="btn_D">남구푸른길도서관</span>
+					<span data-show="con_E" data-button="button_E" class="btn_E">금호평생교육관</span>
+					<i class="button_A on ani"></i> <i class="button_B ani"></i> <i
+						class="button_C ani"></i> <i class="button_D ani"></i> <i
+						class="button_E ani"></i>
+				</div>
+
+
+				<div class="content_box con_A">
+					<div class="content_box_sub con_A">
+						<div id="daumRoughmapContainer1669965579197" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+					<div class="content_box_sub con_B">
+						<div id="daumRoughmapContainer1669969380551" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+					<div class="content_box_sub con_C">
+						<div id="daumRoughmapContainer1669970962548" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+					<div class="content_box_sub con_D">
+						<div id="daumRoughmapContainer1669972505045" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+					<div class="content_box_sub con_E">
+						<div id="daumRoughmapContainer1669972619007" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
 </div>

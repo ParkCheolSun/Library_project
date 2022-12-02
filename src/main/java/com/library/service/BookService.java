@@ -19,6 +19,7 @@ public class BookService {
 	private final List<BookDto> bookDtoListToLib;
 	
 	public List<BookDto> popularityBookToLibrary(){
+		bookDtoListToLib.clear();
 		bookDtoListToLib.addAll(BookDto.CreateBookDtoList(bookRepository.findAll()));
 		return bookDtoListToLib;
 	}

@@ -12,8 +12,99 @@ var scroll = function(){
         init();
         initEvent();
         messageControl();
-        var windowWidth = $( window ).width();
-        console.log(windowWidth);
+        
+        //페이지 4 
+		var trident = navigator.userAgent.match(/Trident\/(\d.\d)/i);
+		if (trident != null) {
+			if (trident[1] < '6.0') {
+				$(".ani").removeClass('ani');
+			}
+		}
+
+		$('.s2_wrap > span').click(
+			function() {
+				$('.s2_wrap > span.on').removeClass("on");
+				$(this).addClass("on");
+				$('.s2_wrap > i.on').removeClass("on");
+				$("." + $(this).data("button")).addClass('on');
+				$(".content_box").attr('class', 'content_box');
+				$(".content_box").addClass($(this).data("show"));
+				$(".section02 .content_box_sub").hide();
+				$(".section02 .content_box ." + $(this).data("show")).show();
+		});
+		
+		//광주남구문화정보도서관 - 첫 화면 출력
+		new daum.roughmap.Lander({
+				"timestamp" : "1669965579197",
+				"key" : "2ctwc",
+				"mapWidth" : "1912",
+				"mapHeight" : "500"
+			}).render();
+		
+		$('.btn_A').click(function(){
+			//광주남구문화정보도서관
+    		new daum.roughmap.Lander({
+				"timestamp" : "1669965579197",
+				"key" : "2ctwc",
+				"mapWidth" : "1912",
+				"mapHeight" : "500"
+			}).render();
+		});
+		
+		$('.btn_B').click(function(){
+			//광주광역시립사직도서관
+    		new daum.roughmap.Lander({
+				"timestamp" : "1669969380551",
+				"key" : "2cuz5",
+				"mapWidth" : "1912",
+				"mapHeight" : "500"
+			}).render();
+		});
+		
+		$('.btn_C').click(function(){
+			//남구청소년도서관
+			new daum.roughmap.Lander({
+				"timestamp" : "1669970962548",
+				"key" : "2cuzn",
+				"mapWidth" : "1912",
+				"mapHeight" : "500"
+			}).render();
+		});
+		
+		$('.btn_D').click(function(){
+			//남구푸른길도서관
+			new daum.roughmap.Lander({
+				"timestamp" : "1669972505045",
+				"key" : "2cuzx",
+				"mapWidth" : "1912",
+				"mapHeight" : "500"
+			}).render();
+		});
+		
+		$('.btn_E').click(function(){
+			//금호평생교육관
+			new daum.roughmap.Lander({
+				"timestamp" : "1669972619007",
+				"key" : "2cu2z",
+				"mapWidth" : "1912",
+				"mapHeight" : "500"
+			}).render();
+		});
+
+		$('.s2_wrap > span').mouseenter(
+			function() {
+				var hover1 = $("." + $(this).data("button"));
+				var hover2 = hover1.hasClass('on');
+				if (hover2 == false) {
+					$("." + $(this).data("button")).addClass('hover');
+				}
+		});
+
+		$('.s2_wrap > span').mouseleave(
+			function() {
+				$("." + $(this).data("button")).removeClass('hover');
+		});
+		
     });
     
     var messageControl = function(){

@@ -1,5 +1,7 @@
 package com.library.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.security.core.userdetails.User;
@@ -9,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.library.constant.WorkNumber;
+import com.library.dto.MemberResponseDto;
 import com.library.entity.Member;
 import com.library.entity.MemberLog;
 import com.library.repository.MemberLogRepository;
@@ -45,6 +48,11 @@ public class MemberService implements UserDetailsService {
 			memberLogRepository.save(memLog);
 		}
 		return mem;
+	}
+	
+	// 모든 유저 가져오기
+	public List<MemberResponseDto> findAll(){
+		return MemberResponseDto.createMemDto(memberRepository.findAll());
 	}
 	
 	// ajax를 통한 ID체크

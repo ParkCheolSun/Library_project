@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<meta charset="UTF-8">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
+    <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<script src="/javascript/adminAccounts.js"></script>
+<link th:href="@{/css/adminAccounts.css}" rel="stylesheet">
+</head>
+<div id="adminAccount-wrapper" layout:fragment="content">
+
+	<table id="data_list" class="table table-accounts">
+		<thead>
+			<tr>
+				<th>아이디</th>
+				<th>이름</th>
+				<th>이메일</th>
+				<th>권한</th>
+				<th>생성일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+				<td>Row 1 Data 2</td>
+				<td>Row 1 Data 2</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+			<tr>
+				<td>Row 2 Data 1</td>
+				<td>Row 2 Data 2</td>
+				<td><button class="btn-account" name="detailBtn">dd</button></td>
+				<td>Row 1 Data 2</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</html>

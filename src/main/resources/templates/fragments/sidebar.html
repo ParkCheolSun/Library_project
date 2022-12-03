@@ -77,6 +77,12 @@
 						<li><a href="#">작은도서관별 소개</a></li>
 						<li><a href="#">작은도서관 소식</a></li>
 					</ul></li>
+				<li sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')"><a href="#adminSubmenu" data-toggle="collapse" id="adminMenu"
+					aria-expanded="false" class="dropdown-toggle">관리자</a>
+					<ul class="collapse list-unstyled sub-content" id="adminSubmenu">
+						<li><a href="#">계정</a></li>
+						<li><a href="#">기록</a></li>
+					</ul></li>
 			</ul>
 
 			<!-- <ul class="list-unstyled CTAs">

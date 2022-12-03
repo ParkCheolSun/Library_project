@@ -7,9 +7,11 @@
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
 <meta id="_csrf_header" name="_csrf_header"
 	th:content="${_csrf.headerName}" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" />
+<script
+	src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css"/> 
-    <script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 <script src="/javascript/adminAccounts.js"></script>
 <link th:href="@{/css/adminAccounts.css}" rel="stylesheet">
 </head>
@@ -22,19 +24,79 @@
 				<th>이름</th>
 				<th>이메일</th>
 				<th>권한</th>
+				<th>주소</th>
+				<th>상세주소</th>
+				<th>성별</th>
 				<th>생성일</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="member : ${memberResponseDto}">
-				<td><span th:text="${member.id}"></span></td>
-				<td><span th:text="${member.name}"></td>
-				<td><span th:text="${member.email}"></td>
-				<td><span th:text="${member.role}"></td>
-				<td><span th:text="${#temporals.format(member.registerTime, 'yyyy-MM-dd HH:mm')}"></td>
-				<!-- <td><button class="btn-account" name="detailBtn">dd</button></td> -->
+				<td th:text="${member.id}"></td>
+				<td th:text="${member.name}"><span></td>
+				<td th:text="${member.email}"><span></td>
+				<td th:text="${member.role}"><span></td>
+				<td th:text="${member.address}"><span></td>
+				<td th:text="${member.address_detail}"><span></td>
+				<td th:text="${member.gender}"><span></td>
+				<td th:text="${#temporals.format(member.registerTime, 'yyyy-MM-dd HH:mm')}"></td>
 			</tr>
 		</tbody>
 	</table>
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">회원 상세정보</h5>
+				</div>
+				<div class="modal-body">
+					<div>
+						<label>아이디</label>
+						<input type="text" class="form-style" id="modal-detail-id">
+					</div>
+					<div>
+						<label>이름</label>
+						<input type="text" class="form-style" id="modal-detail-name">
+					</div>
+					<div>
+						<label>이메일</label>
+						<input type="text" class="form-style" id="modal-detail-email">
+					</div>
+					<div>
+						<label>주소</label>
+						<input type="text" class="form-style" id="modal-detail-address">
+					</div>
+					<div>
+						<label>상세주소</label>
+						<input type="text" class="form-style" id="modal-detail-detailAddress">
+					</div>
+					<div>
+						<label>성별</label>
+						<input type="text" class="form-style" id="modal-detail-gender">
+					</div>
+					<div>
+						<label>권한</label>
+						<input type="text" class="form-style" id="modal-detail-role">
+					</div>
+					<div>
+						<label>생성일</label>
+						<input type="text" class="form-style" id="modal-detail-createDate">
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+
+
+<!-- Modal -->
+
 </html>

@@ -29,6 +29,7 @@ $(document).ready(function() {
 	table.column(4).visible(false);
 	table.column(5).visible(false);
 	table.column(6).visible(false);
+	table.column(7).visible(false);
 	
 	$("#data_list").on('click', 'tbody tr', function () {
     	var row = $("#data_list").DataTable().row($(this)).data();
@@ -41,34 +42,12 @@ $(document).ready(function() {
     	$('#modal-detail-address').val(row[4]);
     	$('#modal-detail-address_detail').val(row[5]);
     	$('#modal-detail-gender').val(row[6]);
-    	$('#modal-detail-createDate').val(row[7]);
+    	$('#modal-detail-createDate').val(row[8]);
+    	console.log('no. : ' + row[7]);
 	});
 	
-	async function detailMember(row){
-		var id = row[0];
-		const { value: formValues } = await Swal.fire({
-  			title: 'Multiple inputs',
-  			html:
-  				'<label>아이디 : </label>' +
-    			'<input id="swal-input1" class="swal2-input" value=id>' +
-    			'<input id="swal-input2" class="swal2-input">',
-  			focusConfirm: false,
-  			preConfirm: () => {
-    			return [
-      				row
-    			]
-  			}
-		})
-		if (formValues) {
-  			Swal.fire(JSON.stringify(formValues))
-		}
-	}
-  	
-	
-	$(document).on('click', 'button[name="detailBtn"]', function() {
-     	var outlayId = $("#data_list").DataTable().row( $(this).parents('tr') ).data();
-     	console.log(outlayId[0]);
-	});
-
-
 });
+
+function modalHide(){
+	$('#exampleModal').modal('hide');
+}

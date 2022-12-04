@@ -50,6 +50,28 @@ public class MemberService implements UserDetailsService {
 		return mem;
 	}
 	
+	// 계정 수정(관리자)
+	public Member updateMember_admin(MemberResponseDto memberResDto) {
+		Member temp = change(memberRepository.findById(memberResDto.getId()),memberResDto);
+		Member mem = memberRepository.save(temp);
+		if(mem.getId() != null) {
+			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 수정 완료";
+			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_USER, contents);
+			memberLogRepository.save(memLog);
+		}
+		return mem;
+	}
+	
+	private Member change(Member ori, MemberResponseDto res) {
+		ori.setId(res.getId());
+		ori.setName(res.getName());
+		ori.setAddress(res.getAddress());
+		ori.setAddress_detail(res.getAddress_detail());
+		ori.setEmail(res.getEmail());
+		ori.setRole(res.getRole());
+		return ori;
+	}
+	
 	// 모든 유저 가져오기
 	public List<MemberResponseDto> findAll(){
 		return MemberResponseDto.createMemDto(memberRepository.findAll());

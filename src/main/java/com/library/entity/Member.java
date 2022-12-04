@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.library.constant.Role;
 import com.library.dto.MemberDto;
+import com.library.dto.MemberResponseDto;
 
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.Getter;
@@ -66,9 +67,21 @@ public class Member extends BaseEntity{
 		member.setAddress_detail(memberDto.getAddress_detail());
 		String password = passwordEncoder.encode(memberDto.getPassword());
 		member.setPassword(password);
-		member.setAddress(memberDto.getAddress());
 		member.setGender(memberDto.getGender());
 		member.setRole(Role.USER);
+		return member;
+	}
+	
+	public static Member createMember(MemberResponseDto memberResDto) {
+		Member member = new Member();
+		member.setMNumber(memberResDto.getNumber());
+		member.setId(memberResDto.getId());
+		member.setName(memberResDto.getName());
+		member.setEmail(memberResDto.getEmail());
+		member.setAddress(memberResDto.getAddress());
+		member.setAddress_detail(memberResDto.getAddress_detail());
+		member.setGender(memberResDto.getGender());
+		member.setRole(memberResDto.getRole());
 		return member;
 	}
 }

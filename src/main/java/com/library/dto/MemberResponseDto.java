@@ -11,11 +11,14 @@ import com.library.constant.Role;
 import com.library.entity.Member;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
 public class MemberResponseDto {
+	private Long number;
 	private String id;
 	private String name;
 	private String email;
@@ -32,6 +35,7 @@ public class MemberResponseDto {
 		MemberResponseDto memResDto; 
 		for(Member mem : memList) {
 			memResDto = new MemberResponseDto();
+			memResDto.number = mem.getMNumber();
 			memResDto.id = mem.getId();
 			memResDto.name = mem.getName();
 			memResDto.email = mem.getEmail();

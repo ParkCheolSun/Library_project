@@ -27,19 +27,22 @@
 				<th>주소</th>
 				<th>상세주소</th>
 				<th>성별</th>
+				<th>No.</th>
 				<th>생성일</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="member : ${memberResponseDto}">
 				<td th:text="${member.id}"></td>
-				<td th:text="${member.name}"><span></td>
-				<td th:text="${member.email}"><span></td>
-				<td th:text="${member.role}"><span></td>
-				<td th:text="${member.address}"><span></td>
-				<td th:text="${member.address_detail}"><span></td>
-				<td th:text="${member.gender}"><span></td>
-				<td th:text="${#temporals.format(member.registerTime, 'yyyy-MM-dd HH:mm')}"></td>
+				<td th:text="${member.name}"></td>
+				<td th:text="${member.email}"></td>
+				<td th:text="${member.role}"></td>
+				<td th:text="${member.address}"></td>
+				<td th:text="${member.address_detail}"></td>
+				<td th:text="${member.gender}"></td>
+				<td th:text="${member.number}"></td>
+				<td
+					th:text="${#temporals.format(member.registerTime, 'yyyy-MM-dd HH:mm')}"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -48,49 +51,59 @@
 		<div
 			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">회원 상세정보</h5>
-				</div>
-				<div class="modal-body">
-					<div>
-						<label>아이디</label>
-						<input type="text" class="form-style" id="modal-detail-id">
+				<form action="/admin/memberUpdate" role="form" method="post">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">회원 상세정보</h5>
 					</div>
-					<div>
-						<label>이름</label>
-						<input type="text" class="form-style" id="modal-detail-name">
+					<div class="modal-body">
+						<div>
+							<label>아이디</label> <input type="text" class="form-style"
+								id="modal-detail-id" name="id">
+						</div>
+						<div>
+							<label>이름</label> <input type="text" class="form-style"
+								id="modal-detail-name" name="name">
+						</div>
+						<div>
+							<label>이메일</label> <input type="text" class="form-style"
+								id="modal-detail-email" name="email">
+						</div>
+						<div>
+							<label>주소</label> <input type="text" class="form-style"
+								id="modal-detail-address" name="address">
+						</div>
+						<div>
+							<label>상세주소</label> <input type="text" class="form-style"
+								id="modal-detail-detailAddress" name="address_detail">
+						</div>
+						<div>
+							<label>성별</label> <select id="modal-detail-gender" name="gender">
+								<option value="M">남</option>
+								<option value="F">여</option>
+							</select>
+						</div>
+						<div>
+							<label>권한</label> <select id="modal-detail-role" name="Role">
+								<option value="ADMIN">ADMIN</option>
+								<option value="MANAGER">MANAGER</option>
+								<option value="USER">USER</option>
+							</select>
+						</div>
+						<div>
+							<label>생성일</label> <input type="text" class="form-style"
+								id="modal-detail-createDate">
+						</div>
+
 					</div>
-					<div>
-						<label>이메일</label>
-						<input type="text" class="form-style" id="modal-detail-email">
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal" id="btn-close" onclick="modalHide()">Close</button>
+						<button type="submit" class="btn btn-primary">Save
+							changes</button>
+						<input type="hidden" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}">
 					</div>
-					<div>
-						<label>주소</label>
-						<input type="text" class="form-style" id="modal-detail-address">
-					</div>
-					<div>
-						<label>상세주소</label>
-						<input type="text" class="form-style" id="modal-detail-detailAddress">
-					</div>
-					<div>
-						<label>성별</label>
-						<input type="text" class="form-style" id="modal-detail-gender">
-					</div>
-					<div>
-						<label>권한</label>
-						<input type="text" class="form-style" id="modal-detail-role">
-					</div>
-					<div>
-						<label>생성일</label>
-						<input type="text" class="form-style" id="modal-detail-createDate">
-					</div>
-					
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>

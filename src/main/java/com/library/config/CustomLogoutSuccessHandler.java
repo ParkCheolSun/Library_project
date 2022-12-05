@@ -30,11 +30,31 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		Member mem = MemberService.findByEmail(userDetails.getUsername());
 		String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 로그아웃 완료";
-		MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.LOGOUT_MEMBER, contents);
+		MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.LOGOUT_MEMBER, contents, getClientIp(request));
 		memberLogRepository.save(memLog);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("mes", "USERLogout");
 		super.onLogoutSuccess(request, response, authentication);
+	}
+	
+	public static String getClientIp(HttpServletRequest request) {
+		String ip = request.getHeader("X-Forwarded-For");
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_CLIENT_IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
 	}
 }

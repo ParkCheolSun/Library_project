@@ -54,14 +54,23 @@ public class MemberLog {
 	public static MemberLog createMemberLog(Member mem, WorkNumber workNumber, String contents) {
 		MemberLog memLog = new MemberLog();
 		memLog.setUserID(mem.getId());
-		memLog.setIpAddress(mem.getIpAddress());
 		memLog.setRole(mem.getRole());
 		memLog.setWorkNumber(workNumber);
 		memLog.setContents(contents);
 		return memLog;
 	}
 	
-	public static MemberLog createMemberLog(Member mem, WorkNumber workNumber, String contents, String myid, Role role) {
+	public static MemberLog createMemberLog(Member mem, WorkNumber workNumber, String contents, String ip) {
+		MemberLog memLog = new MemberLog();
+		memLog.setUserID(mem.getId());
+		memLog.setIpAddress(ip);
+		memLog.setRole(mem.getRole());
+		memLog.setWorkNumber(workNumber);
+		memLog.setContents(contents);
+		return memLog;
+	}
+	
+	public static MemberLog createMemberLog(Member mem, WorkNumber workNumber, String contents, String myid, Role role, String ip) {
 		MemberLog memLog = new MemberLog();
 		memLog.setUserID(myid);
 		memLog.setIpAddress(mem.getIpAddress());

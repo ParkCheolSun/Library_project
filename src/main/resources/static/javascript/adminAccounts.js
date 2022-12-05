@@ -47,8 +47,8 @@ $(document).ready(function() {
     	$('#modal-detail-gender').val(row[6]);
     	$('#modal-detail-number').val(row[7]);
     	$('#modal-detail-createDate').val(row[8]);
-    	 $('#modal-delete').show();
-    	//$('#modal-submit').attr("disabled", true );
+    	$('#modal-delete').show();
+    	$('#modal-detail-id').attr("readonly", true );
 	});
 	
 	$('#modal-form').submit(function(){
@@ -190,6 +190,7 @@ function fnCreate(){
 	$('#modal-method').attr("value","post");
 	$('#modal-submit').html('회원저장');
 	$('#modal-submit').attr("disabled", true );
+	$('#modal-detail-id').attr("readonly", false );
 }
 
 function modalHide(){

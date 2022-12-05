@@ -39,7 +39,8 @@ public class AdminContorller {
 		HttpSession mySession = request.getSession();
 		String myid = (String)mySession.getAttribute("id");
 		Role myRole = (Role)mySession.getAttribute("Role");
-		memberService.updateMember_admin(memberResDto, myid, myRole);
+		String ip = (String)mySession.getAttribute("ipaddress");
+		memberService.updateMember_admin(memberResDto, myid, myRole, ip);
 		return "redirect:/admin/accounts";
 	}
 
@@ -48,7 +49,8 @@ public class AdminContorller {
 		HttpSession mySession = request.getSession();
 		String myid = (String)mySession.getAttribute("id");
 		Role myRole = (Role)mySession.getAttribute("Role");
-		memberService.saveMember(memberResDto, myid, myRole);
+		String ip = (String)mySession.getAttribute("ipaddress");
+		memberService.saveMember(memberResDto, myid, myRole, ip);
 		return "redirect:/admin/accounts";
 	}
 
@@ -57,7 +59,8 @@ public class AdminContorller {
 		HttpSession mySession = request.getSession();
 		String myid = (String)mySession.getAttribute("id");
 		Role myRole = (Role)mySession.getAttribute("Role");
-		memberService.deleteMember(memberResDto, myid, myRole);
+		String ip = (String)mySession.getAttribute("ipaddress");
+		memberService.deleteMember(memberResDto, myid, myRole, ip);
 		return "redirect:/admin/accounts";
 	}
 

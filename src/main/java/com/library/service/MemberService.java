@@ -65,7 +65,7 @@ public class MemberService implements UserDetailsService {
 	
 	// 계정 수정(관리자)
 	public Member updateMember_admin(MemberResponseDto memberResDto) {
-		Member temp = change(memberRepository.findById(memberResDto.getId()),memberResDto);
+		Member temp = change(memberRepository.findBymNumber(memberResDto.getNumber()),memberResDto);
 		Member mem = memberRepository.save(temp);
 		if(mem.getId() != null) {
 			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 수정 완료";
@@ -77,8 +77,10 @@ public class MemberService implements UserDetailsService {
 	
 	// 계정 삭제(관리자)
 	public void deleteMember(MemberResponseDto memberResDto) {
+		String id = memberResDto.getId();
+		String name = memberResDto.getName();
 		memberRepository.deleteById(memberResDto.getNumber());
-		String contents = "ID : " + memberResDto.getId() + "/ Name : " + memberResDto.getName() + " 삭제 완료";
+		String contents = "ID : " + id + "/ Name : " + name + " 삭제 완료";
 		MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memberResDto), WorkNumber.UPDATE_MEMBER, contents);
 		memberLogRepository.save(memLog);
 	}
@@ -109,7 +111,6 @@ public class MemberService implements UserDetailsService {
 	
 	// Email 체크
 	public Member findByEmail(String email) {
-		System.out.println(email);
 		Member mem = memberRepository.findByEmail(email);
 		return mem;
 	}

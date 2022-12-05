@@ -115,7 +115,8 @@
 							data-bs-dismiss="modal" id="btn-close" onclick="modalHide()">Close</button>
 							<button type="button" class="btn btn-primary" id="modal-delete" onclick="modalDelete()"
 							sec:authorize="hasAnyAuthority('ROLE_ADMIN')">삭제</button>
-						<button type="submit" class="btn btn-primary" id="modal-submit">변경하기</button>
+							<button type="button" class="btn btn-primary" onclick="check()" >중복확인</button>
+						<button type="submit" class="btn btn-primary" id="modal-submit" >변경하기</button>
 						<input type="hidden" th:name="${_csrf.parameterName}"
 							th:value="${_csrf.token}">
 					</div>

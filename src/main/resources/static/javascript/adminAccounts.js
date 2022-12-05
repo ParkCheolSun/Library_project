@@ -43,6 +43,8 @@ $(document).ready(function() {
     	$('#modal-detail-gender').val(row[6]);
     	$('#modal-detail-number').val(row[7]);
     	$('#modal-detail-createDate').val(row[8]);
+    	 $('#modal-delete').show();
+    	$('#modal-submit').attr("disabled", true );
 	});
 	
 	$('#modal-form').submit(function(){
@@ -70,9 +72,77 @@ $(document).ready(function() {
 });
 
 function modalDelete(){
-	$('#modal-form').attr("action","/admin/memberDelete");
-	$('#modal-method').attr("value","delete");
-	$('#modal-form').submit();
+	//유효성 검사
+	var id = $('#modal-detail-id').val();
+	var number = $('#modal-detail-number').val();
+	if(id != null || number != null || id != "" || number != ""){
+		$('#modal-form').attr("action","/admin/memberDelete");
+		$('#modal-method').attr("value","delete");
+		$('#modal-form').submit();
+	} else {
+		Swal.fire({
+			icon : 'error',
+			title : '데이터 오류',
+			text : "삭제가 불가능한 아이디입니다.",
+			footer : '<a href="">Why do I have this issue?</a>'
+		});
+	}
+}
+
+function check(){
+	var id = $('#modal-detail-id').val();
+    var email = $('#modal-detail-email').val();
+    var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$.ajax({
+				url : '/admin/check',
+				type : 'post', //POST 방식으로 전달
+				dataType : 'json',
+				data : {
+					'id' : id,
+					'email' : email
+				},
+				success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
+					console.log("check : " + check.answer)
+					if (check.answer == "Success") {
+						Swal.fire({
+							icon : 'success',
+							title : '중복확인 결과',
+							text : "사용가능한 아이디/이메일 입니다.",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
+						$('#modal-submit').attr("disabled", false );
+					} else {
+						Swal.fire({
+							icon : 'error',
+							title : '중복확인 결과',
+							text : "현재 사용중인 아이디/이메일 입니다.",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
+					}
+				},
+				error : function(xhr, ajaxOptions, thrownError) {
+					Swal.fire({
+						icon : 'error',
+						title : 'Error',
+						text : "데이터 수신 에러",
+						footer : '<a href="">Why do I have this issue?</a>'
+					});
+				},
+				beforeSend : function(xhr) {
+				console.log("ajax 이후4");
+					if (token && header) {
+						xhr.setRequestHeader(header, token); // 헤드의 csrf meta태그를 읽어 CSRF 토큰 함께 전송
+					} else {
+						Swal.fire({
+							icon : 'error',
+							title : 'csrf Error',
+							text : "csrf 토큰 에러",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
+					}
+				}
+			});
 }
 
 function fnCreate(){
@@ -86,9 +156,11 @@ function fnCreate(){
     $('#modal-detail-gender').val("");
     $('#modal-detail-number').val("");
     $('#modal-detail-createDate').val("");
+    $('#modal-delete').hide();
 	$('#modal-form').attr("action","/admin/memberSave");
 	$('#modal-method').attr("value","post");
 	$('#modal-submit').html('회원저장');
+	$('#modal-submit').attr("disabled", true );
 }
 
 function modalHide(){

@@ -32,11 +32,24 @@ public class MemberService implements UserDetailsService {
 		Member mem = memberRepository.save(member);
 		if(mem.getId() != null) {
 			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 계정 생성 완료";
-			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.CREATE_USER, contents);
+			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.CREATE_MEMBER, contents);
 			memberLogRepository.save(memLog);
 		}
 		return mem;
 	}
+	
+	// 계정 생성(관리자)
+		public Member saveMember(MemberResponseDto member) {
+			Member temp = Member.createMember(member);
+			validateDuplicateMember(temp);
+			Member mem = memberRepository.save(temp);
+			if(mem.getId() != null) {
+				String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 계정 생성 완료";
+				MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.CREATE_MEMBER, contents);
+				memberLogRepository.save(memLog);
+			}
+			return mem;
+		}
 	
 	
 	// 계정 수정(비밀번호 변경)
@@ -44,7 +57,7 @@ public class MemberService implements UserDetailsService {
 		Member mem = memberRepository.save(member);
 		if(mem.getId() != null) {
 			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 비밀번호 변경 완료";
-			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_USER, contents);
+			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_MEMBER, contents);
 			memberLogRepository.save(memLog);
 		}
 		return mem;
@@ -56,7 +69,7 @@ public class MemberService implements UserDetailsService {
 		Member mem = memberRepository.save(temp);
 		if(mem.getId() != null) {
 			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 수정 완료";
-			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_USER, contents);
+			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_MEMBER, contents);
 			memberLogRepository.save(memLog);
 		}
 		return mem;

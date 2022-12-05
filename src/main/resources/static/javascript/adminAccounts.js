@@ -46,6 +46,13 @@ $(document).ready(function() {
 	
 });
 
+function fnCreate(){
+	$('#exampleModal').modal('show');
+	$('#modal-form').attr("action","/admin/memberSave");
+	$('#modal-method').attr("value","post");
+	$('#modal-submit').html('회원저장');
+}
+
 function modalHide(){
 	$('#exampleModal').modal('hide');
 }

@@ -5,8 +5,34 @@
 	width: 100%;
 	padding-left: 30px;
 	padding-right: 30px;
-	padding-top: 100px;
+	padding-top: 10px;
 }
+
+#admin-title {
+	padding: 20px;
+	padding-top: 40px;
+	font-size: 40px;
+}
+
+#admin-add {
+	float: right;
+	margin: 40px;
+	height: 40px;
+	width: 300px;
+	background-color: #ff5e00;
+	border: 0;
+	font-size: 20px;
+}
+
+#admin-add:hover {
+	background-color: #ff9351;
+}
+
+#admin-add:focus {
+	border: 0;
+	outline: none;
+}
+
 
 #data_list_length {
 	float: left;
@@ -31,11 +57,10 @@
 	background-color: rgb(233, 233, 233);
 }
 
-
 #modal-table {
 	margin: auto;
 }
 
-#modal-table > tr {
+#modal-table>tr {
 	height: 20px;
 }

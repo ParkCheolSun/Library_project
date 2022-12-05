@@ -1,6 +1,5 @@
 package com.library.repository;
 
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +13,6 @@ import com.library.entity.Board;
 import com.library.entity.Category;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
-	
 
 	static final String UPDATE_BOARD = "UPDATE Board " + "SET TITLE = :#{#boardRequestDto.title}, "
 			+ "CONTENT = :#{#boardRequestDto.content}, " + "REGISTER_ID = :#{#boardRequestDto.registerId} "
@@ -39,16 +37,17 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 	@Modifying
 	@Query(value = DELETE_BOARD, nativeQuery = true)
 	public int deleteBoard(@Param("deleteList") Long[] deleteList);
-	
-	// 전체 게시판 
+
+	// 전체 게시판
 	public Page<Board> findByTitleContaining(Pageable pageable, String searchKeyword);
+
 	public Page<Board> findByContentContaining(Pageable pageable, String searchKeyword);
-	
+
 	// 공지사항 게시판
-	public Page<Board> findAllByCategory(Pageable pageable,Category category);
-	public Page<Board> findByTitleContainingAndCategory(Pageable pageable, String searchKeyword,Category category);
-	public Page<Board> findByContentContainingAndCategory(Pageable pageable, String searchKeyword,Category category);
-	
-	
+	public Page<Board> findAllByCategory(Pageable pageable, Category category);
+
+	public Page<Board> findByTitleContainingAndCategory(Pageable pageable, String searchKeyword, Category category);
+
+	public Page<Board> findByContentContainingAndCategory(Pageable pageable, String searchKeyword, Category category);
 
 }

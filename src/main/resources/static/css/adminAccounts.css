@@ -15,3 +15,27 @@
 #data_list_filter {
 	float: right;
 }
+
+.modal-label {
+	padding: 10px;
+	margin: 0px;
+}
+
+.modal-input {
+	width: 300px;
+	height: 30px;
+	border: 0;
+	border-radius: 15px;
+	outline: none;
+	padding-left: 10px;
+	background-color: rgb(233, 233, 233);
+}
+
+
+#modal-table {
+	margin: auto;
+}
+
+#modal-table > tr {
+	height: 20px;
+}

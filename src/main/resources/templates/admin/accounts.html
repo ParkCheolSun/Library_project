@@ -52,47 +52,58 @@
 			class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 			<div class="modal-content">
 				<form action="/admin/memberUpdate" role="form" method="post">
+					<input type="hidden" name="_method" value="put">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">회원 상세정보</h5>
 					</div>
 					<div class="modal-body">
-						<div>
-							<label>아이디</label> <input type="text" class="form-style"
-								id="modal-detail-id" name="id">
-						</div>
-						<div>
-							<label>이름</label> <input type="text" class="form-style"
-								id="modal-detail-name" name="name">
-						</div>
-						<div>
-							<label>이메일</label> <input type="text" class="form-style"
-								id="modal-detail-email" name="email">
-						</div>
-						<div>
-							<label>주소</label> <input type="text" class="form-style"
-								id="modal-detail-address" name="address">
-						</div>
-						<div>
-							<label>상세주소</label> <input type="text" class="form-style"
-								id="modal-detail-detailAddress" name="address_detail">
-						</div>
-						<div>
-							<label>성별</label> <select id="modal-detail-gender" name="gender">
-								<option value="M">남</option>
-								<option value="F">여</option>
-							</select>
-						</div>
-						<div>
-							<label>권한</label> <select id="modal-detail-role" name="Role">
-								<option value="ADMIN">ADMIN</option>
-								<option value="MANAGER">MANAGER</option>
-								<option value="USER">USER</option>
-							</select>
-						</div>
-						<div>
-							<label>생성일</label> <input type="text" class="form-style"
-								id="modal-detail-createDate">
-						</div>
+						<table id="modal-table">
+							<tr>
+								<td><label class="modal-label">아이디</label></td>
+								<td><input type="text" class="modal-input"
+									id="modal-detail-id" name="id"></td>
+							</tr>
+							<tr>
+								<td><label class="modal-label">이름</label></td>
+								<td><input type="text" class="modal-input"
+									id="modal-detail-name" name="name"></td>
+							</tr>
+							<tr>
+								<td><label class="modal-label">이메일</label></td>
+								<td><input type="text" class="modal-input"
+									id="modal-detail-email" name="email"></td>
+							</tr>
+							<tr>
+								<td><label class="modal-label">주소</label></td>
+								<td><input type="text" class="modal-input"
+									id="modal-detail-address" name="address"></td>
+							</tr>
+							<tr>
+								<td><label class="modal-label">상세주소</label></td>
+								<td><input type="text" class="modal-input"
+									id="modal-detail-detailAddress" name="address_detail"></td>
+							</tr>
+							<tr>
+								<td><label class="modal-label">성별</label></td>
+								<td><select id="modal-detail-gender" name="gender" class="modal-input modal-select">
+										<option value="M">남</option>
+										<option value="F">여</option>
+								</select></td> 
+							</tr>
+							<tr>
+								<td><label class="modal-label">권한</label></td>
+								<td><select id="modal-detail-role" name="Role" class="modal-input modal-select">
+										<option value="ADMIN">ADMIN</option>
+										<option value="MANAGER">MANAGER</option>
+										<option value="USER">USER</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td><label class="modal-label">생성일</label></td>
+								<td><input type="text" class="modal-input"
+									id="modal-detail-createDate"></td>
+							</tr>
+						</table>
 
 					</div>
 					<div class="modal-footer">

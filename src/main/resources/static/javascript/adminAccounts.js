@@ -33,17 +33,15 @@ $(document).ready(function() {
 	
 	$("#data_list").on('click', 'tbody tr', function () {
     	var row = $("#data_list").DataTable().row($(this)).data();
-    	console.log(row);
     	$('#exampleModal').modal('show');
     	$('#modal-detail-id').val(row[0]);
     	$('#modal-detail-name').val(row[1]);
     	$('#modal-detail-email').val(row[2]);
     	$('#modal-detail-role').val(row[3]);
     	$('#modal-detail-address').val(row[4]);
-    	$('#modal-detail-address_detail').val(row[5]);
+    	$('#modal-detail-detailAddress').val(row[5]);
     	$('#modal-detail-gender').val(row[6]);
     	$('#modal-detail-createDate').val(row[8]);
-    	console.log('no. : ' + row[7]);
 	});
 	
 });

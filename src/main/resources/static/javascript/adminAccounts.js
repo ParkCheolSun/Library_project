@@ -1,3 +1,5 @@
+var doubleCheck = false;
+var member;
 $(document).ready(function() {
 	var table = $('#data_list').DataTable({
 		"language": {
@@ -33,6 +35,8 @@ $(document).ready(function() {
 	
 	$("#data_list").on('click', 'tbody tr', function () {
     	var row = $("#data_list").DataTable().row($(this)).data();
+    	member = row;
+    	doubleCheck = false
     	$('#exampleModal').modal('show');
     	$('#modal-detail-id').val(row[0]);
     	$('#modal-detail-name').val(row[1]);
@@ -44,7 +48,7 @@ $(document).ready(function() {
     	$('#modal-detail-number').val(row[7]);
     	$('#modal-detail-createDate').val(row[8]);
     	 $('#modal-delete').show();
-    	$('#modal-submit').attr("disabled", true );
+    	//$('#modal-submit').attr("disabled", true );
 	});
 	
 	$('#modal-form').submit(function(){
@@ -58,6 +62,10 @@ $(document).ready(function() {
     	var name = $('#modal-detail-name').val();
     	var email = $('#modal-detail-email').val();
     	var role = $('#modal-detail-role').val();
+    	console.log(id);
+    	console.log(member[0]);
+    	console.log(email);
+    	console.log(member[2]);
     	if(id == null || name == null || email == null || role == null){
     		Swal.fire({
 				icon : 'error',
@@ -66,6 +74,19 @@ $(document).ready(function() {
 				footer : '<a href="">Why do I have this issue?</a>'
 			});
     		check = false;
+    	} else if(email == member[2]){
+    		check = true;
+    	} else {
+    		console.log(doubleCheck);
+    		if(doubleCheck == false){
+    			Swal.fire({
+					icon : 'error',
+					title : '중복확인 진행 요청',
+					text : "중복확인을 먼저 진행하여주세요.",
+					footer : '<a href="">Why do I have this issue?</a>'
+				});
+				check = false;
+    		}
     	}
     	return check;
 	});
@@ -90,8 +111,16 @@ function modalDelete(){
 }
 
 function check(){
-	var id = $('#modal-detail-id').val();
     var email = $('#modal-detail-email').val();
+    if(email == member[2]){
+    	Swal.fire({
+			icon : 'error',
+			title : '중복확인 오류',
+			text : "이메일 값이 이전값과 같습니다.",
+			footer : '<a href="">Why do I have this issue?</a>'
+		});
+		return;
+    }
     var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
 	$.ajax({
@@ -99,7 +128,6 @@ function check(){
 				type : 'post', //POST 방식으로 전달
 				dataType : 'json',
 				data : {
-					'id' : id,
 					'email' : email
 				},
 				success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
@@ -111,7 +139,9 @@ function check(){
 							text : "사용가능한 아이디/이메일 입니다.",
 							footer : '<a href="">Why do I have this issue?</a>'
 						});
-						$('#modal-submit').attr("disabled", false );
+						doubleCheck = true;
+						console.log(doubleCheck);
+						//$('#modal-submit').attr("disabled", false );
 					} else {
 						Swal.fire({
 							icon : 'error',
@@ -130,7 +160,6 @@ function check(){
 					});
 				},
 				beforeSend : function(xhr) {
-				console.log("ajax 이후4");
 					if (token && header) {
 						xhr.setRequestHeader(header, token); // 헤드의 csrf meta태그를 읽어 CSRF 토큰 함께 전송
 					} else {

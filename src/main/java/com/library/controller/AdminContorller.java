@@ -64,16 +64,13 @@ public class AdminContorller {
 	// ajax를 통한 ID,Email체크
 	@ResponseBody
 	@PostMapping(value = "/check")
-	public HashMap<String, String> check(@RequestParam("id") String id, @RequestParam("email") String email) {
-		boolean checkID = memberService.findById(id);
+	public HashMap<String, String> check(@RequestParam("email") String email) {
 		boolean checkEmail = true;
 		Member mem = memberService.findByEmail(email);
 		if(mem == null)
 			checkEmail = false;
-		System.out.println("id : " + checkID);
-		System.out.println("email : " + checkEmail);
 		HashMap<String, String> map = new HashMap<String, String>();
-		if (checkID || checkEmail) {
+		if (checkEmail) {
 			map.put("answer", "Fail");
 		} else {
 			map.put("answer", "Success");

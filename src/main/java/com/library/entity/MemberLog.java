@@ -60,4 +60,14 @@ public class MemberLog {
 		memLog.setContents(contents);
 		return memLog;
 	}
+	
+	public static MemberLog createMemberLog(Member mem, WorkNumber workNumber, String contents, String myid, Role role) {
+		MemberLog memLog = new MemberLog();
+		memLog.setUserID(myid);
+		memLog.setIpAddress(mem.getIpAddress());
+		memLog.setRole(role);
+		memLog.setWorkNumber(workNumber);
+		memLog.setContents(contents);
+		return memLog;
+	}
 }

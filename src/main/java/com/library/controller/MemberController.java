@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -137,7 +138,6 @@ public class MemberController {
 			}
 			redirectAttributes.addFlashAttribute("memberDto", memberDto);
 			return "member/SignUpForm";
-			// return "redirect:/login/signUp";
 		}
 		try {
 			Member member = Member.createMember(memberDto, passwordEncoder);

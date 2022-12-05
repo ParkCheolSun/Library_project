@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.library.constant.Role;
 import com.library.constant.WorkNumber;
 import com.library.dto.MemberResponseDto;
 import com.library.entity.Member;
@@ -39,13 +40,13 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	// 계정 생성(관리자)
-		public Member saveMember(MemberResponseDto member) {
+		public Member saveMember(MemberResponseDto member, String myid, Role myRole) {
 			Member temp = Member.createMember(member);
 			validateDuplicateMember(temp);
 			Member mem = memberRepository.save(temp);
 			if(mem.getId() != null) {
 				String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 계정 생성 완료";
-				MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.CREATE_MEMBER, contents);
+				MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.CREATE_MEMBER, contents, myid, myRole);
 				memberLogRepository.save(memLog);
 			}
 			return mem;
@@ -64,24 +65,24 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	// 계정 수정(관리자)
-	public Member updateMember_admin(MemberResponseDto memberResDto) {
+	public Member updateMember_admin(MemberResponseDto memberResDto, String myid, Role myRole) {
 		Member temp = change(memberRepository.findBymNumber(memberResDto.getNumber()),memberResDto);
 		Member mem = memberRepository.save(temp);
 		if(mem.getId() != null) {
 			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 수정 완료";
-			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_MEMBER, contents);
+			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_MEMBER, contents, myid, myRole);
 			memberLogRepository.save(memLog);
 		}
 		return mem;
 	}
 	
 	// 계정 삭제(관리자)
-	public void deleteMember(MemberResponseDto memberResDto) {
+	public void deleteMember(MemberResponseDto memberResDto, String myid, Role myRole) {
 		String id = memberResDto.getId();
 		String name = memberResDto.getName();
 		memberRepository.deleteById(memberResDto.getNumber());
 		String contents = "ID : " + id + "/ Name : " + name + " 삭제 완료";
-		MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memberResDto), WorkNumber.UPDATE_MEMBER, contents);
+		MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memberResDto), WorkNumber.DELETE_MEMBER, contents, myid, myRole);
 		memberLogRepository.save(memLog);
 	}
 	

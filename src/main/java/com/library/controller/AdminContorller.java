@@ -2,6 +2,9 @@ package com.library.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.library.constant.Role;
 import com.library.dto.MemberResponseDto;
 import com.library.entity.Member;
 import com.library.service.MemberService;
@@ -31,20 +35,29 @@ public class AdminContorller {
 	}
 
 	@PutMapping(value = "/memberUpdate")
-	public String adminUpdate(MemberResponseDto memberResDto, Model model) {
-		memberService.updateMember_admin(memberResDto);
+	public String adminUpdate(MemberResponseDto memberResDto, Model model, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		memberService.updateMember_admin(memberResDto, myid, myRole);
 		return "redirect:/admin/accounts";
 	}
 
 	@PostMapping(value = "/memberSave")
-	public String adminSave(MemberResponseDto memberResDto, Model model) {
-		memberService.saveMember(memberResDto);
+	public String adminSave(MemberResponseDto memberResDto, Model model, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		memberService.saveMember(memberResDto, myid, myRole);
 		return "redirect:/admin/accounts";
 	}
 
 	@DeleteMapping(value = "/memberDelete")
-	public String adminDelete(MemberResponseDto memberResDto, Model model) {
-		memberService.deleteMember(memberResDto);
+	public String adminDelete(MemberResponseDto memberResDto, Model model, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		memberService.deleteMember(memberResDto, myid, myRole);
 		return "redirect:/admin/accounts";
 	}
 

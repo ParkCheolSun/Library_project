@@ -30,7 +30,7 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		Member mem = MemberService.findByEmail(userDetails.getUsername());
 		String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 로그아웃 완료";
-		MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.USER_LOGOUT, contents);
+		MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.LOGOUT_MEMBER, contents);
 		memberLogRepository.save(memLog);
 		
 		HttpSession session = request.getSession();

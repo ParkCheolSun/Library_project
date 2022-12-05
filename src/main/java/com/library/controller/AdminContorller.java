@@ -2,6 +2,7 @@ package com.library.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,6 +34,12 @@ public class AdminContorller {
 	@PostMapping(value = "/memberSave")
 	public String adminSave(MemberResponseDto memberResDto, Model model) {
 		memberService.saveMember(memberResDto);
+		return "redirect:/admin/accounts";
+	}
+	
+	@DeleteMapping(value = "/memberDelete")
+	public String adminDelete(MemberResponseDto memberResDto, Model model) {
+		memberService.deleteMember(memberResDto);
 		return "redirect:/admin/accounts";
 	}
 }

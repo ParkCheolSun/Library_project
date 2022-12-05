@@ -41,13 +41,51 @@ $(document).ready(function() {
     	$('#modal-detail-address').val(row[4]);
     	$('#modal-detail-detailAddress').val(row[5]);
     	$('#modal-detail-gender').val(row[6]);
+    	$('#modal-detail-number').val(row[7]);
     	$('#modal-detail-createDate').val(row[8]);
 	});
 	
+	$('#modal-form').submit(function(){
+		// 유효성 검사
+		var check = true;
+		var method = $('#modal-method').attr("value");
+		if(method == 'delete'){
+			return check;
+		}
+		var id = $('#modal-detail-id').val();
+    	var name = $('#modal-detail-name').val();
+    	var email = $('#modal-detail-email').val();
+    	var role = $('#modal-detail-role').val();
+    	if(id == null || name == null || email == null || role == null){
+    		Swal.fire({
+				icon : 'error',
+				title : '입력 오류',
+				text : "필수 항목을 입력하세요.",
+				footer : '<a href="">Why do I have this issue?</a>'
+			});
+    		check = false;
+    	}
+    	return check;
+	});
 });
+
+function modalDelete(){
+	$('#modal-form').attr("action","/admin/memberDelete");
+	$('#modal-method').attr("value","delete");
+	$('#modal-form').submit();
+}
 
 function fnCreate(){
 	$('#exampleModal').modal('show');
+	$('#modal-detail-id').val("");
+    $('#modal-detail-name').val("");
+    $('#modal-detail-email').val("");
+    $('#modal-detail-role').val("");
+    $('#modal-detail-address').val("");
+    $('#modal-detail-detailAddress').val("");
+    $('#modal-detail-gender').val("");
+    $('#modal-detail-number').val("");
+    $('#modal-detail-createDate').val("");
 	$('#modal-form').attr("action","/admin/memberSave");
 	$('#modal-method').attr("value","post");
 	$('#modal-submit').html('회원저장');

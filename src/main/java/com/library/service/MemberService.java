@@ -75,6 +75,14 @@ public class MemberService implements UserDetailsService {
 		return mem;
 	}
 	
+	// 계정 삭제(관리자)
+	public void deleteMember(MemberResponseDto memberResDto) {
+		memberRepository.deleteById(memberResDto.getNumber());
+		String contents = "ID : " + memberResDto.getId() + "/ Name : " + memberResDto.getName() + " 삭제 완료";
+		MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memberResDto), WorkNumber.UPDATE_MEMBER, contents);
+		memberLogRepository.save(memLog);
+	}
+	
 	private Member change(Member ori, MemberResponseDto res) {
 		ori.setId(res.getId());
 		ori.setName(res.getName());

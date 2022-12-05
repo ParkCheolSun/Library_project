@@ -22,6 +22,7 @@
 	background-color: #ff5e00;
 	border: 0;
 	font-size: 20px;
+	border-radius: 12px;
 }
 
 #admin-add:hover {

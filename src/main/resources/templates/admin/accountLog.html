@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<meta charset="UTF-8">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" />
+<script
+	src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="/javascript/adminAccountsLog.js"></script>
+<link th:href="@{/css/adminAccountsLog.css}" rel="stylesheet">
+</head>
+<div id="adminAccount-wrapper" layout:fragment="content">
+	<div>
+		<label id="admin-title">기록실</label>
+	</div>
+	<table id="data_list" class="table table-accounts">
+		<thead>
+			<tr>
+				<th>아이디</th>
+				<th>권한</th>
+				<th>아이피</th>
+				<th>작업시간</th>
+				<th>작업분류</th>
+				<th>세부 내용</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="memberLogDto : ${memberLogList}">
+				<td th:text="${memberLogDto.userID}"></td>
+				<td th:text="${memberLogDto.role}"></td>
+				<td th:text="${memberLogDto.ipAddress}"></td>
+				<td
+					th:text="${#temporals.format(memberLogDto.logDate, 'yyyy-MM-dd HH:mm')}"></td>
+				<td th:text="${memberLogDto.workNumber}"></td>
+				<td th:text="${memberLogDto.contents}"></td>
+				
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+
+<!-- Modal -->
+
+</html>

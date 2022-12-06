@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.library.constant.Role;
 import com.library.dto.MemberResponseDto;
 import com.library.entity.Member;
+import com.library.service.MemberLogService;
 import com.library.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class AdminContorller {
 	private final MemberService memberService;
+	private final MemberLogService memberLogService;
 
 	@GetMapping(value = "/accounts")
 	public String adminAccountsPage(Model model) {
@@ -79,5 +81,12 @@ public class AdminContorller {
 			map.put("answer", "Success");
 		}
 		return map;
+	}
+	
+	// 관리자 로그
+	@GetMapping(value = "/log")
+	public String adminLogPage(Model model) {
+		model.addAttribute("memberLogList", memberLogService.findAll());
+		return "admin/accountLog";
 	}
 }

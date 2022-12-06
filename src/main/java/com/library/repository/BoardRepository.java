@@ -14,19 +14,11 @@ import com.library.entity.Category;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-	static final String UPDATE_BOARD = "UPDATE Board " + "SET TITLE = :#{#boardRequestDto.title}, "
-			+ "CONTENT = :#{#boardRequestDto.content}, " + "REGISTER_ID = :#{#boardRequestDto.registerId} "
-			+ "WHERE BOARD_ID = :#{#boardRequestDto.id}";
 
 	static final String UPDATE_BOARD_READ_CNT_INC = "UPDATE Board " + "SET READ_CNT = READ_CNT + 1 "
 			+ "WHERE BOARD_ID = :id";
 
 	static final String DELETE_BOARD = "DELETE FROM Board " + "WHERE BOARD_ID IN (:deleteList)";
-
-	@Transactional
-	@Modifying
-	@Query(value = UPDATE_BOARD, nativeQuery = true)
-	public int updateBoard(@Param("boardRequestDto") BoardRequestDto boardRequestDto);
 
 	@Transactional
 	@Modifying
@@ -44,6 +36,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 	public Page<Board> findByContentContaining(Pageable pageable, String searchKeyword);
 
 	// 공지사항 게시판
+	
 	public Page<Board> findAllByCategory(Pageable pageable, Category category);
 
 	public Page<Board> findByTitleContainingAndCategory(Pageable pageable, String searchKeyword, Category category);

@@ -2,6 +2,7 @@ package com.library.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -256,10 +257,20 @@ public class BoardService {
 		}
 		return resultMap;
 	}
+	
+	public Board change(Optional<Board> optional, BoardRequestDto boardRequestDto) {
+		Board ori = optional.get();
+		ori.setContent(boardRequestDto.getContent());
+		ori.setRegisterId(boardRequestDto.getRegisterId());
+		ori.setMember(boardRequestDto.getMember());
+		ori.setTitle(boardRequestDto.getTitle());
+		return ori;
+	}
 
 	public boolean updateBoard(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid, Role myRole, String ip, WorkNumber wNum)
 			throws Exception {
-		int result = boardRepository.updateBoard(boardRequestDto);
+		Board temp = change(boardRepository.findById(boardRequestDto.getId()), boardRequestDto);
+		Board result = boardRepository.save(temp);
 		
 		String contents = "존재하지 않는 작업입니다.";
 		switch (wNum) {
@@ -283,7 +294,7 @@ public class BoardService {
 
 		boolean resultFlag = false;
 
-		if (result > 0) {
+		if (result.getId() != null) {
 			boardFileService.uploadFile(multiRequest, boardRequestDto.getId());
 			resultFlag = true;
 		}

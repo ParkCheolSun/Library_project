@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<title>Board List</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!--부트스트랩 css 추가-->
+<link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
+<link th:href="@{/css/noticeForm.css}" rel="stylesheet">
+</head>
+<div id="noticewrite-container" layout:fragment="content">
+	<script
+		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="/javascript/noticeWrite.js"></script>
+	<h1>공지사항 작성</h1>
+	<form action="/small/smallWrite/action" method="post"
+		enctype="multipart/form-data">
+
+		<div class="mb-3">
+			<label class="form-label">제목</label> <input type="text"
+				class="form-control" id="" name="title" maxlength="20"
+				placeholder="제목은 20자 이내로 작성해주세요." required>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">내용</label>
+			<textarea class="form-control content_area" rows="5" cols=""
+				name="content" maxlength="500" placeholder="내용을 입력하세요."></textarea>
+			<span style="color: #aaa;" id="counter">(0 / 500)</span>
+		</div>
+		<div class="mb-3">
+			<label class="form-label">작성자</label><input type="text"
+				th:value="${session.id}" class="form-control" id=""
+				name="registerId" readonly>
+
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label font-weight-bold">파일등록</label>
+			<div id="fileDiv">
+				<div class="custom-file mt-1">
+					<input type="file" class="custom-file-input" id="customFile"
+						name="customFile" onchange="fnChngFile(this);"> <label
+						class="custom-file-label" for="customFile">파일선택</label>
+				</div>
+			</div>
+			<div class="float-right mt-2">
+				<a class="btn btn-primary text-white"
+					href="javascript:fnAddFileDiv();">+</a> <a
+					class="btn btn-danger text-white" href="javascript:fnDelFileDiv();">-</a>
+			</div>
+		</div>
+
+		<button type="button" class="btn btn-success"
+			onclick="javascript:location.href='/small/smallList'">이전</button>
+		<button type="submit" class="btn btn-primary">작성</button>
+		<input type="hidden" th:name="${_csrf.parameterName}"
+			th:value="${_csrf.token}">
+	</form>
+</div>
+</th:block>
+</html>
+

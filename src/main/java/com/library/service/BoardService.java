@@ -175,6 +175,25 @@ public class BoardService {
 
 		return resultMap;
 	}
+	
+	// 작은도서관 소식 게시판
+		@Transactional(readOnly = true)
+		public HashMap<String, Object> findAllSmallLibrary(Integer page, Integer size) throws Exception {
+
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+			Category category = new Category();
+			category.setCategory_id(15l);
+			Page<Board> list = boardRepository
+					.findAllByCategory(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category);
+			System.out.println("list : " + list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+			resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+			resultMap.put("paging", list.getPageable());
+			resultMap.put("totalCnt", list.getTotalElements());
+			resultMap.put("totalPage", list.getTotalPages());
+
+			return resultMap;
+		}
 
 	@Transactional
 	public HashMap<String, Object> findByTitleContaining(Integer page, Integer size, String searchKeyword) {

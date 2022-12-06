@@ -16,9 +16,9 @@
 	<div class="notice-container">
 		<div class="notice-header">
 			<div class="notice-img"></div>
-			<h1 class="notice-title">자유게시판</h1>
+			<h1 class="notice-title">도서요청</h1>
 		</div>
-		<form action="/board/list" id="frm" method="get">
+		<form action="/board/request/list" id="frm" method="get">
 			<div class="search">
 				<select id="comCd" name="kind" th:value="${kind}">
 					<option th:selected="${kind}=='title'">제목</option>
@@ -77,7 +77,7 @@
 					<span class="btn btn-danger" onclick="fnDelete()"
 						sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')">삭제</span>
 					<span class="btn btn-primary"
-						onclick="javascript:location.href='/board/write'"
+						onclick="javascript:location.href='/board/request/write'"
 						th:if="${session.id} != null">작성</span>
 				</div>
 			</div>

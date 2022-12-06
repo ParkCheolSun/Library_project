@@ -74,19 +74,19 @@ public class MenuController {
 	@GetMapping(value = "/faq")
 	public String d2(Model model) {
 		System.out.println("자주하는 질문");
-		return "redirect:/faq/list";
+		return "redirect:/board/faq/list";
 	}
 
-	@GetMapping(value = "/d3")
+	@GetMapping(value = "/suggestion")
 	public String d3(Model model) {
 		System.out.println("건의사항");
-		return "redirect:/";
+		return "redirect:/board/suggestion/list";
 	}
 
-	@GetMapping(value = "/d4")
+	@GetMapping(value = "/request")
 	public String d4(Model model) {
-		System.out.println("포토 갤러리");
-		return "redirect:/";
+		System.out.println("도서신청");
+		return "redirect:/board/request/list";
 	}
 
 	// 작은 도서관
@@ -99,7 +99,7 @@ public class MenuController {
 	@GetMapping(value = "/e1")
 	public String e1(Model model) {
 		System.out.println("도서관 소개");
-		return "redirect:/";
+		return "board/faq/greetings";
 	}
 
 	@GetMapping(value = "/e2")

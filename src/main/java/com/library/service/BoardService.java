@@ -76,6 +76,82 @@ public class BoardService {
 		return resultMap;
 	}
 
+	// 자주하는 질문
+	@Transactional(readOnly = true)
+	public HashMap<String, Object> findAllFaq(Integer page, Integer size) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(12l);
+		Page<Board> list = boardRepository
+				.findAllByCategory(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	// 건의사항
+	@Transactional(readOnly = true)
+	public HashMap<String, Object> findAllSuggestion(Integer page, Integer size) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(13l);
+		Page<Board> list = boardRepository
+				.findAllByCategory(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	// 자유게시판
+	@Transactional(readOnly = true)
+	public HashMap<String, Object> findAllBoard(Integer page, Integer size) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(11l);
+		Page<Board> list = boardRepository
+				.findAllByCategory(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	// 도서요청 게시판
+	@Transactional(readOnly = true)
+	public HashMap<String, Object> findAllRequest(Integer page, Integer size) throws Exception {
+
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(14l);
+		Page<Board> list = boardRepository
+				.findAllByCategory(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
 	@Transactional
 	public HashMap<String, Object> findByTitleContaining(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();

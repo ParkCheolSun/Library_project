@@ -3,7 +3,7 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{layouts/layoutForm}">
 <head>
-<title>글 작성</title>
+<title>Request Book</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!--부트스트랩 css 추가-->
@@ -18,8 +18,8 @@
 	<script
 		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 	<script src="/javascript/noticeWrite.js"></script>
-	<h1>글 작성</h1>
-	<form action="/faq/write/action" method="post"
+	<h1>도서요청 작성</h1>
+	<form action="/board/request/write/action" method="post"
 		enctype="multipart/form-data">
 
 		<div class="mb-3">
@@ -31,7 +31,7 @@
 			<label class="form-label">내용</label>
 			<textarea class="form-control content_area" rows="5" cols="" name="content"
 			maxlength="500" placeholder="내용을 입력하세요."></textarea>
-			<span style="color: #aaa;" id="counter">(0 / 200)</span>
+			<span style="color: #aaa;" id="counter">(0 / 500)</span>
 		</div>
 		<div class="mb-3">
 			<label class="form-label">작성자</label><input type="text"
@@ -40,8 +40,9 @@
 
 		</div>
 
+
 		<button type="button" class="btn btn-success"
-			onclick="javascript:location.href='/faq/list'">이전</button>
+			onclick="javascript:location.href='/board/request/list'">이전</button>
 		<button type="submit" class="btn btn-primary">작성</button>
 		<input type="hidden" th:name="${_csrf.parameterName}"
 			th:value="${_csrf.token}">

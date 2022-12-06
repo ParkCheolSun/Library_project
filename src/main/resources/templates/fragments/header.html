@@ -72,7 +72,7 @@
 			<!-- .navbar End -->
 
 			<div id="btn_group">
-				<p class="sign-in" th:text="${session.ipaddress}"
+				<p class="sign-in" th:text="'접속IP : ' + ${session.ipaddress}"
 					th:unless="${session == null}" sec:authorize="isAuthenticated()"></p>
 				<p class="sign-in" th:text="${session.name}"
 					th:unless="${session == null}" sec:authorize="isAuthenticated()"></p>

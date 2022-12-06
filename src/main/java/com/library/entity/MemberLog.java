@@ -73,7 +73,7 @@ public class MemberLog {
 	public static MemberLog createMemberLog(Member mem, WorkNumber workNumber, String contents, String myid, Role role, String ip) {
 		MemberLog memLog = new MemberLog();
 		memLog.setUserID(myid);
-		memLog.setIpAddress(mem.getIpAddress());
+		memLog.setIpAddress(ip);
 		memLog.setRole(role);
 		memLog.setWorkNumber(workNumber);
 		memLog.setContents(contents);

@@ -46,7 +46,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 		} else {
 			super.onAuthenticationSuccess(request, response, authentication);
 		}
-		session.setAttribute("ipaddress", "접속IP : " + getClientIp(request));
+		session.setAttribute("ipaddress", getClientIp(request));
 		session.setAttribute("name", mem.getName() + "님 환영합니다!");
 		session.setAttribute("id", mem.getId());
 		session.setAttribute("Role", mem.getRole());

@@ -112,14 +112,16 @@ function modalDelete(){
 
 function check(){
     var email = $('#modal-detail-email').val();
-    if(email == member[2]){
-    	Swal.fire({
-			icon : 'error',
-			title : '중복확인 오류',
-			text : "이메일 값이 이전값과 같습니다.",
-			footer : '<a href="">Why do I have this issue?</a>'
-		});
-		return;
+    if(member != null){
+    	if(email == member[2]){
+    		Swal.fire({
+				icon : 'error',
+				title : '중복확인 오류',
+				text : "이메일 값이 이전값과 같습니다.",
+				footer : '<a href="">Why do I have this issue?</a>'
+			});
+			return;
+    	}
     }
     var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -140,8 +142,7 @@ function check(){
 							footer : '<a href="">Why do I have this issue?</a>'
 						});
 						doubleCheck = true;
-						console.log(doubleCheck);
-						//$('#modal-submit').attr("disabled", false );
+						$('#modal-submit').attr("disabled", false );
 					} else {
 						Swal.fire({
 							icon : 'error',

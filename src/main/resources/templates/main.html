@@ -11,8 +11,10 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
+<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 </head>
 <div layout:fragment="content">
 	<script src="/javascript/mainContent.js"></script>
@@ -75,9 +77,8 @@
 				<div class="aco-contents">
 					<div class="aco-inner">
 						<div class="aco-description">
-							<h3>게시판 검색</h3>
-							<input type="text" name="searchKeyword" class="form-control search-input">
-				<button type="button" class="btn btn-primary searchSubmit" onclick="searchSubmit()">검색</button>
+							<h3>TITLE 2</h3>
+							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
 						</div>
 					</div>
 				</div>
@@ -130,8 +131,7 @@
 						class="table table-striped table-horizontal table-bordered mt-3">
 						<tbody id="tbody">
 							<tr th:each="list,index : ${resultMap.list}"
-								th:with="paging=${resultMap.paging}"
-								class="mainNotice-tr">
+								th:with="paging=${resultMap.paging}" class="mainNotice-tr">
 								<td width="18%" class="td-date"><span class="time-year"
 									th:text="${#temporals.format(list.registerTime, 'yyyy')}"></span><br>
 									<span class="time-monthday"
@@ -148,13 +148,54 @@
 			<p class="sly-title">남구도서관 인기대출도서</p>
 			<div class="frame" id="cycleitems">
 				<ul class="slidee">
-					<li th:each="bookList : ${bookDtoListToLib}"><img
-						th:src="@{${bookList.bookImageURL}}"></li>
+					<li th:each="bookList : ${bookDtoListToLib}">
+						<div class="book-flip">
+							<div class="book-card">
+								<div class="book-front">
+									<img th:src="@{${bookList.bookImageURL}}">
+								</div>
+								<div class="book-back">
+									<img th:src="@{/file/bookImage(isbn=${bookList.isbn13})}">
+								</div>
+							</div>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
 		<div class="cnt04">
-			<p>메인페이지4</p>
+			<div class="section02" >
+				<div class="s2_wrap">
+					<span data-show="con_A" data-button="button_A" class="btn_A on">남구문화정보도서관</span>
+					<span data-show="con_B" data-button="button_B" class="btn_B">광주광역시립사직도서관</span>
+					<span data-show="con_C" data-button="button_C" class="btn_C">남구청소년도서관</span>
+					<span data-show="con_D" data-button="button_D" class="btn_D">남구푸른길도서관</span>
+					<span data-show="con_E" data-button="button_E" class="btn_E">금호평생교육관</span>
+					<i class="button_A on ani"></i> <i class="button_B ani"></i> <i
+						class="button_C ani"></i> <i class="button_D ani"></i> <i
+						class="button_E ani"></i>
+				</div>
+
+
+				<div class="content_box con_A">
+					<div class="content_box_sub con_A">
+						<div id="daumRoughmapContainer1669965579197" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+					<div class="content_box_sub con_B">
+						<div id="daumRoughmapContainer1669969380551" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+					<div class="content_box_sub con_C">
+						<div id="daumRoughmapContainer1669970962548" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+					<div class="content_box_sub con_D">
+						<div id="daumRoughmapContainer1669972505045" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+					<div class="content_box_sub con_E">
+						<div id="daumRoughmapContainer1669972619007" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+					</div>
+				</div>
+
+			</div>
 		</div>
 	</div>
 </div>

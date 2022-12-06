@@ -4,12 +4,7 @@
 	layout:decorate="~{layouts/layoutForm}">
 <head>
 <meta charset="UTF-8">
-<link rel='stylesheet'
-	href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
-
 <link rel="stylesheet" th:href="@{/css/signUpForm.css}">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
 <meta id="_csrf_header" name="_csrf_header"
 	th:content="${_csrf.headerName}" />

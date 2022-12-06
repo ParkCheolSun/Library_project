@@ -111,6 +111,12 @@
 				success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
 					console.log("check : " + check.answer)
 					if (check.answer == "Success") {
+						Swal.fire({
+							icon : 'success',
+							title : '중복확인 결과',
+							text : "사용 가능한 아이디입니다.",
+							footer : '<a href="">Why do I have this issue?</a>'
+						});
 						$("#id").prop('readonly', true);
 						$("#id_hidden").val("S");
 						hiddenCheck();

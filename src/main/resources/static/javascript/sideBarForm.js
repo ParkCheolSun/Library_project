@@ -6,11 +6,12 @@
 								$(item).attr('href') == "#pageSubmenu" ||
 								$(item).attr('href') == "#likeSubmenu" ||
 								$(item).attr('href') == "#cultureMenu" ||
-								$(item).attr('href') == "#noticeSubMenu"){
+								$(item).attr('href') == "#noticeSubMenu"||
+								$(item).attr('href') == "#adminSubmenu"){
 							var id = $(item).attr('id');
 							//console.log("id : " + id);
 							if(id == "guideMenu" || id == "cultureMenu" || id == "noticeMenu" ||
-									id == "openNoticeMenu" || id == "sLibraryMenu"){
+									id == "openNoticeMenu" || id == "sLibraryMenu" || id == "adminMenu"){
 								var temp = "#" + id;
 								//console.log("완성문자 : " + temp);
 								var search = $(item).parent().children('ul').children('li').children('a');

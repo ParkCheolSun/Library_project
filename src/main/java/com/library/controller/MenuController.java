@@ -93,18 +93,18 @@ public class MenuController {
 	@GetMapping(value = "/test5")
 	public String test5(Model model) {
 		System.out.println("작은도서관");
-		return "redirect:/";
+		return "small/smallLibrary";
 	}
 
-	@GetMapping(value = "/e1")
+	@GetMapping(value = "/small")
 	public String e1(Model model) {
-		System.out.println("도서관 소개");
-		return "board/faq/greetings";
+		System.out.println("작은도서관 소개");
+		return "small/smallLibrary";
 	}
 
 	@GetMapping(value = "/e2")
 	public String e2(Model model) {
-		System.out.println("도서관 소식");
+		System.out.println("작은도서관 소식");
 		return "redirect:/";
 	}
 }

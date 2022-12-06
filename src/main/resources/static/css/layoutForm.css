@@ -81,6 +81,7 @@ body::-webkit-scrollbar-track {
   bottom:0;
   left:0;
   background: rgba(191, 95, 0, 0.31);
+  z-index: -1;
 }
 
 .wave {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layoutForm}">
 
@@ -77,7 +78,7 @@
 				<div class="aco-contents">
 					<div class="aco-inner">
 						<div class="aco-description">
-							<h3>TITLE 2</h3>
+							<h3>TITLE 1</h3>
 							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
 						</div>
 					</div>
@@ -92,8 +93,11 @@
 				<div class="aco-contents">
 					<div class="aco-inner">
 						<div class="aco-description">
-							<h3>TITLE 1</h3>
-							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+							<form action="/search" role="form" method="get">
+								<h3 id="h-search">도서 검색</h3>
+								<input type="text" name="keyword" class="input-keyword" placeholder="도서 키워드" id="keyword" autocomplete="off">
+								<button type="submit" id="btn-search">검색</button>
+							</form>
 						</div>
 					</div>
 				</div>

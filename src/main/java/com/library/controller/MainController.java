@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.library.dto.BookDto;
 import com.library.service.BoardService;
 import com.library.service.BookService;
-import com.library.service.MainService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-	private final MainService mainService;
 	private final BookService bookService;
 	private final BoardService boardService;
 	private final List<BookDto> bookDtoList;
@@ -38,7 +36,7 @@ public class MainController {
 		// api book data
 		bookDtoList.clear();
 		bookDtoListToLib.clear();
-		bookDtoList.addAll(mainService.popularityBook());
+		bookDtoList.addAll(bookService.popularityBook());
 		bookDtoListToLib.addAll(bookService.popularityBookToLibrary());
 		model.addAttribute("bookDtoList", bookDtoList);
 		model.addAttribute("bookDtoListToLib", bookDtoListToLib);

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layoutForm}">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.css" />
+<script
+	src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+<script src="/javascript/bookSearch.js"></script>
+<link th:href="@{/css/bookSearch.css}" rel="stylesheet">
+</head>
+
+<div layout:fragment="content">
+	<div class="search-content">
+		<div>
+			<label id="search-title">도서 검색 결과</label>
+			<label id="search-coment">※키워드 검색이므로 제목과 관련없는 도서가 나올 수 있습니다!</label>
+		</div>
+		<table id="data_list" class="table table-accounts">
+			<thead id="bookList">
+				<tr>
+					<th>이미지</th>
+					<th>정보</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bookResDto : ${bookResDtoList}">
+					<td class="td-img">
+						<img th:src="@{${bookResDto.bookImageURL}}" class="img-book">
+					</td>
+					<td>
+						<p th:text="'책 명칭 : ' + ${bookResDto.bookName}" />
+						<p th:text="'저자 : ' + ${bookResDto.authors}" />
+						<p th:text="'퍼블리셔 : ' + ${bookResDto.publisher}" />
+						<p th:text="'출간일 : ' + ${bookResDto.publication}" />
+						<p th:text="'ISBN : ' + ${bookResDto.isbn}" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</html>

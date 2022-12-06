@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+#data_list_wrapper {
+	display: inline-block;
+	width: 100%;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 10px;
+}
+
+#search-title {
+	padding: 20px;
+	padding-top: 40px;
+	font-size: 40px;
+}
+
+#data_list_length {
+	float: left;
+}
+
+#data_list_filter {
+	float: right;
+}
+
+.img-book {
+	width: 150px;
+	height: 200px;
+}
+
+.table>thead>tr>th {
+	text-align: center;
+}
+
+.table>tbody>tr>td {
+	vertical-align: middle;
+}
+
+.td-img {
+	text-align: center;
+}
+
+#search-coment {
+	color: #999;
+}

@@ -12,12 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.library.constant.Role;
+import com.library.constant.WorkNumber;
 import com.library.dto.BoardRequestDto;
 import com.library.dto.BoardResponseDto;
 import com.library.entity.Board;
 import com.library.entity.BoardFile;
 import com.library.entity.Category;
+import com.library.entity.MemberLog;
 import com.library.repository.BoardRepository;
+import com.library.repository.MemberLogRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,12 +30,31 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 
 	private final BoardRepository boardRepository;
+	private final MemberLogRepository memberLogRepository;
 	private final BoardFileService boardFileService;
 
 	@Transactional
-	public boolean save(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest) throws Exception {
+	public boolean save(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid, Role myRole, String ip, WorkNumber wNum) 
+			throws Exception {
 		Board result = boardRepository.save(boardRequestDto.toEntity());
-
+		
+		String contents = "존재하지 않는 작업입니다.";
+		switch (wNum) {
+		case CREATE_NOTICE :
+			contents = "고유번호[" + result.getId() + "] 공지사항 글 생성 완료";
+			break;
+		case CREATE_SUGGESTION :
+			contents = "고유번호[" + result.getId() + "] 건의사항 글 생성 완료";
+			break;
+		case CREATE_REQUEST :
+			contents = "고유번호[" + result.getId() + "] 도서요청 글 생성 완료";
+			break;
+		default:
+			break;
+		}
+		MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
+		memberLogRepository.save(memLog);
+		
 		boolean resultFlag = false;
 
 		if (result != null) {
@@ -234,10 +257,29 @@ public class BoardService {
 		return resultMap;
 	}
 
-	public boolean updateBoard(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest)
+	public boolean updateBoard(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid, Role myRole, String ip, WorkNumber wNum)
 			throws Exception {
-
 		int result = boardRepository.updateBoard(boardRequestDto);
+		
+		String contents = "존재하지 않는 작업입니다.";
+		switch (wNum) {
+		case UPDATE_NOTICE :
+			contents = "고유번호[" + boardRequestDto.getId() + "] 공지사항 글 수정 완료";
+			break;
+		case UPDATE_SUGGESTION :
+			contents = "고유번호[" + boardRequestDto.getId() + "] 건의사항 글 수정 완료";
+			break;
+		case UPDATE_REQUEST :
+			contents = "고유번호[" + boardRequestDto.getId() + "] 도서요청 글 수정 완료";
+			break;
+		case UPDATE_FAQ :
+			contents = "고유번호[" + boardRequestDto.getId() + "] FAQ 글 수정 완료";
+			break;
+		default:
+			break;
+		}
+		MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
+		memberLogRepository.save(memLog);
 
 		boolean resultFlag = false;
 
@@ -249,14 +291,38 @@ public class BoardService {
 		return resultFlag;
 	}
 
-	public void deleteById(Long id) throws Exception {
+	public void deleteById(Long id, String myid, Role myRole, String ip, WorkNumber wNum) throws Exception {
 		Long[] idArr = { id };
 		boardFileService.deleteBoardFileYn(idArr);
 		boardRepository.deleteById(id);
+		String contents = "존재하지 않는 작업입니다.";
+		switch (wNum) {
+		case DELETE_NOTICE :
+			contents = "고유번호[" + id + "] 공지사항 글 삭제 완료";
+			break;
+		case DELETE_SUGGESTION :
+			contents = "고유번호[" + id + "] 건의사항 글 삭제 완료";
+			break;
+		case DELETE_REQUEST :
+			contents = "고유번호[" + id + "] 도서요청 글 삭제 완료";
+			break;
+		case DELETE_FAQ :
+			contents = "고유번호[" + id + "] 도서요청 글 삭제 완료";
+			break;
+		default:
+			break;
+		}
+		MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
+		memberLogRepository.save(memLog);
 	}
 
-	public void deleteAll(Long[] deleteIdList) throws Exception {
+	public void deleteAll(Long[] deleteIdList, String myid, Role myRole, String ip, WorkNumber wNum) throws Exception {
 		boardFileService.deleteBoardFileYn(deleteIdList);
 		boardRepository.deleteBoard(deleteIdList);
+		for (Long num : deleteIdList) {
+			String contents = "고유번호[" + num + "] 게시판 삭제 완료";
+			MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
+			memberLogRepository.save(memLog);
+		}
 	}
 }

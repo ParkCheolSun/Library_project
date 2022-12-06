@@ -70,7 +70,7 @@ public class MemberLog {
 		return memLog;
 	}
 	
-	public static MemberLog createMemberLog(Member mem, WorkNumber workNumber, String contents, String myid, Role role, String ip) {
+	public static MemberLog createMemberLog(WorkNumber workNumber, String contents, String myid, Role role, String ip) {
 		MemberLog memLog = new MemberLog();
 		memLog.setUserID(myid);
 		memLog.setIpAddress(ip);

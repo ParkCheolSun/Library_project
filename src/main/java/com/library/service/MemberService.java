@@ -46,7 +46,7 @@ public class MemberService implements UserDetailsService {
 			Member mem = memberRepository.save(temp);
 			if(mem.getId() != null) {
 				String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 계정 생성 완료";
-				MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.CREATE_MEMBER, contents, myid, myRole, ip);
+				MemberLog memLog = MemberLog.createMemberLog(WorkNumber.CREATE_MEMBER, contents, myid, myRole, ip);
 				memberLogRepository.save(memLog);
 			}
 			return mem;
@@ -70,7 +70,7 @@ public class MemberService implements UserDetailsService {
 		Member mem = memberRepository.save(temp);
 		if(mem.getId() != null) {
 			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 수정 완료";
-			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_MEMBER, contents, myid, myRole, ip);
+			MemberLog memLog = MemberLog.createMemberLog(WorkNumber.UPDATE_MEMBER, contents, myid, myRole, ip);
 			memberLogRepository.save(memLog);
 		}
 		return mem;
@@ -82,7 +82,7 @@ public class MemberService implements UserDetailsService {
 		String name = memberResDto.getName();
 		memberRepository.deleteById(memberResDto.getNumber());
 		String contents = "ID : " + id + "/ Name : " + name + " 삭제 완료";
-		MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memberResDto), WorkNumber.DELETE_MEMBER, contents, myid, myRole, ip);
+		MemberLog memLog = MemberLog.createMemberLog(WorkNumber.DELETE_MEMBER, contents, myid, myRole, ip);
 		memberLogRepository.save(memLog);
 	}
 	

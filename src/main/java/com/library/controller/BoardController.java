@@ -1,6 +1,8 @@
 package com.library.controller;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.library.constant.Role;
+import com.library.constant.WorkNumber;
 import com.library.dto.BoardRequestDto;
 import com.library.entity.Category;
 import com.library.service.BoardService;
@@ -224,10 +228,13 @@ public class BoardController {
 
 	// 공지사항 삭제
 	@PostMapping("/board/notice/delete")
-	public String noticeBoardDelete(Model model, @RequestParam() Long[] deleteId) throws Exception {
-
+	public String noticeBoardDelete(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteAll(deleteId);
+			boardService.deleteAll(deleteId, myid, myRole, ip, WorkNumber.DELETE_NOTICE);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -237,10 +244,13 @@ public class BoardController {
 
 	// 건의사항 삭제
 	@PostMapping("/board/suggestion/delete")
-	public String suggestionBoardDelete(Model model, @RequestParam() Long[] deleteId) throws Exception {
-
+	public String suggestionBoardDelete(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteAll(deleteId);
+			boardService.deleteAll(deleteId, myid, myRole, ip, WorkNumber.DELETE_SUGGESTION);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -250,10 +260,13 @@ public class BoardController {
 	
 	// 도서요청 삭제
 		@PostMapping("/board/request/delete")
-		public String requestBoardDelete(Model model, @RequestParam() Long[] deleteId) throws Exception {
-
+		public String requestBoardDelete(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request) throws Exception {
+			HttpSession mySession = request.getSession();
+			String myid = (String)mySession.getAttribute("id");
+			Role myRole = (Role)mySession.getAttribute("Role");
+			String ip = (String)mySession.getAttribute("ipaddress");
 			try {
-				boardService.deleteAll(deleteId);
+				boardService.deleteAll(deleteId, myid, myRole, ip, WorkNumber.DELETE_REQUEST);
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());
 			}
@@ -264,11 +277,15 @@ public class BoardController {
 	// 공지사항 작성 완료
 	@PostMapping("/board/noticeWrite/action")
 	public String noticeBoardWriteAction(Model model, BoardRequestDto boardRequestDto,
-			MultipartHttpServletRequest multiRequest) throws Exception {
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
 			Category category = categoryService.findCategory(10L);
 			boardRequestDto.setCategory(category);
-			if (!boardService.save(boardRequestDto, multiRequest)) {
+			if (!boardService.save(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.CREATE_NOTICE)) {
 				throw new Exception("#Exception boardWriteAction!");
 			}
 		} catch (Exception e) {
@@ -281,11 +298,15 @@ public class BoardController {
 	// 건의사항 작성 완료
 	@PostMapping("/board/suggestion/write/action")
 	public String suggestionBoardWriteAction(Model model, BoardRequestDto boardRequestDto,
-			MultipartHttpServletRequest multiRequest) throws Exception {
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
 			Category category = categoryService.findCategory(13L);
 			boardRequestDto.setCategory(category);
-			if (!boardService.save(boardRequestDto, multiRequest)) {
+			if (!boardService.save(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.CREATE_SUGGESTION)) {
 				throw new Exception("#Exception boardWriteAction!");
 			}
 		} catch (Exception e) {
@@ -298,11 +319,15 @@ public class BoardController {
 	// 도서요청 작성 완료
 		@PostMapping("/board/request/write/action")
 		public String requestBoardWriteAction(Model model, BoardRequestDto boardRequestDto,
-				MultipartHttpServletRequest multiRequest) throws Exception {
+				MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+			HttpSession mySession = request.getSession();
+			String myid = (String)mySession.getAttribute("id");
+			Role myRole = (Role)mySession.getAttribute("Role");
+			String ip = (String)mySession.getAttribute("ipaddress");
 			try {
 				Category category = categoryService.findCategory(14L);
 				boardRequestDto.setCategory(category);
-				if (!boardService.save(boardRequestDto, multiRequest)) {
+				if (!boardService.save(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.CREATE_REQUEST)) {
 					throw new Exception("#Exception boardWriteAction!");
 				}
 			} catch (Exception e) {
@@ -357,10 +382,13 @@ public class BoardController {
 	// 공지사항 세부사항 수정
 	@PostMapping("/board/noticeDetailView/action")
 	public String noticeBoardDetailViewAction(Model model, BoardRequestDto boardRequestDto,
-			MultipartHttpServletRequest multiRequest) throws Exception {
-
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boolean result = boardService.updateBoard(boardRequestDto, multiRequest);
+			boolean result = boardService.updateBoard(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.UPDATE_NOTICE);
 
 			if (!result) {
 				throw new Exception("#Exception boardViewAction!");
@@ -375,10 +403,13 @@ public class BoardController {
 	// 건의사항 세부사항 수정
 	@PostMapping("/board/suggestion/view/action")
 	public String suggestionBoardDetailViewAction(Model model, BoardRequestDto boardRequestDto,
-			MultipartHttpServletRequest multiRequest) throws Exception {
-
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boolean result = boardService.updateBoard(boardRequestDto, multiRequest);
+			boolean result = boardService.updateBoard(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.UPDATE_SUGGESTION);
 
 			if (!result) {
 				throw new Exception("#Exception boardViewAction!");
@@ -393,10 +424,13 @@ public class BoardController {
 	// 도서요청 세부사항 수정
 		@PostMapping("/board/request/view/action")
 		public String requestBoardDetailViewAction(Model model, BoardRequestDto boardRequestDto,
-				MultipartHttpServletRequest multiRequest) throws Exception {
-
+				MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+			HttpSession mySession = request.getSession();
+			String myid = (String)mySession.getAttribute("id");
+			Role myRole = (Role)mySession.getAttribute("Role");
+			String ip = (String)mySession.getAttribute("ipaddress");
 			try {
-				boolean result = boardService.updateBoard(boardRequestDto, multiRequest);
+				boolean result = boardService.updateBoard(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.UPDATE_REQUEST);
 
 				if (!result) {
 					throw new Exception("#Exception boardViewAction!");
@@ -410,9 +444,13 @@ public class BoardController {
 
 	// 공지사항 세부사항 삭제
 	@PostMapping("/board/noticeDetailView/delete")
-	public String noticeBoardDetailViewDelete(Model model, @RequestParam() Long id) throws Exception {
+	public String noticeBoardDetailViewDelete(Model model, @RequestParam() Long id, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteById(id);
+			boardService.deleteById(id, myid, myRole, ip, WorkNumber.DELETE_NOTICE);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -422,9 +460,13 @@ public class BoardController {
 
 	// 건의사항 세부사항 삭제
 	@PostMapping("/board/suggestion/view/delete")
-	public String suggestionBoardDetailViewDelete(Model model, @RequestParam() Long id) throws Exception {
+	public String suggestionBoardDetailViewDelete(Model model, @RequestParam() Long id, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteById(id);
+			boardService.deleteById(id, myid, myRole, ip, WorkNumber.DELETE_SUGGESTION);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -434,9 +476,13 @@ public class BoardController {
 	
 	// 건의사항 세부사항 삭제
 		@PostMapping("/board/request/view/delete")
-		public String requestBoardDetailViewDelete(Model model, @RequestParam() Long id) throws Exception {
+		public String requestBoardDetailViewDelete(Model model, @RequestParam() Long id, HttpServletRequest request) throws Exception {
+			HttpSession mySession = request.getSession();
+			String myid = (String)mySession.getAttribute("id");
+			Role myRole = (Role)mySession.getAttribute("Role");
+			String ip = (String)mySession.getAttribute("ipaddress");
 			try {
-				boardService.deleteById(id);
+				boardService.deleteById(id, myid, myRole, ip, WorkNumber.DELETE_REQUEST);
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());
 			}
@@ -487,12 +533,15 @@ public class BoardController {
 
 	@PostMapping("/board/write/action")
 	public String boardWriteAction(Model model, BoardRequestDto boardRequestDto,
-			MultipartHttpServletRequest multiRequest) throws Exception {
-
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
 			Category category = categoryService.findCategory(11L);
 			boardRequestDto.setCategory(category);
-			if (!boardService.save(boardRequestDto, multiRequest)) {
+			if (!boardService.save(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.CREATE_FAQ)) {
 				throw new Exception("#Exception boardWriteAction!");
 			}
 		} catch (Exception e) {
@@ -505,12 +554,15 @@ public class BoardController {
 	// FAQ 작성 완료
 	@PostMapping("/board/faq/write/action")
 	public String boardFAQWriteAction(Model model, BoardRequestDto boardRequestDto,
-			MultipartHttpServletRequest multiRequest) throws Exception {
-
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
 			Category category = categoryService.findCategory(12L);
 			boardRequestDto.setCategory(category);
-			if (!boardService.save(boardRequestDto, multiRequest)) {
+			if (!boardService.save(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.CREATE_FAQ)) {
 				throw new Exception("#Exception boardWriteAction!");
 			}
 		} catch (Exception e) {
@@ -522,10 +574,13 @@ public class BoardController {
 
 	@PostMapping("/board/view/action")
 	public String boardViewAction(Model model, BoardRequestDto boardRequestDto,
-			MultipartHttpServletRequest multiRequest) throws Exception {
-
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boolean result = boardService.updateBoard(boardRequestDto, multiRequest);
+			boolean result = boardService.updateBoard(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.UPDATE_FAQ);
 
 			if (!result) {
 				throw new Exception("#Exception boardViewAction!");
@@ -540,10 +595,13 @@ public class BoardController {
 	// FAQ 수정 완료
 	@PostMapping("/faq/view/action")
 	public String boardFAQViewAction(Model model, BoardRequestDto boardRequestDto,
-			MultipartHttpServletRequest multiRequest) throws Exception {
-
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boolean result = boardService.updateBoard(boardRequestDto, multiRequest);
+			boolean result = boardService.updateBoard(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.UPDATE_FAQ);
 
 			if (!result) {
 				throw new Exception("#Exception boardViewAction!");
@@ -556,9 +614,13 @@ public class BoardController {
 	}
 
 	@PostMapping("/board/view/delete")
-	public String boardViewDeleteAction(Model model, @RequestParam() Long id) throws Exception {
+	public String boardViewDeleteAction(Model model, @RequestParam() Long id, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteById(id);
+			boardService.deleteById(id, myid, myRole, ip, WorkNumber.DELETE_FAQ);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -568,9 +630,13 @@ public class BoardController {
 
 	// FAQ 세부사항 삭제
 	@PostMapping("/faq/view/delete")
-	public String boardFAQViewDeleteAction(Model model, @RequestParam() Long id) throws Exception {
+	public String boardFAQViewDeleteAction(Model model, @RequestParam() Long id, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteById(id);
+			boardService.deleteById(id, myid, myRole, ip, WorkNumber.DELETE_FAQ);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -579,10 +645,13 @@ public class BoardController {
 	}
 
 	@PostMapping("/board/delete")
-	public String boardDeleteAction(Model model, @RequestParam() Long[] deleteId) throws Exception {
-
+	public String boardDeleteAction(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteAll(deleteId);
+			boardService.deleteAll(deleteId, myid, myRole, ip, WorkNumber.DELETE_FAQ);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -592,10 +661,13 @@ public class BoardController {
 
 	// FAQ 삭제
 	@PostMapping("/faq/delete")
-	public String boardFAQDeleteAction(Model model, @RequestParam() Long[] deleteId) throws Exception {
-
+	public String boardFAQDeleteAction(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteAll(deleteId);
+			boardService.deleteAll(deleteId, myid, myRole, ip, WorkNumber.DELETE_FAQ);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

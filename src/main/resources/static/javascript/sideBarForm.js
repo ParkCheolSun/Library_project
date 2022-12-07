@@ -1,5 +1,6 @@
 			$(document).ready(function() {
 				var pathName = $(location).attr('pathname');
+				console.log("완성문자 : " + pathName);
 				if(pathName != "/"){
 					$('.components').find('a').each(function(index, item){
 						if($(item).attr('href') == "#homeSubmenu" || 
@@ -11,7 +12,7 @@
 							var id = $(item).attr('id');
 							//console.log("id : " + id);
 							if(id == "guideMenu" || id == "cultureMenu" || id == "noticeMenu" ||
-									id == "openNoticeMenu" || id == "sLibraryMenu" || id == "adminMenu"){
+									id == "openMenu" || id == "sLibraryMenu" || id == "adminMenu"){
 								var temp = "#" + id;
 								//console.log("완성문자 : " + temp);
 								var search = $(item).parent().children('ul').children('li').children('a');
@@ -24,6 +25,15 @@
 								});
 								return;
 							} else {
+								var temp = pathName.split('/');
+								
+								if(pathName.match("notice") != null){
+									$('#noticeMenu').click();
+								} else if(pathName.match("faq") != null || 
+								pathName.match("suggestion") != null ||
+								pathName.match("request") != null){
+									$('#openMenu').get(0).click();
+								}
 								//console.log("test : " + $(item).parent().parent().parent().children('a').attr('id'));
 							}
 						}

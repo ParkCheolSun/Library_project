@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+#myPage-wrapper {
+	padding-left: 100px;
+	padding-top: 80px;
+	width: 80%;
+}
+
+.form-control-plaintext {
+	padding: 8px;
+}
+
+.row {
+	width: 600px;
+}

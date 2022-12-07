@@ -58,6 +58,19 @@ public class Member extends BaseEntity{
 	
 	private String ipAddress;		// 접속한 ip주소
 	
+	public static Member createMember(MemberDto memberDto) {
+		Member member = new Member();
+		member.setId(memberDto.getId());
+		member.setName(memberDto.getName());
+		member.setEmail(memberDto.getEmail());
+		member.setAddress(memberDto.getAddress());
+		member.setAddress_detail(memberDto.getAddress_detail());
+		member.setGender(memberDto.getGender());
+		if(memberDto.getPassword() != null)
+			member.setPassword(memberDto.getPassword());
+		return member;
+	}
+	
 	public static Member createMember(MemberDto memberDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
 		member.setId(memberDto.getId());

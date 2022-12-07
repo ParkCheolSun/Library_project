@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -146,11 +147,10 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping(value = "/findEmail")
 	public HashMap<String, String> findId(@RequestParam("email") String email) {
-		Member member = memberService.findByEmail(email);
-		System.out.println(member);
+		MemberDto memDto = memberService.findByEmail(email);
 		HashMap<String, String> map = new HashMap<String, String>();
 
-		if (member.getId() == null) {
+		if (memDto.getId() == null) {
 			map.put("answer", "Fail");
 		} else {
 			map.put("answer", "Success");
@@ -167,10 +167,10 @@ public class MemberController {
 	@PostMapping(value = "/mod")
 	public String newMember(MemberDto memberDto, HttpServletResponse response, Model model,
 			RedirectAttributes redirectAttributes) {
-		Member member = memberService.findByEmail(memberDto.getEmail());
+		MemberDto memDto = memberService.findByEmail(memberDto.getEmail());
 		String password = passwordEncoder.encode(memberDto.getPassword());
-		member.setPassword(password);
-		memberService.updateMember(member);
+		memDto.setPassword(password);
+		memberService.updateMember(memDto);
 		redirectAttributes.addFlashAttribute("memberDto", new MemberDto());
 		redirectAttributes.addFlashAttribute("mes", "modPassword");
 		return "redirect:/login/signUp";
@@ -186,5 +186,24 @@ public class MemberController {
 	@GetMapping(value="/userId")
 	public String getUserId(Principal principal) {
 		return principal.getName();
+	}
+	
+	// 마이페이지
+	@GetMapping(value = "/mypage")
+	public String mypageView(Model model, Authentication authentication) {
+		MemberDto memDto = memberService.findByEmail(authentication.getName());
+		
+		model.addAttribute("memberDto", memDto);
+		return "member/MyPage";
+	}
+	
+	// 마이페이지 수정
+	@PostMapping(value = "/mypage/mod")
+	public String mypageMod(MemberDto memDto, Model model) {
+		System.out.println(memDto);
+		MemberDto resultDto = memberService.updateMember(memDto);
+		
+		model.addAttribute("memberDto", resultDto);
+		return "member/MyPage";
 	}
 }

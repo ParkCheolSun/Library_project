@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
 import com.library.constant.WorkNumber;
+import com.library.dto.MemberDto;
 import com.library.entity.Member;
 import com.library.entity.MemberLog;
 import com.library.repository.MemberLogRepository;
@@ -28,9 +29,9 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 	public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		Member mem = MemberService.findByEmail(userDetails.getUsername());
-		String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 로그아웃 완료";
-		MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.LOGOUT_MEMBER, contents, getClientIp(request));
+		MemberDto memDto = MemberService.findByEmail(userDetails.getUsername());
+		String contents = "ID : " + memDto.getId() + "/ Name : " + memDto.getName() + " 로그아웃 완료";
+		MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memDto), WorkNumber.LOGOUT_MEMBER, contents, getClientIp(request));
 		memberLogRepository.save(memLog);
 		
 		HttpSession session = request.getSession();

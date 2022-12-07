@@ -439,3 +439,7 @@ a:hover {
 	background-color: #cccccc;
 	color: #666666;
 }
+
+#myPage-wrapper {
+	width: 500px;
+}

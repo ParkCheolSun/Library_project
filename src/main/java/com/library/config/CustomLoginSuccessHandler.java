@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 import com.library.constant.WorkNumber;
+import com.library.dto.MemberDto;
 import com.library.entity.Member;
 import com.library.entity.MemberLog;
 import com.library.repository.MemberLogRepository;
@@ -32,7 +33,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		Member mem = MemberService.findByEmail(userDetails.getUsername());
+		MemberDto memDto = MemberService.findByEmail(userDetails.getUsername());
 		HttpSession session = request.getSession();
 		
 		if (session != null) {
@@ -47,11 +48,11 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 			super.onAuthenticationSuccess(request, response, authentication);
 		}
 		session.setAttribute("ipaddress", getClientIp(request));
-		session.setAttribute("name", mem.getName() + "님 환영합니다!");
-		session.setAttribute("id", mem.getId());
-		session.setAttribute("Role", mem.getRole());
-		String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 로그인 완료";
-		MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.LOGIN_MEMBER, contents, getClientIp(request));
+		session.setAttribute("name", memDto.getName() + "님 환영합니다!");
+		session.setAttribute("id", memDto.getId());
+		session.setAttribute("Role", memDto.getRole());
+		String contents = "ID : " + memDto.getId() + "/ Name : " + memDto.getName() + " 로그인 완료";
+		MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memDto), WorkNumber.LOGIN_MEMBER, contents, getClientIp(request));
 		memberLogRepository.save(memLog);
 	}
 

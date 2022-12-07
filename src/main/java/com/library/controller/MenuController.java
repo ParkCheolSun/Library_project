@@ -88,18 +88,12 @@ public class MenuController {
 		System.out.println("도서신청");
 		return "redirect:/board/request/list";
 	}
-
+	
 	// 작은 도서관
-	@GetMapping(value = "/test5")
-	public String test5(Model model) {
-		System.out.println("작은도서관");
-		return "small/smallLibrary";
-	}
-
 	@GetMapping(value = "/smallLibrary")
 	public String e1(Model model) {
 		System.out.println("작은도서관 소개");
-		return "small/smallLibrary";
+		return "redirect:/small/small";
 	}
 
 	@GetMapping(value = "/smallList")

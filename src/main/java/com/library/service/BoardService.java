@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.library.constant.Role;
 import com.library.constant.WorkNumber;
+import com.library.dto.BoardReplyRequestDto;
 import com.library.dto.BoardRequestDto;
 import com.library.dto.BoardResponseDto;
 import com.library.entity.Board;
@@ -35,31 +36,81 @@ public class BoardService {
 	private final BoardFileService boardFileService;
 
 	@Transactional
-	public boolean save(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid, Role myRole, String ip, WorkNumber wNum) 
-			throws Exception {
+	public boolean save(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid,
+			Role myRole, String ip, WorkNumber wNum) throws Exception {
 		Board result = boardRepository.save(boardRequestDto.toEntity());
-		
+
 		String contents = "존재하지 않는 작업입니다.";
 		switch (wNum) {
-		case CREATE_NOTICE :
+		case CREATE_NOTICE:
 			contents = "고유번호[" + result.getId() + "] 공지사항 글 생성 완료";
 			break;
-		case CREATE_SUGGESTION :
+		case CREATE_FREE:
+			contents = "고유번호[" + result.getId() + "] 자유게시판 글 생성 완료";
+			break;
+		case CREATE_SUGGESTION:
 			contents = "고유번호[" + result.getId() + "] 건의사항 글 생성 완료";
 			break;
-		case CREATE_REQUEST :
+		case CREATE_REQUEST:
 			contents = "고유번호[" + result.getId() + "] 도서요청 글 생성 완료";
+			break;
+		case CREATE_REPLY:
+			contents = "고유번호[" + result.getId() + "] 댓글 생성 완료";
 			break;
 		default:
 			break;
 		}
 		MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
 		memberLogRepository.save(memLog);
-		
+
 		boolean resultFlag = false;
 
 		if (result != null) {
 			boardFileService.uploadFile(multiRequest, result.getId());
+			resultFlag = true;
+		}
+
+		return resultFlag;
+	}
+
+	// 댓글 작성
+	@Transactional
+	public void save(BoardReplyRequestDto boardReplyRequestDto) throws Exception {
+		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
+	}
+	
+	// 댓글용
+	@Transactional
+	public boolean save(BoardReplyRequestDto boardReplyRequestDto, String myid, Role myRole, String ip, WorkNumber wNum)
+			throws Exception {
+		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
+
+		String contents = "존재하지 않는 작업입니다.";
+		switch (wNum) {
+		case CREATE_NOTICE:
+			contents = "고유번호[" + result.getId() + "] 공지사항 글 생성 완료";
+			break;
+		case CREATE_FREE:
+			contents = "고유번호[" + result.getId() + "] 자유게시판 글 생성 완료";
+			break;
+		case CREATE_SUGGESTION:
+			contents = "고유번호[" + result.getId() + "] 건의사항 글 생성 완료";
+			break;
+		case CREATE_REQUEST:
+			contents = "고유번호[" + result.getId() + "] 도서요청 글 생성 완료";
+			break;
+		case CREATE_REPLY:
+			contents = "고유번호[" + result.getId() + "] 댓글 생성 완료";
+			break;
+		default:
+			break;
+		}
+		MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
+		memberLogRepository.save(memLog);
+
+		boolean resultFlag = false;
+
+		if (result.getId() != null) {
 			resultFlag = true;
 		}
 
@@ -175,25 +226,25 @@ public class BoardService {
 
 		return resultMap;
 	}
-	
+
 	// 작은도서관 소식 게시판
-		@Transactional(readOnly = true)
-		public HashMap<String, Object> findAllSmallLibrary(Integer page, Integer size) throws Exception {
+	@Transactional(readOnly = true)
+	public HashMap<String, Object> findAllSmallLibrary(Integer page, Integer size) throws Exception {
 
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-			Category category = new Category();
-			category.setCategory_id(15l);
-			Page<Board> list = boardRepository
-					.findAllByCategory(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category);
-			System.out.println("list : " + list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
-			resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
-			resultMap.put("paging", list.getPageable());
-			resultMap.put("totalCnt", list.getTotalElements());
-			resultMap.put("totalPage", list.getTotalPages());
+		Category category = new Category();
+		category.setCategory_id(15l);
+		Page<Board> list = boardRepository
+				.findAllByCategory(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category);
+		System.out.println("list : " + list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
 
-			return resultMap;
-		}
+		return resultMap;
+	}
 
 	@Transactional
 	public HashMap<String, Object> findByTitleContaining(Integer page, Integer size, String searchKeyword) {
@@ -259,6 +310,7 @@ public class BoardService {
 		return resultMap;
 	}
 
+	// 자유게시판 view
 	public HashMap<String, Object> findById(Long id) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -266,7 +318,12 @@ public class BoardService {
 		boardRepository.updateBoardReadCntInc(id);
 
 		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
+		/*
+		 * BoardReplyResponseDto reply = new
+		 * BoardReplyResponseDto(boardRepository.findByBlevel(id).get());
+		 */
 		resultMap.put("info", info);
+		/* resultMap.put("reply", reply); */
 
 		List<BoardFile> fileList = boardFileService.findByBoardId(info.getId());
 		if (!fileList.isEmpty()) {
@@ -276,7 +333,7 @@ public class BoardService {
 		}
 		return resultMap;
 	}
-	
+
 	public Board change(Optional<Board> optional, BoardRequestDto boardRequestDto) {
 		Board ori = optional.get();
 		ori.setContent(boardRequestDto.getContent());
@@ -286,16 +343,19 @@ public class BoardService {
 		return ori;
 	}
 
-	public boolean updateBoard(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid, Role myRole, String ip, WorkNumber wNum)
-			throws Exception {
+	public boolean updateBoard(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid,
+			Role myRole, String ip, WorkNumber wNum) throws Exception {
 		Board temp = change(boardRepository.findById(boardRequestDto.getId()), boardRequestDto);
 		Board result = boardRepository.save(temp);
-		
+
 		String contents = "존재하지 않는 작업입니다.";
 		switch (wNum) {
 		case UPDATE_NOTICE :
 			contents = "고유번호[" + boardRequestDto.getId() + "] 공지사항 글 수정 완료";
 			break;
+		case UPDATE_FREE :
+			contents = "고유번호[" + boardRequestDto.getId() + "] 자유게시판 글 수정 완료";
+			break;	
 		case UPDATE_SUGGESTION :
 			contents = "고유번호[" + boardRequestDto.getId() + "] 건의사항 글 수정 완료";
 			break;
@@ -305,6 +365,9 @@ public class BoardService {
 		case UPDATE_FAQ :
 			contents = "고유번호[" + boardRequestDto.getId() + "] FAQ 글 수정 완료";
 			break;
+		case UPDATE_REPLY :
+			contents = "고유번호[" + boardRequestDto.getId() + "] 댓글 수정 완료";
+			break;			
 		default:
 			break;
 		}
@@ -330,6 +393,9 @@ public class BoardService {
 		case DELETE_NOTICE :
 			contents = "고유번호[" + id + "] 공지사항 글 삭제 완료";
 			break;
+		case DELETE_FREE :
+			contents = "고유번호[" + id + "] 자유게시판 글 삭제 완료";
+			break;
 		case DELETE_SUGGESTION :
 			contents = "고유번호[" + id + "] 건의사항 글 삭제 완료";
 			break;
@@ -339,6 +405,9 @@ public class BoardService {
 		case DELETE_FAQ :
 			contents = "고유번호[" + id + "] 도서요청 글 삭제 완료";
 			break;
+		case DELETE_REPLY :
+			contents = "고유번호[" + id + "] 댓글 삭제 완료";
+			break;			
 		default:
 			break;
 		}

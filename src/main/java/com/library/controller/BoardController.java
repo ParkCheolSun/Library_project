@@ -7,12 +7,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.library.constant.Role;
 import com.library.constant.WorkNumber;
+import com.library.dto.BoardReplyRequestDto;
 import com.library.dto.BoardRequestDto;
 import com.library.entity.Category;
 import com.library.service.BoardService;
@@ -64,6 +66,7 @@ public class BoardController {
 		categoryService.saveCategory(category);
 	}
 
+	// 자유게시판 리스트
 	@GetMapping("/board/list")
 	public String getBoardListPage(Model model, @RequestParam(value = "kind", required = false) String kind,
 			@RequestParam(value = "searchKeyword", required = false) String searchKeyword,
@@ -91,6 +94,48 @@ public class BoardController {
 		System.out.println(boardService.findAll(page, size));
 		return "board/list";
 	}
+
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+	// 댓글 작성
+	@GetMapping("/board/view/reply")
+	public String boardReplyWriteAction(Model model, @ModelAttribute BoardReplyRequestDto boardReplyRequestDto)
+			throws Exception {
+		System.out.println(boardReplyRequestDto);
+		try {
+			boardService.save(boardReplyRequestDto);
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+		return "redirect:/board/view";
+	}
+
+	// 댓글 작성완료
+	@PostMapping("/board/view/reply")
+	public String boardReplyWriteAction(Model model, BoardReplyRequestDto boardReplyRequestDto,
+			HttpServletRequest request) throws Exception {
+
+		HttpSession mySession = request.getSession();
+		String myid = (String) mySession.getAttribute("id");
+		Role myRole = (Role) mySession.getAttribute("Role");
+		String ip = (String) mySession.getAttribute("ipaddress");
+		try {
+			Category category = categoryService.findCategory(11L);
+			boardReplyRequestDto.setCategory(category);
+
+			if (!boardService.save(boardReplyRequestDto, myid, myRole, ip, WorkNumber.CREATE_REPLY)) {
+				throw new Exception("#Exception boardWriteAction!");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+		return "redirect:/board/view";
+	}
+
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 	// FAQ 리스트
 	@GetMapping("/board/faq/list")
@@ -253,12 +298,12 @@ public class BoardController {
 	public String RequestBoardWrite(Model model, BoardRequestDto boardRequestDto) {
 		return "board/request/write";
 	}
-	
+
 	// 작은도서관 소식 작성
-		@GetMapping("/small/smallWrite")
-		public String smallLibraryBoardWrite(Model model, BoardRequestDto boardRequestDto) {
-			return "small/smallWrite";
-		}
+	@GetMapping("/small/smallWrite")
+	public String smallLibraryBoardWrite(Model model, BoardRequestDto boardRequestDto) {
+		return "small/smallWrite";
+	}
 
 	// 공지사항 삭제
 	@PostMapping("/board/notice/delete")
@@ -310,23 +355,23 @@ public class BoardController {
 
 		return "redirect:/board/request/list";
 	}
-	
-	// 작은도서관 소식 삭제
-		@PostMapping("/small/delete")
-		public String requestBoardDelete(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request)
-				throws Exception {
-			HttpSession mySession = request.getSession();
-			String myid = (String) mySession.getAttribute("id");
-			Role myRole = (Role) mySession.getAttribute("Role");
-			String ip = (String) mySession.getAttribute("ipaddress");
-			try {
-				boardService.deleteAll(deleteId, myid, myRole, ip, WorkNumber.DELETE_SMALLLIBRARY);
-			} catch (Exception e) {
-				throw new Exception(e.getMessage());
-			}
 
-			return "redirect:/small/smallList";
+	// 작은도서관 소식 삭제
+	@PostMapping("/small/delete")
+	public String requestBoardDelete(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request)
+			throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String) mySession.getAttribute("id");
+		Role myRole = (Role) mySession.getAttribute("Role");
+		String ip = (String) mySession.getAttribute("ipaddress");
+		try {
+			boardService.deleteAll(deleteId, myid, myRole, ip, WorkNumber.DELETE_SMALLLIBRARY);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
+
+		return "redirect:/small/smallList";
+	}
 
 	// 공지사항 작성 완료
 	@PostMapping("/board/noticeWrite/action")
@@ -390,27 +435,27 @@ public class BoardController {
 
 		return "redirect:/board/request/list";
 	}
-	
-	// 작은도서관 소식 작성 완료
-		@PostMapping("/small/smallWrite/action")
-		public String smallLibraryBoardWriteAction(Model model, BoardRequestDto boardRequestDto,
-				MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
-			HttpSession mySession = request.getSession();
-			String myid = (String) mySession.getAttribute("id");
-			Role myRole = (Role) mySession.getAttribute("Role");
-			String ip = (String) mySession.getAttribute("ipaddress");
-			try {
-				Category category = categoryService.findCategory(15L);
-				boardRequestDto.setCategory(category);
-				if (!boardService.save(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.CREATE_SMALLLIBRARY)) {
-					throw new Exception("#Exception boardWriteAction!");
-				}
-			} catch (Exception e) {
-				throw new Exception(e.getMessage());
-			}
 
-			return "redirect:/small/smallList";
+	// 작은도서관 소식 작성 완료
+	@PostMapping("/small/smallWrite/action")
+	public String smallLibraryBoardWriteAction(Model model, BoardRequestDto boardRequestDto,
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String) mySession.getAttribute("id");
+		Role myRole = (Role) mySession.getAttribute("Role");
+		String ip = (String) mySession.getAttribute("ipaddress");
+		try {
+			Category category = categoryService.findCategory(15L);
+			boardRequestDto.setCategory(category);
+			if (!boardService.save(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.CREATE_SMALLLIBRARY)) {
+				throw new Exception("#Exception boardWriteAction!");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
+
+		return "redirect:/small/smallList";
+	}
 
 	// 공지사항 세부사항 보기
 	@GetMapping("/board/noticeDetailView")
@@ -453,20 +498,20 @@ public class BoardController {
 
 		return "board/request/view";
 	}
-	
-	// 작은도서관 소식 세부사항 보기
-		@GetMapping("/small/smallView")
-		public String smallLibraryBoardDetailView(Model model, BoardRequestDto boardRequestDto) throws Exception {
-			try {
-				if (boardRequestDto.getId() != null) {
-					model.addAttribute("test", boardService.findById(boardRequestDto.getId()));
-				}
-			} catch (Exception e) {
-				throw new Exception(e.getMessage());
-			}
 
-			return "small/smallView";
+	// 작은도서관 소식 세부사항 보기
+	@GetMapping("/small/smallView")
+	public String smallLibraryBoardDetailView(Model model, BoardRequestDto boardRequestDto) throws Exception {
+		try {
+			if (boardRequestDto.getId() != null) {
+				model.addAttribute("test", boardService.findById(boardRequestDto.getId()));
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
+
+		return "small/smallView";
+	}
 
 	// 공지사항 세부사항 수정
 	@PostMapping("/board/noticeDetailView/action")
@@ -533,28 +578,28 @@ public class BoardController {
 
 		return "redirect:/board/request/list";
 	}
-	
+
 	// 작은도서관 소식 세부사항 수정
-		@PostMapping("/small/smallView/action")
-		public String smallLibraryBoardDetailViewAction(Model model, BoardRequestDto boardRequestDto,
-				MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
-			HttpSession mySession = request.getSession();
-			String myid = (String) mySession.getAttribute("id");
-			Role myRole = (Role) mySession.getAttribute("Role");
-			String ip = (String) mySession.getAttribute("ipaddress");
-			try {
-				boolean result = boardService.updateBoard(boardRequestDto, multiRequest, myid, myRole, ip,
-						WorkNumber.UPDATE_SMALLLIBRARY);
+	@PostMapping("/small/smallView/action")
+	public String smallLibraryBoardDetailViewAction(Model model, BoardRequestDto boardRequestDto,
+			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String) mySession.getAttribute("id");
+		Role myRole = (Role) mySession.getAttribute("Role");
+		String ip = (String) mySession.getAttribute("ipaddress");
+		try {
+			boolean result = boardService.updateBoard(boardRequestDto, multiRequest, myid, myRole, ip,
+					WorkNumber.UPDATE_SMALLLIBRARY);
 
-				if (!result) {
-					throw new Exception("#Exception boardViewAction!");
-				}
-			} catch (Exception e) {
-				throw new Exception(e.getMessage());
+			if (!result) {
+				throw new Exception("#Exception boardViewAction!");
 			}
-
-			return "redirect:/small/smallList";
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
+
+		return "redirect:/small/smallList";
+	}
 
 	// 공지사항 세부사항 삭제
 	@PostMapping("/board/noticeDetailView/delete")
@@ -606,29 +651,31 @@ public class BoardController {
 
 		return "redirect:/board/request/list";
 	}
-	
+
 	// 작은도서관 소식 세부사항 삭제
-		@PostMapping("/small/smallView/delete")
-		public String smallLibraryBoardDetailViewDelete(Model model, @RequestParam() Long id, HttpServletRequest request)
-				throws Exception {
-			HttpSession mySession = request.getSession();
-			String myid = (String) mySession.getAttribute("id");
-			Role myRole = (Role) mySession.getAttribute("Role");
-			String ip = (String) mySession.getAttribute("ipaddress");
-			try {
-				boardService.deleteById(id, myid, myRole, ip, WorkNumber.DELETE_SMALLLIBRARY);
-			} catch (Exception e) {
-				throw new Exception(e.getMessage());
-			}
-
-			return "redirect:/small/smallList";
-		}
-		//작은도서관 소개
-		@GetMapping("/small/small")
-		public String SmallLibrary() {
-			return "small/smallLibrary";
+	@PostMapping("/small/smallView/delete")
+	public String smallLibraryBoardDetailViewDelete(Model model, @RequestParam() Long id, HttpServletRequest request)
+			throws Exception {
+		HttpSession mySession = request.getSession();
+		String myid = (String) mySession.getAttribute("id");
+		Role myRole = (Role) mySession.getAttribute("Role");
+		String ip = (String) mySession.getAttribute("ipaddress");
+		try {
+			boardService.deleteById(id, myid, myRole, ip, WorkNumber.DELETE_SMALLLIBRARY);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
 
+		return "redirect:/small/smallList";
+	}
+
+	// 작은도서관 소개
+	@GetMapping("/small/small")
+	public String SmallLibrary() {
+		return "small/smallLibrary";
+	}
+
+	// 자유게시판 작성
 	@GetMapping("/board/write")
 	public String getBoardWritePage(Model model, BoardRequestDto boardRequestDto) {
 
@@ -641,6 +688,7 @@ public class BoardController {
 		return "board/faq/write";
 	}
 
+	// 자유게시판 세부사항 보기
 	@GetMapping("/board/view")
 	public String getBoardViewPage(Model model, BoardRequestDto boardRequestDto) throws Exception {
 		System.out.println(boardRequestDto.getId());
@@ -670,6 +718,7 @@ public class BoardController {
 		return "board/faq/view";
 	}
 
+	// 자유게시판 세부사항 수정
 	@PostMapping("/board/write/action")
 	public String boardWriteAction(Model model, BoardRequestDto boardRequestDto,
 			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
@@ -711,6 +760,7 @@ public class BoardController {
 		return "redirect:/board/faq/list";
 	}
 
+	// 자유게시판 세부사항 수정
 	@PostMapping("/board/view/action")
 	public String boardViewAction(Model model, BoardRequestDto boardRequestDto,
 			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
@@ -754,6 +804,7 @@ public class BoardController {
 		return "redirect:/board/faq/list";
 	}
 
+	// 자유게시판 세부사항 삭제
 	@PostMapping("/board/view/delete")
 	public String boardViewDeleteAction(Model model, @RequestParam() Long id, HttpServletRequest request)
 			throws Exception {
@@ -787,6 +838,7 @@ public class BoardController {
 		return "redirect:/board/faq/list";
 	}
 
+	// 자유게시판 삭제
 	@PostMapping("/board/delete")
 	public String boardDeleteAction(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request)
 			throws Exception {
@@ -819,7 +871,5 @@ public class BoardController {
 
 		return "redirect:/board/faq/list";
 	}
-	
-	
 
 }

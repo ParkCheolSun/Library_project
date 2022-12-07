@@ -1,5 +1,7 @@
 package com.library.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.library.dto.BoardRequestDto;
 import com.library.entity.Board;
 import com.library.entity.Category;
 
@@ -42,5 +43,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 	public Page<Board> findByTitleContainingAndCategory(Pageable pageable, String searchKeyword, Category category);
 
 	public Page<Board> findByContentContainingAndCategory(Pageable pageable, String searchKeyword, Category category);
+	
+	// 댓글 제외 게시글 출력
+	public Optional<Board> findByBlevel(Long blevel);
 
 }

@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-@media ( max-width : 1700px) {
-	.notice {
-		display: none;
-	}
-}
-
 .main-content {
 	overflow: hidden;
 }
@@ -41,7 +35,7 @@
 
 .swiper-title {
 	font-size: 3em;
-	width: 700px;
+	width: 100%;
 	text-align: center;
 }
 
@@ -49,8 +43,8 @@
 	/* height: 500px;  - 750*/
 	height: 500px;
 	width: 750px;
-	margin-left: 150px !important;
 	float: left;
+	position: inherit!important;
 }
 
 .swiper-slide {
@@ -69,14 +63,16 @@
 
 .notice {
 	float: left;
-	margin-left: 150px;
+	width: 100%;
 	z-index: -1;
+	padding-left: 150px;
+    padding-right: 150px;
 }
 
 .notice-area {
-	position: absolute;
+	position: relative;
 	height: 400px;
-	width: 700px;
+	width: 100%;
 }
 
 .wrap {
@@ -128,6 +124,7 @@ input[type=radio]:checked+.aco-contents {
 	-webkit-box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.02);
 	box-shadow: 1px 1px 3px 5px rgba(0, 0, 0, 0.02);
 	cursor: pointer;
+	margin-bottom: 0rem;
 }
 
 /* 닫기 버튼 애니메이션 효과, 삭제시 기능상 무방함 */
@@ -193,7 +190,7 @@ input[type=radio].close:not(:checked)+.closer {
 	transform-origin: left;
 	font-size: 1.6em;
 	white-space: nowrap;
-	left: 18%;
+	left: 20px;
 	font-family: "arial";
 	font-weight: 600;
 	color: #fff;

@@ -319,8 +319,7 @@ public class BoardService {
 
 		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
 		/*
-		 * BoardReplyResponseDto reply = new
-		 * BoardReplyResponseDto(boardRepository.findByBlevel(id).get());
+		  BoardReplyResponseDto reply = new BoardReplyResponseDto(boardRepository.findByBlevel(id).get());
 		 */
 		resultMap.put("info", info);
 		/* resultMap.put("reply", reply); */

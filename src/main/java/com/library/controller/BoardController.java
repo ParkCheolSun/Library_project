@@ -729,7 +729,7 @@ public class BoardController {
 		try {
 			Category category = categoryService.findCategory(11L);
 			boardRequestDto.setCategory(category);
-			if (!boardService.save(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.CREATE_FAQ)) {
+			if (!boardService.save(boardRequestDto, multiRequest, myid, myRole, ip, WorkNumber.CREATE_FREE)) {
 				throw new Exception("#Exception boardWriteAction!");
 			}
 		} catch (Exception e) {
@@ -770,7 +770,7 @@ public class BoardController {
 		String ip = (String) mySession.getAttribute("ipaddress");
 		try {
 			boolean result = boardService.updateBoard(boardRequestDto, multiRequest, myid, myRole, ip,
-					WorkNumber.UPDATE_FAQ);
+					WorkNumber.UPDATE_FREE);
 
 			if (!result) {
 				throw new Exception("#Exception boardViewAction!");
@@ -813,7 +813,7 @@ public class BoardController {
 		Role myRole = (Role) mySession.getAttribute("Role");
 		String ip = (String) mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteById(id, myid, myRole, ip, WorkNumber.DELETE_FAQ);
+			boardService.deleteById(id, myid, myRole, ip, WorkNumber.DELETE_FREE);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -847,7 +847,7 @@ public class BoardController {
 		Role myRole = (Role) mySession.getAttribute("Role");
 		String ip = (String) mySession.getAttribute("ipaddress");
 		try {
-			boardService.deleteAll(deleteId, myid, myRole, ip, WorkNumber.DELETE_FAQ);
+			boardService.deleteAll(deleteId, myid, myRole, ip, WorkNumber.DELETE_FREE);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

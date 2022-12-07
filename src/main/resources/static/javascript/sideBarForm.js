@@ -1,6 +1,6 @@
 			$(document).ready(function() {
 				var pathName = $(location).attr('pathname');
-				console.log("완성문자 : " + pathName);
+				//console.log("완성문자 : " + pathName);
 				if(pathName != "/"){
 					$('.components').find('a').each(function(index, item){
 						if($(item).attr('href') == "#homeSubmenu" || 

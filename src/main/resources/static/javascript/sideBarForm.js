@@ -5,7 +5,7 @@
 						if($(item).attr('href') == "#homeSubmenu" || 
 								$(item).attr('href') == "#pageSubmenu" ||
 								$(item).attr('href') == "#likeSubmenu" ||
-								$(item).attr('href') == "#cultureMenu" ||
+								$(item).attr('href') == "/search?keyword=" ||
 								$(item).attr('href') == "#noticeSubMenu"||
 								$(item).attr('href') == "#adminSubmenu"){
 							var id = $(item).attr('id');

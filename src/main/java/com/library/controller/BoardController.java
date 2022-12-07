@@ -1,5 +1,7 @@
 package com.library.controller;
 
+import java.security.Principal;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,13 +21,15 @@ import com.library.dto.BoardRequestDto;
 import com.library.entity.Category;
 import com.library.service.BoardService;
 import com.library.service.CategoryService;
+import com.library.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
 public class BoardController {
-
+	
+	private final MemberService memberService;
 	private final BoardService boardService;
 	private final CategoryService categoryService;
 
@@ -95,47 +99,26 @@ public class BoardController {
 		return "board/list";
 	}
 
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-	// 댓글 작성
-	@GetMapping("/board/view/reply")
-	public String boardReplyWriteAction(Model model, @ModelAttribute BoardReplyRequestDto boardReplyRequestDto)
+	// 댓글 작성 [22-12-07]
+	@GetMapping("/board/reply")
+	public String boardReplyWriteAction(Model model, @ModelAttribute BoardReplyRequestDto boardReplyRequestDto,Principal principal)
 			throws Exception {
 		System.out.println(boardReplyRequestDto);
 		try {
+			
+			String userId = principal.getName();
+			String id = memberService.findByEmail(userId).getId();
+			Category category = categoryService.findCategory(11L);
+			boardReplyRequestDto.setRegisterId(id);
+			boardReplyRequestDto.setCategory(category);
 			boardService.save(boardReplyRequestDto);
 
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
 
-		return "redirect:/board/view";
+		return "redirect:/board/view?id="+boardReplyRequestDto.getBlevel();
 	}
-
-	// 댓글 작성완료
-	@PostMapping("/board/view/reply")
-	public String boardReplyWriteAction(Model model, BoardReplyRequestDto boardReplyRequestDto,
-			HttpServletRequest request) throws Exception {
-
-		HttpSession mySession = request.getSession();
-		String myid = (String) mySession.getAttribute("id");
-		Role myRole = (Role) mySession.getAttribute("Role");
-		String ip = (String) mySession.getAttribute("ipaddress");
-		try {
-			Category category = categoryService.findCategory(11L);
-			boardReplyRequestDto.setCategory(category);
-
-			if (!boardService.save(boardReplyRequestDto, myid, myRole, ip, WorkNumber.CREATE_REPLY)) {
-				throw new Exception("#Exception boardWriteAction!");
-			}
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
-
-		return "redirect:/board/view";
-	}
-
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 	// FAQ 리스트
 	@GetMapping("/board/faq/list")

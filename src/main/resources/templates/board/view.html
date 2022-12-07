@@ -116,16 +116,24 @@
 		<div class="card">
 			<div class="card-header">댓글 목록</div>
 			<ul id="reply--box" class="list-group">
-				<li id="reply--1"
+				<li id="reply--1" th:each="reply:${test.reply}"
 					class="list-group-item d-flex justify-content-between">
 					<div>
-						<!-- <p th:each="reply:${test.reply}" th:text="${reply}"></p> -->
+						<p th:text="${reply.content}"></p>
 					</div>
 					<div class="d-flex">
-						<div class="text-monospace">작성자: name="registerId" &nbsp;</div>
-						<button class="badge btn-warning">수정</button>
+						<div class="text-monospace" th:text="${reply.registerId}"></div>
+				<span>&nbsp;&nbsp;</span>
+				<span class="btn btn-danger" th:onclick="fnViewDelete()"
+					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">삭제</span>
+				<span>&nbsp;&nbsp;</span>
+				<button type="button" class="btn btn-success btn-update-start clear"
+					onclick=""
+					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">수정</button>
+
+				  <!-- <button class="badge btn-warning" >수정</button>
 						<span>&nbsp;&nbsp;</span>
-						<button class="badge btn-danger">삭제</button>
+						<button class="badge btn-danger">삭제</button> -->
 					</div>
 				</li>
 			</ul>

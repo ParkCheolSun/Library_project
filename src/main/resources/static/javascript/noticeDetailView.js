@@ -221,8 +221,8 @@ let deleteFileIdArr = [];
 	function fnReplySubmit() {
 		let frm=$("#frm");
 		if (confirm("등록하시겠습니까?")) {
-			frm.attr("method","post");
-			frm.attr("action","/board/view");
+			frm.attr("method","get");
+			frm.attr("action","/board/reply");
 			frm.submit();
 		}
 	}

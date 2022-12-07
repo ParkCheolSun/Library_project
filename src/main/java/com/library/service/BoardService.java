@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.library.constant.Role;
 import com.library.constant.WorkNumber;
 import com.library.dto.BoardReplyRequestDto;
+import com.library.dto.BoardReplyResponseDto;
 import com.library.dto.BoardRequestDto;
 import com.library.dto.BoardResponseDto;
 import com.library.entity.Board;
@@ -73,48 +74,10 @@ public class BoardService {
 		return resultFlag;
 	}
 
-	// 댓글 작성
+	// 댓글 작성 [22-12-07]
 	@Transactional
 	public void save(BoardReplyRequestDto boardReplyRequestDto) throws Exception {
 		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
-	}
-	
-	// 댓글용
-	@Transactional
-	public boolean save(BoardReplyRequestDto boardReplyRequestDto, String myid, Role myRole, String ip, WorkNumber wNum)
-			throws Exception {
-		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
-
-		String contents = "존재하지 않는 작업입니다.";
-		switch (wNum) {
-		case CREATE_NOTICE:
-			contents = "고유번호[" + result.getId() + "] 공지사항 글 생성 완료";
-			break;
-		case CREATE_FREE:
-			contents = "고유번호[" + result.getId() + "] 자유게시판 글 생성 완료";
-			break;
-		case CREATE_SUGGESTION:
-			contents = "고유번호[" + result.getId() + "] 건의사항 글 생성 완료";
-			break;
-		case CREATE_REQUEST:
-			contents = "고유번호[" + result.getId() + "] 도서요청 글 생성 완료";
-			break;
-		case CREATE_REPLY:
-			contents = "고유번호[" + result.getId() + "] 댓글 생성 완료";
-			break;
-		default:
-			break;
-		}
-		MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
-		memberLogRepository.save(memLog);
-
-		boolean resultFlag = false;
-
-		if (result.getId() != null) {
-			resultFlag = true;
-		}
-
-		return resultFlag;
 	}
 
 	@Transactional(readOnly = true)
@@ -317,12 +280,12 @@ public class BoardService {
 
 		boardRepository.updateBoardReadCntInc(id);
 
-		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
-		/*
-		  BoardReplyResponseDto reply = new BoardReplyResponseDto(boardRepository.findByBlevel(id).get());
-		 */
+		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());	 
+		List<Board> reply = boardRepository.findAllByBlevel(id);
 		resultMap.put("info", info);
-		/* resultMap.put("reply", reply); */
+		resultMap.put("reply", reply);
+		
+		
 
 		List<BoardFile> fileList = boardFileService.findByBoardId(info.getId());
 		if (!fileList.isEmpty()) {
@@ -349,24 +312,24 @@ public class BoardService {
 
 		String contents = "존재하지 않는 작업입니다.";
 		switch (wNum) {
-		case UPDATE_NOTICE :
+		case UPDATE_NOTICE:
 			contents = "고유번호[" + boardRequestDto.getId() + "] 공지사항 글 수정 완료";
 			break;
-		case UPDATE_FREE :
+		case UPDATE_FREE:
 			contents = "고유번호[" + boardRequestDto.getId() + "] 자유게시판 글 수정 완료";
-			break;	
-		case UPDATE_SUGGESTION :
+			break;
+		case UPDATE_SUGGESTION:
 			contents = "고유번호[" + boardRequestDto.getId() + "] 건의사항 글 수정 완료";
 			break;
-		case UPDATE_REQUEST :
+		case UPDATE_REQUEST:
 			contents = "고유번호[" + boardRequestDto.getId() + "] 도서요청 글 수정 완료";
 			break;
-		case UPDATE_FAQ :
+		case UPDATE_FAQ:
 			contents = "고유번호[" + boardRequestDto.getId() + "] FAQ 글 수정 완료";
 			break;
-		case UPDATE_REPLY :
+		case UPDATE_REPLY:
 			contents = "고유번호[" + boardRequestDto.getId() + "] 댓글 수정 완료";
-			break;			
+			break;
 		default:
 			break;
 		}
@@ -389,24 +352,24 @@ public class BoardService {
 		boardRepository.deleteById(id);
 		String contents = "존재하지 않는 작업입니다.";
 		switch (wNum) {
-		case DELETE_NOTICE :
+		case DELETE_NOTICE:
 			contents = "고유번호[" + id + "] 공지사항 글 삭제 완료";
 			break;
-		case DELETE_FREE :
+		case DELETE_FREE:
 			contents = "고유번호[" + id + "] 자유게시판 글 삭제 완료";
 			break;
-		case DELETE_SUGGESTION :
+		case DELETE_SUGGESTION:
 			contents = "고유번호[" + id + "] 건의사항 글 삭제 완료";
 			break;
-		case DELETE_REQUEST :
+		case DELETE_REQUEST:
 			contents = "고유번호[" + id + "] 도서요청 글 삭제 완료";
 			break;
-		case DELETE_FAQ :
+		case DELETE_FAQ:
 			contents = "고유번호[" + id + "] 도서요청 글 삭제 완료";
 			break;
-		case DELETE_REPLY :
+		case DELETE_REPLY:
 			contents = "고유번호[" + id + "] 댓글 삭제 완료";
-			break;			
+			break;
 		default:
 			break;
 		}

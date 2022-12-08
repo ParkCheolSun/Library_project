@@ -30,12 +30,17 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 			throws IOException, ServletException {
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		MemberDto memDto = MemberService.findByEmail(userDetails.getUsername());
-		String contents = "ID : " + memDto.getId() + "/ Name : " + memDto.getName() + " 로그아웃 완료";
-		MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memDto), WorkNumber.LOGOUT_MEMBER, contents, getClientIp(request));
-		memberLogRepository.save(memLog);
-		
 		HttpSession session = request.getSession();
-		session.setAttribute("mes", "USERLogout");
+		
+		if(memDto != null) {
+			String contents = "ID : " + memDto.getId() + "/ Name : " + memDto.getName() + " 로그아웃 완료";
+			MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memDto), WorkNumber.LOGOUT_MEMBER, contents, getClientIp(request));
+			memberLogRepository.save(memLog);
+			session.setAttribute("mes", "USERLogout");
+		} else {
+			session.setAttribute("mes", "USERDelete");
+		}
+		
 		super.onLogoutSuccess(request, response, authentication);
 	}
 	

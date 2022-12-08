@@ -14,6 +14,10 @@
 	width: 600px;
 }
 
+#btn-delete {
+	margin: 5px;
+}
+
 .btn-primary {
 	margin: 5px;
 	background-color: #6c3c00;

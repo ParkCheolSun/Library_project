@@ -62,13 +62,40 @@ $(document).ready(function() {
     
     // 회원 탈퇴
     $('#btn-delete').click(function(){
-    	$('#modal-form').attr("action","/login/memberDelete");
-		$('#modal-method').attr("value","delete");
-		$('#modal-form').submit();
+    	const swalWithBootstrapButtons = Swal.mixin({
+  			customClass: {
+    			confirmButton: 'btn btn-success btn-swal-success',
+    			cancelButton: 'btn btn-danger btn-swal-danger'
+  			},
+  			buttonsStyling: false
+		})
+		
+    	swalWithBootstrapButtons.fire({
+  			title: '회원탈퇴 하시겠습니까?',
+  			text: "탈퇴하시면 개인정보가 전부 삭제됩니다!",
+  			icon: 'warning',
+  			confirmButtonText: '회원탈퇴',
+  			cancelButtonText: '취소',
+  			showCancelButton: true,
+  			reverseButtons: true
+		}).then((result) => {
+  			if (result.isConfirmed) {
+      			$('#mypageForm').attr("action","/login/mypage/delete");
+				$('#modal-method').attr("value","delete");
+				$('#mypageForm').submit();
+  			} else if (
+    			result.dismiss === Swal.DismissReason.cancel
+  			) {
+  			}
+		})
     })
     
     // 수정 전 비밀번호 정규화 검사
     $("#mypageForm").submit(function(){
+    	var method = $('#modal-method').attr("value");
+    	if(method == "delete"){
+    		return true;
+    	}
     	var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 		var txt = $("#password2").val();
 		if(txt.match(regExp) == null) {

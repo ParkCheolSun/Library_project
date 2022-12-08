@@ -101,6 +101,20 @@ public class MemberService implements UserDetailsService {
 		memberLogRepository.save(memLog);
 	}
 
+	// 계정 삭제(마이페이지)
+	public void deleteMember(MemberDto memberDto, String myid, Role myRole, String ip) {
+		String id = memberDto.getId();
+		String name = memberDto.getName();
+		Member temp = memberRepository.findById(id);
+		memberRepository.deleteById(temp.getMNumber());
+		String contents = "ID : " + id + "/ Name : " + name + " 회원탈퇴 완료";
+		MemberLog memLog = MemberLog.createMemberLog(WorkNumber.DELETE_MEMBER, contents, myid, myRole, ip);
+		memberLogRepository.save(memLog);
+		contents = "ID : " + id + "/ Name : " + name + " 회원탈퇴 인원 로그아웃 완료";
+		memLog = MemberLog.createMemberLog(WorkNumber.DELETE_MEMBER, contents, myid, myRole, ip);
+		memberLogRepository.save(memLog);
+	}
+
 	private Member change(Member ori, MemberResponseDto res) {
 		ori.setId(res.getId());
 		ori.setName(res.getName());

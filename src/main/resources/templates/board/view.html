@@ -83,7 +83,8 @@
 			<div class="noticeDetail-result">
 				<button type="button" class="btn btn-success btn-pre"
 					onclick="javascript:location.href='/board/list'">이전</button>
-				<span class="btn btn-danger" th:onclick="fnViewDelete()"
+					
+				<span class="btn btn-danger" th:onclick="fnFreeDelete()"
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">삭제</span>
 				<button type="button" class="btn btn-success btn-update-start clear"
 					onclick=""
@@ -97,7 +98,7 @@
 		<!-- 댓글 UI [2022-11-30] -->
 		<div class="card mb-2 mt-5">
 			<div class="card-header bg-light">
-				<i class="fa fa-comment fa"></i>로그인후 작성하시오
+				<i class="fa fa-comment fa" ></i>
 			</div>
 
 			<div class="card">
@@ -124,16 +125,17 @@
 					<div class="d-flex">
 						<div class="text-monospace" th:text="${reply.registerId}"></div>
 				<span>&nbsp;&nbsp;</span>
-				<span class="btn btn-danger" th:onclick="fnViewDelete()"
-					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">삭제</span>
+				
+				<span class="btn btn-danger " th:onclick="fnReplyDelete()" th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">삭제
+				
+				<input type="hidden" name="deleteId" th:value="${reply.id}"> <input type="hidden" name="infoId" th:value="${info.id}">
+				</span>
+				
+					<!--  -->
 				<span>&nbsp;&nbsp;</span>
 				<button type="button" class="btn btn-success btn-update-start clear"
 					onclick=""
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">수정</button>
-
-				  <!-- <button class="badge btn-warning" >수정</button>
-						<span>&nbsp;&nbsp;</span>
-						<button class="badge btn-danger">삭제</button> -->
 					</div>
 				</li>
 			</ul>

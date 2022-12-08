@@ -1,6 +1,7 @@
 package com.library.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +45,11 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
 	public Page<Board> findByContentContainingAndCategory(Pageable pageable, String searchKeyword, Category category);
 	
-	// 댓글 출력
+	// 댓글 목록
 	public List<Board> findAllByBlevel(Long blevel);
+	
+	// 자유게시판 목록 [댓글제외하고 글만 출력]
+	public Page<Board> findAllByCategoryAndBlevel(Pageable pageable, Category category,Long blevel);
+	
 
 }

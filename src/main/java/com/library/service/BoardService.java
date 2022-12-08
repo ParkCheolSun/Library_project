@@ -74,12 +74,6 @@ public class BoardService {
 		return resultFlag;
 	}
 
-	// 댓글 작성 [22-12-07]
-	@Transactional
-	public void save(BoardReplyRequestDto boardReplyRequestDto) throws Exception {
-		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
-	}
-
 	@Transactional(readOnly = true)
 	public HashMap<String, Object> findAll(Integer page, Integer size) throws Exception {
 
@@ -161,8 +155,7 @@ public class BoardService {
 		Category category = new Category();
 		category.setCategory_id(11l);
 		Page<Board> list = boardRepository
-				.findAllByCategory(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category);
-
+				.findAllByCategoryAndBlevel(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category, null);
 		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
 		resultMap.put("paging", list.getPageable());
 		resultMap.put("totalCnt", list.getTotalElements());
@@ -273,7 +266,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 자유게시판 view
+	
 	public HashMap<String, Object> findById(Long id) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -281,12 +274,12 @@ public class BoardService {
 		boardRepository.updateBoardReadCntInc(id);
 
 		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());	 
-		List<Board> reply = boardRepository.findAllByBlevel(id);
 		resultMap.put("info", info);
+		
+		// 댓글
+		List<Board> reply = boardRepository.findAllByBlevel(id);
 		resultMap.put("reply", reply);
 		
-		
-
 		List<BoardFile> fileList = boardFileService.findByBoardId(info.getId());
 		if (!fileList.isEmpty()) {
 			resultMap.put("fileList", fileList);
@@ -294,6 +287,17 @@ public class BoardService {
 			resultMap.put("fileList", "empty");
 		}
 		return resultMap;
+	}
+	
+	// 댓글 작성 [22-12-07]
+	@Transactional
+	public void save(BoardReplyRequestDto boardReplyRequestDto) throws Exception {
+		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
+	}	
+	
+	// 댓글 삭제
+	public void deleteById(Long id) {
+		boardRepository.deleteById(id);
 	}
 
 	public Board change(Optional<Board> optional, BoardRequestDto boardRequestDto) {

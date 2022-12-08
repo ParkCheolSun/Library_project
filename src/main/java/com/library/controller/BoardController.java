@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class BoardController {
-	
+
 	private final MemberService memberService;
 	private final BoardService boardService;
 	private final CategoryService categoryService;
@@ -81,6 +81,7 @@ public class BoardController {
 
 			try {
 				model.addAttribute("resultMap", boardService.findAllBoard(page, size));
+				
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());
 			}
@@ -101,11 +102,11 @@ public class BoardController {
 
 	// 댓글 작성 [22-12-07]
 	@GetMapping("/board/reply")
-	public String boardReplyWriteAction(Model model, @ModelAttribute BoardReplyRequestDto boardReplyRequestDto,Principal principal)
-			throws Exception {
-		System.out.println(boardReplyRequestDto);
+	public String boardReplyWriteAction(Model model, @ModelAttribute BoardReplyRequestDto boardReplyRequestDto,
+			Principal principal) throws Exception {
+//		System.out.println(boardReplyRequestDto);
 		try {
-			
+
 			String userId = principal.getName();
 			String id = memberService.findByEmail(userId).getId();
 			Category category = categoryService.findCategory(11L);
@@ -117,7 +118,14 @@ public class BoardController {
 			throw new Exception(e.getMessage());
 		}
 
-		return "redirect:/board/view?id="+boardReplyRequestDto.getBlevel();
+		return "redirect:/board/view?id=" + boardReplyRequestDto.getBlevel();
+	}
+
+	// 댓글 삭제
+	@PostMapping("/board/reply/delete")
+	public String boardReplyDelete(Model model,@RequestParam("deleteId") Long id, @RequestParam("infoId") Long boardId) throws Exception {
+		boardService.deleteById(id);
+		return "redirect:/board/view?id=" + boardId;
 	}
 
 	// FAQ 리스트
@@ -678,6 +686,7 @@ public class BoardController {
 		try {
 			if (boardRequestDto.getId() != null) {
 				model.addAttribute("test", boardService.findById(boardRequestDto.getId()));
+				
 			}
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

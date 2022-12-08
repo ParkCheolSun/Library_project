@@ -4,6 +4,8 @@ let origFileDiv;
 let fileMaxCnt = 3, fileMaxSize = 10485760, fileAllowExt = [
 						"jpg", "jpeg", "png", "gif" ];
 let deleteFileIdArr = [];
+
+
 				
 	$(document).ready(
 			function() {
@@ -218,15 +220,6 @@ let deleteFileIdArr = [];
 			})
 	}
 	
-	function fnReplySubmit() {
-		let frm=$("#frm");
-		if (confirm("등록하시겠습니까?")) {
-			frm.attr("method","get");
-			frm.attr("action","/board/reply");
-			frm.submit();
-		}
-	}
-
 	$(function() {
 		$("#frm").validate({
 					messages : {
@@ -266,3 +259,72 @@ let deleteFileIdArr = [];
 					}
 				});
 	});
+	
+	function fnFreeDelete() {
+		const swalWithBootstrapButtons = Swal.mixin({
+  			customClass: {
+    			confirmButton: 'btn btn-success btn-swal-success',
+    			cancelButton: 'btn btn-danger btn-swal-danger'
+  			},
+  			buttonsStyling: false
+		})
+
+		swalWithBootstrapButtons.fire({
+  			title: '게시글을 삭제하시겠습니까?',
+  			text: "게시글 및 첨부파일이 영구적으로 삭제됩니다!",
+  			icon: 'warning',
+  			confirmButtonText: '삭제',
+  			cancelButtonText: '취소',
+  			showCancelButton: true,
+  			reverseButtons: true
+			}).then((result) => {
+  				if (result.isConfirmed) {
+      				let frm = $("#frm");
+					frm.attr("action", "/board/view/delete");
+					frm.submit();
+  				} else if (
+    				/* Read more about handling dismissals below */
+    				result.dismiss === Swal.DismissReason.cancel
+  				) {
+  				}
+			})
+	}	
+	
+	function fnReplySubmit() {
+		let frm=$("#frm");
+		if (confirm("등록하시겠습니까?")) {
+			frm.attr("method","get");
+			frm.attr("action","/board/reply");
+			frm.submit();
+		}
+	}	
+	
+	function fnReplyDelete() {
+		const swalWithBootstrapButtons = Swal.mixin({
+  			customClass: {
+    			confirmButton: 'btn btn-success btn-swal-success',
+    			cancelButton: 'btn btn-danger btn-swal-danger'
+  			},
+  			buttonsStyling: false
+		})
+
+		swalWithBootstrapButtons.fire({
+  			title: '댓글을 삭제하시겠습니까?',
+  			text: "작성하신 댓글이 영구적으로 삭제됩니다!",
+  			icon: 'warning',
+  			confirmButtonText: '삭제',
+  			cancelButtonText: '취소',
+  			showCancelButton: true,
+  			reverseButtons: true
+			}).then((result) => {
+  				if (result.isConfirmed) {
+      				let frm = $("#frm");
+					frm.attr("action", "/board/reply/delete");
+					frm.submit();
+  				} else if (
+    				/* Read more about handling dismissals below */
+    				result.dismiss === Swal.DismissReason.cancel
+  				) {
+  				}
+			})
+	}

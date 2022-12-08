@@ -200,8 +200,12 @@ public class MemberController {
 	// 마이페이지 수정
 	@PostMapping(value = "/mypage/mod")
 	public String mypageMod(MemberDto memDto, Model model) {
+		if(memDto.getPassword() != null) {
+			String password = passwordEncoder.encode(memDto.getPassword());
+			memDto.setPassword(password);
+		}
 		System.out.println(memDto);
-		MemberDto resultDto = memberService.updateMember(memDto);
+		MemberDto resultDto = memberService.updateMyPage(memDto);
 		
 		model.addAttribute("memberDto", resultDto);
 		return "member/MyPage";

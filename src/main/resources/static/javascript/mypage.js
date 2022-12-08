@@ -2,6 +2,9 @@ var oriEmail = null;
 
 $(document).ready(function() {
 	$("#btn-signup").prop('disabled', true);
+	$(".btn-email-end").hide();
+	$(".code").hide();
+	$("#btn-sendEmail").prop('disabled', true);
 	var message = $('#mes').val();
 	var output = "";
 	var iconString = "success";
@@ -20,6 +23,14 @@ $(document).ready(function() {
 			timer : 1500
 		});
 	}
+	
+	$("#btn-emailUpdate").click(function(){
+		$("#btn-sendEmail").prop('disabled', false);
+		$("#btn-emailUpdate").prop('disabled', true);
+		$("#btn-submit").prop('disabled', true);
+	});
+	
+	//주소API사용
 	$("#address").click(function(){
     	 //카카오 지도 발생
         new daum.Postcode({
@@ -28,6 +39,41 @@ $(document).ready(function() {
             	$("#address_detail").focus(); //상세입력 포커싱
            	}
        	}).open();
+    });
+    
+    //비밀번호 확인
+    $("#alert-success").hide();
+    $("#alert-danger").hide();
+    $(".password").keyup(function(){
+		var pwd1=$("#password1").val();
+        var pwd2=$("#password2").val();
+        if(pwd1 != "" || pwd2 != ""){
+            if(pwd1 == pwd2){
+                $("#alert-success").show();
+                $("#alert-danger").hide();
+                $("#btn-submit").removeAttr("disabled");
+            }else{
+                $("#alert-success").hide();
+                $("#alert-danger").show();
+                $("#btn-submit").attr("disabled", "disabled");
+            }    
+        }
+    });
+    
+    $("#mypageForm").submit(function(){
+    	var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+		var txt = $("#password2").val();
+		if(txt.match(regExp) == null) {
+    		Swal.fire({
+				icon : 'error',
+				title : '비밀번호 오류',
+				text : "비밀번호는 영문,숫자,특수문자 조합으로 작성하여주세요.",
+				footer : '<a href="">Why do I have this issue?</a>'
+			});
+
+    		return false;
+		}
+		return true;
     });
 });
 
@@ -64,26 +110,20 @@ function sendEmail() {
 		dataType : 'json',
 		data : {
 			'email' : email,
-			'action' : 'find'
+			'action' : 'Notfind'
 		},
 		success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
 			console.log("check : " + check.result)
 			if (check.result == "Success") {
+				$(".btn-email-start").fadeOut();
+				$(".code").fadeIn(3000);
+				$(".btn-email-end").fadeIn(3000);
 				console.log("성공");
-				$(".input-icon-code").css({
-					"display" : "inline-block"
-				});
-				$(".input-email-code").css({
-					"display" : "inline-block"
-				});
-				$(".btn-email-end").css({
-					"display" : "inline-block"
-				});
 			} else {
 				Swal.fire({
 					icon : 'error',
 					title : '이메일 오류',
-					text : "이메일 형식이 잘못되었거나 가입하지 않은 이메일입니다.",
+					text : "이메일 형식이 잘못되었거나 이미 가입되어있는 이메일입니다.",
 					footer : '<a href="">Why do I have this issue?</a>'
 				});
 				console.log("실패");
@@ -149,7 +189,7 @@ function checkEmail() {
 		data : {
 			'email' : email,
 			'code' : code,
-			'action' : 'find2'
+			'action' : 'find3'
 		},
 		success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
 			console.log("check : " + check.result)
@@ -157,8 +197,8 @@ function checkEmail() {
 				console.log("실패");
 				Swal.fire({
 					icon : 'error',
-					title : 'Error',
-					text : "아이디를 찾을 수 없습니다.",
+					title : '인증번호 오류',
+					text : "인증번호를 다시 확인해주세요.",
 					footer : '<a href="">Why do I have this issue?</a>'
 				});
 			} else {
@@ -170,6 +210,7 @@ function checkEmail() {
 					footer : '<a href="">Why do I have this issue?</a>'
 				});
 				$("#email").prop('readonly', true);
+				$("#btn-submit").prop('disabled', false);
 			}
 		},
 		error : function(xhr, ajaxOptions, thrownError) {
@@ -197,4 +238,31 @@ function checkEmail() {
 			}
 		}
 	});
+}
+
+function checkPass(){
+	var pass1 = $("#password1").val();
+	var pass2 = $("#password2").val();
+	if(pass1 == "" || pass2 == ""){
+		Swal.fire({
+			icon : 'error',
+			title : '비밀번호 오류',
+			text : "비밀번호는 빈칸일 수 없습니다.",
+			footer : '<a href="">Why do I have this issue?</a>'
+		});
+		return false;
+	}
+	if(pass1 == pass2){
+		return true;
+	}
+	else{
+		Swal.fire({
+			icon : 'error',
+			title : '비밀번호 오류',
+			text : "비밀번호를 다시한번 확인하여 주세요.",
+			footer : '<a href="">Why do I have this issue?</a>'
+		});
+		return false;
+	}
+	return false;
 }

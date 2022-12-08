@@ -60,6 +60,14 @@ $(document).ready(function() {
         }
     });
     
+    // 회원 탈퇴
+    $('#btn-delete').click(function(){
+    	$('#modal-form').attr("action","/login/memberDelete");
+		$('#modal-method').attr("value","delete");
+		$('#modal-form').submit();
+    })
+    
+    // 수정 전 비밀번호 정규화 검사
     $("#mypageForm").submit(function(){
     	var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 		var txt = $("#password2").val();

@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -192,22 +193,20 @@ public class MemberController {
 	@GetMapping(value = "/mypage")
 	public String mypageView(Model model, Authentication authentication) {
 		MemberDto memDto = memberService.findByEmail(authentication.getName());
-		
 		model.addAttribute("memberDto", memDto);
 		return "member/MyPage";
 	}
 	
 	// 마이페이지 수정
-	@PostMapping(value = "/mypage/mod")
+	@PutMapping(value = "/mypage/mod")
 	public String mypageMod(MemberDto memDto, Model model) {
 		if(memDto.getPassword() != null) {
 			String password = passwordEncoder.encode(memDto.getPassword());
 			memDto.setPassword(password);
 		}
-		System.out.println(memDto);
 		MemberDto resultDto = memberService.updateMyPage(memDto);
 		
 		model.addAttribute("memberDto", resultDto);
-		return "member/MyPage";
+		return "redirect:/login/mypage";
 	}
 }

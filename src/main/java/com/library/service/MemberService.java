@@ -67,13 +67,13 @@ public class MemberService implements UserDetailsService {
 	}
 
 	// 계정 수정(마이페이지)
-	public MemberDto updateMyPage(@Valid MemberDto memDto) {
+	public MemberDto updateMyPage(@Valid MemberDto memDto, String myid, Role myRole, String ip) {
 		System.out.println(memDto);
 		Member temp = change(memberRepository.findById(memDto.getId()), memDto);
 		Member mem = memberRepository.save(temp);
 		if (mem.getId() != null) {
 			String contents = "ID : " + mem.getId() + "/ Name : " + mem.getName() + " 마이페이지 정보 수정 완료";
-			MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.UPDATE_MEMBER, contents);
+			MemberLog memLog = MemberLog.createMemberLog(WorkNumber.UPDATE_MEMBER, contents, myid, myRole, ip);
 			memberLogRepository.save(memLog);
 		}
 		return MemberDto.createMemberDto(mem);
@@ -130,6 +130,7 @@ public class MemberService implements UserDetailsService {
 		ori.setAddress(dto.getAddress());
 		ori.setAddress_detail(dto.getAddress_detail());
 		ori.setEmail(dto.getEmail());
+		ori.setGender(dto.getGender());
 		if (dto.getRole() != null)
 			ori.setRole(dto.getRole());
 		if (dto.getPassword() != null)

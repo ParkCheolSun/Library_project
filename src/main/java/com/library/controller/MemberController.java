@@ -220,12 +220,16 @@ public class MemberController {
 	
 	// 마이페이지 수정
 	@PutMapping(value = "/mypage/mod")
-	public String mypageMod(MemberDto memDto, Model model) {
+	public String mypageMod(MemberDto memDto, Model model, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
 		if(memDto.getPassword() != null) {
 			String password = passwordEncoder.encode(memDto.getPassword());
 			memDto.setPassword(password);
 		}
-		MemberDto resultDto = memberService.updateMyPage(memDto);
+		MemberDto resultDto = memberService.updateMyPage(memDto, myid, myRole, ip);
 		
 		model.addAttribute("memberDto", resultDto);
 		return "redirect:/login/mypage";

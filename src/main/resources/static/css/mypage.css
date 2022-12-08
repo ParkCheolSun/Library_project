@@ -8,6 +8,14 @@
 
 .form-control-plaintext {
 	padding: 8px;
+	border: 1px solid #df7e1a;
+    border-radius: 12px;
+}
+
+.form-control-plaintext:focus {
+	border: 1px solid #a45b13;
+	outline-width: 3px;
+	outline-color: #a45b13;
 }
 
 .row {

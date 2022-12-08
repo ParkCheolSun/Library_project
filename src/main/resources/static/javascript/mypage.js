@@ -8,21 +8,6 @@ $(document).ready(function() {
 	var message = $('#mes').val();
 	var output = "";
 	var iconString = "success";
-	if (message == "modPassword")
-		output = "비밀번호 변경이 완료되었습니다."
-	else if(message == "USERLoginFail"){
-		output = "로그인 실패."
-		iconString = "error"
-	}
-	if(output != ""){
-		Swal.fire({
-			position : 'top-end',
-			icon : iconString,
-			title : output,
-			showConfirmButton : false,
-			timer : 1500
-		});
-	}
 	
 	$("#btn-emailUpdate").click(function(){
 		$("#btn-sendEmail").prop('disabled', false);
@@ -88,27 +73,31 @@ $(document).ready(function() {
   			) {
   			}
 		})
-    })
+    });
     
     // 수정 전 비밀번호 정규화 검사
     $("#mypageForm").submit(function(){
     	var method = $('#modal-method').attr("value");
     	if(method == "delete"){
-    		return true;
+    		checkResult = true;
+    	} else if(method == "put"){
+    		var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+			var pwd1=$("#password1").val();
+       		var pwd2=$("#password2").val();
+        
+        	if(pwd1 == "" || pwd2 == ""){
+        		return true;
+        	} else if(pwd2.match(regExp) == null) {
+    			Swal.fire({
+					icon : 'error',
+					title : '비밀번호 오류',
+					text : "비밀번호는 영문,숫자,특수문자 조합으로 작성하여주세요.",
+					footer : '<a href="">Why do I have this issue?</a>'
+				});
+    			return false;
+			}
     	}
-    	var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-		var txt = $("#password2").val();
-		if(txt.match(regExp) == null) {
-    		Swal.fire({
-				icon : 'error',
-				title : '비밀번호 오류',
-				text : "비밀번호는 영문,숫자,특수문자 조합으로 작성하여주세요.",
-				footer : '<a href="">Why do I have this issue?</a>'
-			});
-
-    		return false;
-		}
-		return true;
+    	return false;
     });
 });
 

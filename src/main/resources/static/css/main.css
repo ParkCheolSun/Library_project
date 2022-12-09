@@ -485,3 +485,15 @@ input[type=radio].close:not(:checked)+.closer {
 	top: 40px;
 	transform: rotate( 21deg );
 }
+
+.logo-img {
+	width: 300px;
+    display: inherit;
+    position: relative;
+    margin-top: 40px;
+    
+}
+
+.logo-div {
+	text-align: center;
+}

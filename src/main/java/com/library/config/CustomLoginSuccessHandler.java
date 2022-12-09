@@ -52,7 +52,9 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 		session.setAttribute("id", memDto.getId());
 		session.setAttribute("Role", memDto.getRole());
 		String contents = "ID : " + memDto.getId() + "/ Name : " + memDto.getName() + " 로그인 완료";
-		MemberLog memLog = MemberLog.createMemberLog(Member.createMember(memDto), WorkNumber.LOGIN_MEMBER, contents, getClientIp(request));
+		Member mem = Member.createMember(memDto);
+		mem.setRole(memDto.getRole());
+		MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.LOGIN_MEMBER, contents, getClientIp(request));
 		memberLogRepository.save(memLog);
 	}
 

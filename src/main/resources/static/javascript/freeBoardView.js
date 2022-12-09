@@ -259,11 +259,10 @@ let deleteFileIdArr = [];
 	});
 		
 	function fnReplySubmit() {
-		let frm=$("#frm");
 		if (confirm("등록하시겠습니까?")) {
-			frm.attr("method","get");
-			frm.attr("action","/board/reply");
-			frm.submit();
+			$('#form-method').attr("value","post");
+			$("#frm-sub").attr("action","/board/reply");
+			$("#frm-sub").submit();
 		}
 	}	
 	
@@ -286,9 +285,9 @@ let deleteFileIdArr = [];
   			reverseButtons: true
 			}).then((result) => {
   				if (result.isConfirmed) {
-      				let frm = $("#frm");
-					frm.attr("action", "/board/reply/delete");
-					frm.submit();
+					$("#frm-sub").attr("action", "/board/reply/delete");
+					$('#form-method').attr("value","delete");
+					$("#frm-sub").submit();
   				} else if (
     				/* Read more about handling dismissals below */
     				result.dismiss === Swal.DismissReason.cancel

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -103,7 +104,7 @@ public class BoardController {
 	}
 	
 	// 댓글 작성 [22-12-07]
-	@GetMapping("/board/reply")
+	@PostMapping("/board/reply")
 	public String boardReplyWriteAction(Model model, @ModelAttribute BoardReplyRequestDto boardReplyRequestDto,
 			Principal principal) throws Exception {
 		System.out.println(boardReplyRequestDto);
@@ -125,7 +126,7 @@ public class BoardController {
 	}
 
 	// 댓글 삭제
-	@PostMapping("/board/reply/delete")
+	@DeleteMapping("/board/reply/delete")
 	public String boardReplyDelete(Model model, @RequestParam("deleteId") Long id, @RequestParam("infoId") Long boardId)
 			throws Exception {
 		boardService.deleteById(id);

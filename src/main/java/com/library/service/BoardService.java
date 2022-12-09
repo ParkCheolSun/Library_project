@@ -55,9 +55,6 @@ public class BoardService {
 		case CREATE_REQUEST:
 			contents = "고유번호[" + result.getId() + "] 도서요청 글 생성 완료";
 			break;
-		case CREATE_REPLY:
-			contents = "고유번호[" + result.getId() + "] 댓글 생성 완료";
-			break;
 		default:
 			break;
 		}
@@ -295,9 +292,18 @@ public class BoardService {
 		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
 	}	
 	
-	// 댓글 삭제
+	// 댓글 삭제 [22-12-08]
 	public void deleteById(Long id) {
 		boardRepository.deleteById(id);
+	}
+	
+	// 댓글 수정 [22-12-08]
+	public String updateReply(BoardReplyRequestDto boardReplyRequestDto) throws Exception {
+		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
+		if(result.getBlevel() != null) {
+			String content = "content:" + result.getBlevel() + "수정 완료";
+		}
+		return String.valueOf(result.getId());
 	}
 
 	public Board change(Optional<Board> optional, BoardRequestDto boardRequestDto) {
@@ -330,9 +336,6 @@ public class BoardService {
 			break;
 		case UPDATE_FAQ:
 			contents = "고유번호[" + boardRequestDto.getId() + "] FAQ 글 수정 완료";
-			break;
-		case UPDATE_REPLY:
-			contents = "고유번호[" + boardRequestDto.getId() + "] 댓글 수정 완료";
 			break;
 		default:
 			break;
@@ -370,9 +373,6 @@ public class BoardService {
 			break;
 		case DELETE_FAQ:
 			contents = "고유번호[" + id + "] 도서요청 글 삭제 완료";
-			break;
-		case DELETE_REPLY:
-			contents = "고유번호[" + id + "] 댓글 삭제 완료";
 			break;
 		default:
 			break;

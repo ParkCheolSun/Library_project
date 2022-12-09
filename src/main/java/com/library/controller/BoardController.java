@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -81,7 +83,7 @@ public class BoardController {
 
 			try {
 				model.addAttribute("resultMap", boardService.findAllBoard(page, size));
-				
+
 			} catch (Exception e) {
 				throw new Exception(e.getMessage());
 			}
@@ -99,17 +101,18 @@ public class BoardController {
 		System.out.println(boardService.findAll(page, size));
 		return "board/list";
 	}
-
+	
 	// 댓글 작성 [22-12-07]
 	@GetMapping("/board/reply")
 	public String boardReplyWriteAction(Model model, @ModelAttribute BoardReplyRequestDto boardReplyRequestDto,
 			Principal principal) throws Exception {
-//		System.out.println(boardReplyRequestDto);
+		System.out.println(boardReplyRequestDto);
 		try {
-
 			String userId = principal.getName();
 			String id = memberService.findByEmail(userId).getId();
+
 			Category category = categoryService.findCategory(11L);
+
 			boardReplyRequestDto.setRegisterId(id);
 			boardReplyRequestDto.setCategory(category);
 			boardService.save(boardReplyRequestDto);
@@ -123,8 +126,21 @@ public class BoardController {
 
 	// 댓글 삭제
 	@PostMapping("/board/reply/delete")
-	public String boardReplyDelete(Model model,@RequestParam("deleteId") Long id, @RequestParam("infoId") Long boardId) throws Exception {
+	public String boardReplyDelete(Model model, @RequestParam("deleteId") Long id, @RequestParam("infoId") Long boardId)
+			throws Exception {
 		boardService.deleteById(id);
+		return "redirect:/board/view?id=" + boardId;
+	}
+
+	// 댓글 수정
+	@PutMapping(value = "/replyUpdate")
+	public String boardreplyUpdate(Model model, @RequestBody BoardReplyRequestDto boardReplyRequestDto) throws Exception {
+		String boardId;  // 변수 생성
+		try {
+			boardId = boardService.updateReply(boardReplyRequestDto);  // 값을 초기화
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 		return "redirect:/board/view?id=" + boardId;
 	}
 
@@ -686,7 +702,7 @@ public class BoardController {
 		try {
 			if (boardRequestDto.getId() != null) {
 				model.addAttribute("test", boardService.findById(boardRequestDto.getId()));
-				
+
 			}
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

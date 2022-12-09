@@ -32,14 +32,14 @@
 				<div class="aco-contents">
 					<div class="aco-inner">
 						<div class="aco-description">
-							<h3>TITLE 5</h3>
-							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+							<h3>준비중</h3>
+							<p>해당탭은 준비중 입니다.</p>
 						</div>
 					</div>
 				</div>
 				<!--버튼 요소 : 콘텐츠가 좌측, 버튼이 우측에 보여질 것이고 float:left; 로 정렬시켰음.-->
 				<label for="menu1" class="label e"> <span class="rotate">
-						<p>MENU 5</p>
+						<p>준비중</p>
 				</span>
 				</label>
 
@@ -49,13 +49,13 @@
 				<div class="aco-contents">
 					<div class="aco-inner">
 						<div class="aco-description">
-							<h3>TITLE 4</h3>
-							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+							<h3>준비중</h3>
+							<p>해당탭은 준비중 입니다.</p>
 						</div>
 					</div>
 				</div>
 				<label for="menu2" class="label d"> <span class="rotate">
-						<p>MENU 4</p>
+						<p>준비중</p>
 				</span>
 				</label>
 
@@ -150,7 +150,10 @@
 			</div>
 		</div>
 		<div class="cnt03">
-			<p class="sly-title">남구도서관 인기대출도서</p>
+			<div class="cnt03-title">
+				<span class="sly-title">남구도서관 인기대출도서</span>
+				<img id="bigdata-logo" th:src="@{./images/big_data_logo-removebg.png}">
+			</div>
 			<div class="frame" id="cycleitems">
 				<ul class="slidee">
 					<li th:each="bookList : ${bookDtoListToLib}">

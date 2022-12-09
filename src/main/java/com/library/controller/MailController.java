@@ -78,7 +78,7 @@ public class MailController {
 			result = memDto.getId();
 		} else if(action.equals("find2")) {
 			MemberDto memDto = mailService.findEmail(email);
-			if(memDto == null || memDto.getId() == null)
+			if(memDto == null)
 				result = "NotID";
 			else
 				result = memDto.getId();

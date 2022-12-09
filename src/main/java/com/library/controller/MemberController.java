@@ -9,15 +9,19 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -92,6 +96,25 @@ public class MemberController {
 		mem.setPassword(password);
 		mem.setRole(Role.USER);
 		memberService.saveMember(mem);
+		
+		// 사용자 생성중
+		for(int i = 4; i < 14 ; i++) {
+			check = memberService.findById(String.valueOf(i));
+			if (check)
+				return;
+			memDto = new MemberDto();
+			memDto.setId(String.valueOf(i));
+			memDto.setPassword(String.valueOf(i));
+			memDto.setAddress("사용자 주소 "+i);
+			memDto.setGender("M");
+			memDto.setName("사용자"+i);
+			memDto.setEmail("user@user.user"+i);
+			mem = Member.createMember(memDto, passwordEncoder);
+			password = passwordEncoder.encode(memDto.getPassword());
+			mem.setPassword(password);
+			mem.setRole(Role.USER);
+			memberService.saveMember(mem);
+		}
 	}
 
 	// 회원가입
@@ -146,11 +169,10 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping(value = "/findEmail")
 	public HashMap<String, String> findId(@RequestParam("email") String email) {
-		Member member = memberService.findByEmail(email);
-		System.out.println(member);
+		MemberDto memDto = memberService.findByEmail(email);
 		HashMap<String, String> map = new HashMap<String, String>();
 
-		if (member.getId() == null) {
+		if (memDto.getId() == null) {
 			map.put("answer", "Fail");
 		} else {
 			map.put("answer", "Success");
@@ -167,10 +189,10 @@ public class MemberController {
 	@PostMapping(value = "/mod")
 	public String newMember(MemberDto memberDto, HttpServletResponse response, Model model,
 			RedirectAttributes redirectAttributes) {
-		Member member = memberService.findByEmail(memberDto.getEmail());
+		MemberDto memDto = memberService.findByEmail(memberDto.getEmail());
 		String password = passwordEncoder.encode(memberDto.getPassword());
-		member.setPassword(password);
-		memberService.updateMember(member);
+		memDto.setPassword(password);
+		memberService.updateMember(memDto);
 		redirectAttributes.addFlashAttribute("memberDto", new MemberDto());
 		redirectAttributes.addFlashAttribute("mes", "modPassword");
 		return "redirect:/login/signUp";
@@ -186,5 +208,41 @@ public class MemberController {
 	@GetMapping(value="/userId")
 	public String getUserId(Principal principal) {
 		return principal.getName();
+	}
+	
+	// 마이페이지
+	@GetMapping(value = "/mypage")
+	public String mypageView(Model model, Authentication authentication) {
+		MemberDto memDto = memberService.findByEmail(authentication.getName());
+		model.addAttribute("memberDto", memDto);
+		return "member/MyPage";
+	}
+	
+	// 마이페이지 수정
+	@PutMapping(value = "/mypage/mod")
+	public String mypageMod(MemberDto memDto, Model model, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
+		if(memDto.getPassword() != null) {
+			String password = passwordEncoder.encode(memDto.getPassword());
+			memDto.setPassword(password);
+		}
+		MemberDto resultDto = memberService.updateMyPage(memDto, myid, myRole, ip);
+		
+		model.addAttribute("memberDto", resultDto);
+		return "redirect:/login/mypage";
+	}
+	
+	// 마이페이지 회원탈퇴
+	@DeleteMapping(value = "/mypage/delete")
+	public String mypageDelete(MemberDto memDto, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		Role myRole = (Role)mySession.getAttribute("Role");
+		String ip = (String)mySession.getAttribute("ipaddress");
+		memberService.deleteMember(memDto, myid, myRole, ip);
+		return "redirect:/login/logout";
 	}
 }

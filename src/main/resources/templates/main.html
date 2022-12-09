@@ -15,7 +15,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
-<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+<script charset="UTF-8" class="daum_roughmap_loader_script"
+	src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 </head>
 <div layout:fragment="content">
 	<script src="/javascript/mainContent.js"></script>
@@ -31,14 +32,14 @@
 				<div class="aco-contents">
 					<div class="aco-inner">
 						<div class="aco-description">
-							<h3>TITLE 5</h3>
-							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+							<h3>준비중</h3>
+							<p>해당탭은 준비중 입니다.</p>
 						</div>
 					</div>
 				</div>
 				<!--버튼 요소 : 콘텐츠가 좌측, 버튼이 우측에 보여질 것이고 float:left; 로 정렬시켰음.-->
 				<label for="menu1" class="label e"> <span class="rotate">
-						<p>MENU 5</p>
+						<p>준비중</p>
 				</span>
 				</label>
 
@@ -48,13 +49,13 @@
 				<div class="aco-contents">
 					<div class="aco-inner">
 						<div class="aco-description">
-							<h3>TITLE 4</h3>
-							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+							<h3>준비중</h3>
+							<p>해당탭은 준비중 입니다.</p>
 						</div>
 					</div>
 				</div>
 				<label for="menu2" class="label d"> <span class="rotate">
-						<p>MENU 4</p>
+						<p>준비중</p>
 				</span>
 				</label>
 
@@ -62,14 +63,27 @@
 				<input type="radio" name="navigation" id="menu3" class="button">
 				<div class="aco-contents">
 					<div class="aco-inner">
-						<div class="aco-description">
-							<h3>TITLE 3</h3>
-							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+						<div class="aco-description logo-div">
+							<a th:href="@{https://data4library.kr/}">
+								<img class="logo-img" th:src="@{./images/infoNaru.png}">
+							</a><br>
+							<a th:href="@{https://books.nl.go.kr/}">
+								<img class="logo-img" th:src="@{./images/mun_logo.svg}">
+							</a><br>
+							<a th:href="@{https://cn.nld.go.kr/index.do}">
+								<img class="logo-img" th:src="@{./images/bookNare.png}">
+							</a><br>
+							<a th:href="@{https://lib.gen.go.kr/jungang/}">
+								<img class="logo-img" th:src="@{./images/gwangjumiddleLibrary.png}">
+							</a><br>
+							<a th:href="@{https://citylib.gwangju.kr/main}">
+								<img class="logo-img" th:src="@{./images/gwangju.png}">
+							</a><br>
 						</div>
 					</div>
 				</div>
 				<label for="menu3" class="label c"> <span class="rotate">
-						<p>MENU 3</p>
+						<p>유용한 사이트</p>
 				</span>
 				</label>
 
@@ -78,13 +92,26 @@
 				<div class="aco-contents">
 					<div class="aco-inner">
 						<div class="aco-description">
-							<h3>TITLE 1</h3>
-							<p>다람쥐 헌 챗바퀴에 타고파. 다람쥐 헌 챗바퀴에 타고파.</p>
+							<div class="swiper-container">
+								<h1 class="swiper-title">전국 인기 대출 도서</h1>
+								<div class="swiper-wrapper">
+									<div class="swiper-slide" th:each="bookList : ${bookDtoList}">
+										<img th:src="@{${bookList.bookImageURL}}" class="img-book">
+									</div>
+								</div>
+
+								<!-- 네비게이션 -->
+								<div class="swiper-button-next"></div>
+								<!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+								<div class="swiper-button-prev"></div>
+								<!-- 이전 버튼 -->
+
+							</div>
 						</div>
 					</div>
 				</div>
 				<label for="menu4" class="label b"> <span class="rotate">
-						<p>게시판 검색</p>
+						<p>전국 인기 대출 도서</p>
 				</span>
 				</label>
 
@@ -95,7 +122,8 @@
 						<div class="aco-description">
 							<form action="/search" role="form" method="get">
 								<h3 id="h-search">도서 검색</h3>
-								<input type="text" name="keyword" class="input-keyword" placeholder="도서 키워드" id="keyword" autocomplete="off">
+								<input type="text" name="keyword" class="input-keyword"
+									placeholder="도서 키워드" id="keyword" autocomplete="off">
 								<button type="submit" id="btn-search">검색</button>
 							</form>
 						</div>
@@ -113,21 +141,7 @@
 			</div>
 		</div>
 		<div class="cnt02">
-			<div class="swiper-container">
-				<h1 class="swiper-title">인기 대출 도서</h1>
-				<div class="swiper-wrapper">
-					<div class="swiper-slide" th:each="bookList : ${bookDtoList}">
-						<img th:src="@{${bookList.bookImageURL}}" class="img-book">
-					</div>
-				</div>
 
-				<!-- 네비게이션 -->
-				<div class="swiper-button-next"></div>
-				<!-- 다음 버튼 (오른쪽에 있는 버튼) -->
-				<div class="swiper-button-prev"></div>
-				<!-- 이전 버튼 -->
-
-			</div>
 			<div class="notice">
 				<h1 class="swiper-title">공지사항</h1>
 				<div class="notice-area">
@@ -149,7 +163,10 @@
 			</div>
 		</div>
 		<div class="cnt03">
-			<p class="sly-title">남구도서관 인기대출도서</p>
+			<div class="cnt03-title">
+				<span class="sly-title">남구도서관 인기대출도서</span>
+				<img id="bigdata-logo" th:src="@{./images/big_data_logo-removebg.png}">
+			</div>
 			<div class="frame" id="cycleitems">
 				<ul class="slidee">
 					<li th:each="bookList : ${bookDtoListToLib}">
@@ -168,7 +185,7 @@
 			</div>
 		</div>
 		<div class="cnt04">
-			<div class="section02" >
+			<div class="section02">
 				<div class="s2_wrap">
 					<span data-show="con_A" data-button="button_A" class="btn_A on">남구문화정보도서관</span>
 					<span data-show="con_B" data-button="button_B" class="btn_B">광주광역시립사직도서관</span>
@@ -183,19 +200,24 @@
 
 				<div class="content_box con_A">
 					<div class="content_box_sub con_A">
-						<div id="daumRoughmapContainer1669965579197" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+						<div id="daumRoughmapContainer1669965579197"
+							class="root_daum_roughmap root_daum_roughmap_landing"></div>
 					</div>
 					<div class="content_box_sub con_B">
-						<div id="daumRoughmapContainer1669969380551" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+						<div id="daumRoughmapContainer1669969380551"
+							class="root_daum_roughmap root_daum_roughmap_landing"></div>
 					</div>
 					<div class="content_box_sub con_C">
-						<div id="daumRoughmapContainer1669970962548" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+						<div id="daumRoughmapContainer1669970962548"
+							class="root_daum_roughmap root_daum_roughmap_landing"></div>
 					</div>
 					<div class="content_box_sub con_D">
-						<div id="daumRoughmapContainer1669972505045" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+						<div id="daumRoughmapContainer1669972505045"
+							class="root_daum_roughmap root_daum_roughmap_landing"></div>
 					</div>
 					<div class="content_box_sub con_E">
-						<div id="daumRoughmapContainer1669972619007" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+						<div id="daumRoughmapContainer1669972619007"
+							class="root_daum_roughmap root_daum_roughmap_landing"></div>
 					</div>
 				</div>
 

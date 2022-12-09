@@ -32,10 +32,9 @@ public class BookService {
 	
 	public List<BookDto> popularityBook() {
 		String oriUrl = "http://data4library.kr/api/loanItemSrch";
-		String pageSize = "10";
+		String pageSize = "30";
 		String kdc = "9";
-		String url = oriUrl + "?authKey="+ key +"&startDt=2022-01-01&endDt=2022-11-21&region="+region+"&dtl_region="+dtl_region + "&pageNo=1&pageSize=" + pageSize +
-				"&kdc=" + kdc;
+		String url = oriUrl + "?authKey="+ key +"&startDt=2022-01-01&endDt=2022-12-31&pageNo=1&pageSize=" + pageSize;
 		
 		// Spring boot에서 제공하는 RestTemplate
         restTemplate = new RestTemplate();

@@ -55,6 +55,9 @@ public class BoardService {
 		case CREATE_REQUEST:
 			contents = "고유번호[" + result.getId() + "] 도서요청 글 생성 완료";
 			break;
+		case CREATE_FAQ :
+			contents = "고유번호[" + result.getId() + "] FAQ 글 생성 완료";
+			break;
 		default:
 			break;
 		}

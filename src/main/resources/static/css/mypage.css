@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+#myPage-wrapper {
+	padding-left: 100px;
+	padding-top: 80px;
+	width: 80%;
+}
+
+.form-control-plaintext {
+	padding: 8px;
+	border: 1px solid #df7e1a;
+    border-radius: 12px;
+}
+
+.form-control-plaintext:focus {
+	border: 1px solid #a45b13;
+	outline-width: 3px;
+	outline-color: #a45b13;
+}
+
+.row {
+	width: 600px;
+}
+
+#btn-delete {
+	margin: 5px;
+}
+
+.btn-primary {
+	margin: 5px;
+	background-color: #6c3c00;
+	color: #f1b98f;
+	box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+	outline-color: #6c3c00;
+	border-color: #6c3c00;
+}
+
+.btn-primary:hover {
+	background-color: #6c3c00;
+	color: #f1b98f;
+	box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+	outline-color: #6c3c00;
+	border-color: #6c3c00;
+}
+
+.btn-primary:disabled {
+	color: #fff;
+    background-color: #b97e27;
+    border-color: #b97e27;
+}
+
+.btn-primary:focus {
+	color: #f1b98f;
+    background-color: #6c3c00;
+    border-color: #6c3c00;
+    box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+}
+
+.alert {
+	margin-bottom: 0px;
+	margin-top: 5px;
+}
+
+.mypage-title {
+	font-size: 40px;
+    padding-bottom: 30px;
+    font-weight: bold;
+}

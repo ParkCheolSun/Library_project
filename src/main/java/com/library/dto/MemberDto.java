@@ -4,6 +4,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import com.library.constant.Role;
+import com.library.entity.Member;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,4 +35,19 @@ public class MemberDto {
 	private String address_detail;
 	
 	private String gender;
+	
+	private Role role;
+	
+	public static MemberDto createMemberDto(Member mem) {
+		MemberDto memDto = new MemberDto();
+		memDto.id = mem.getId();
+		memDto.name = mem.getName();
+		memDto.email = mem.getEmail();
+		memDto.password = mem.getPassword();
+		memDto.address = mem.getAddress();
+		memDto.address_detail = mem.getAddress_detail();
+		memDto.gender = mem.getGender();
+		memDto.role = mem.getRole();
+		return memDto;
+	}
 }

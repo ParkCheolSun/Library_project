@@ -115,6 +115,8 @@ var scroll = function(){
 			output = "회원가입이 완료되었습니다."
 		if(meslog == "USERLogout")
 			output = "로그아웃 되었습니다."
+		if(meslog == "USERDelete")
+			output = "회원탈퇴 되었습니다."
 		if(output != ""){
 			Swal.fire({
 				position : 'top-end',
@@ -255,6 +257,9 @@ $(function(){
 });
 
 
-
+function searchLoad(){
+	var offset = $(".cnt04").offset(); //해당 위치 반환
+	$("html, body").animate({scrollTop: offset.top},2000);
+}
 
 

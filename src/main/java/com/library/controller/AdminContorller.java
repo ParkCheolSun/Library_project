@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.library.constant.Role;
+import com.library.dto.MemberDto;
 import com.library.dto.MemberResponseDto;
-import com.library.entity.Member;
 import com.library.service.MemberLogService;
 import com.library.service.MemberService;
 
@@ -71,8 +71,8 @@ public class AdminContorller {
 	@PostMapping(value = "/check")
 	public HashMap<String, String> check(@RequestParam("email") String email) {
 		boolean checkEmail = true;
-		Member mem = memberService.findByEmail(email);
-		if(mem == null)
+		MemberDto memDto = memberService.findByEmail(email);
+		if(memDto == null)
 			checkEmail = false;
 		HashMap<String, String> map = new HashMap<String, String>();
 		if (checkEmail) {

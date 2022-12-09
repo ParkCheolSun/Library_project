@@ -48,7 +48,7 @@
 								th:text="${(resultMap.totalCnt - index.index) - (paging.pageNumber * paging.pageSize)}"></span>
 							</td>
 
-							<td><a th:href="@{./noticeDetailView(id=${list.id})}"><span
+							<td><a th:href="@{./smallView(id=${list.id})}"><span
 									th:text="${list.title}"></span></a></td>
 							<td><span th:text="${list.registerId}"></span></td>
 							<td><span th:text="${list.readCnt}"></span></td>
@@ -73,7 +73,7 @@
 					<span class="btn btn-danger" onclick="fnDelete()"
 						sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')">삭제</span>
 					<span class="btn btn-primary"
-						onclick="javascript:location.href='/board/noticeWrite'"
+						onclick="javascript:location.href='/small/smallWrite'"
 						sec:authorize="hasAnyAuthority('ROLE_MANAGER','ROLE_ADMIN')">작성</span>
 				</div>
 			</div>

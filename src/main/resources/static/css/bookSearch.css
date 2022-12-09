@@ -42,3 +42,34 @@
 #search-coment {
 	color: #999;
 }
+
+#search-input {
+	float: right;
+    margin-top: 60px;
+    width: 20%;
+    height: 30px;
+    border: 0px;
+    border-radius: 12px;
+    outline-color: orange;
+    outline-width: 5px;
+    outline-style: outset;
+    padding: 15px;
+}
+
+#search-btn {
+	float: right;
+    margin-right: 30px;
+    margin-top: 54px;
+    margin-left: 10px;
+    height: 40px;
+	width: 100px;
+	background-color: #c84b00;
+	border: 0;
+	font-size: 20px;
+	border-radius: 12px;
+	outline-color: orange;
+}
+
+#search-form {
+	display: inline;
+}

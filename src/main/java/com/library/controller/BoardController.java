@@ -134,7 +134,7 @@ public class BoardController {
 	}
 
 	// 댓글 수정
-	@PutMapping(value = "/replyUpdate")
+/*	@PutMapping(value = "/replyUpdate")
 	public String boardreplyUpdate(Model model, @RequestBody BoardReplyRequestDto boardReplyRequestDto) throws Exception {
 		String boardId;  // 변수 생성
 		try {
@@ -144,7 +144,7 @@ public class BoardController {
 		}
 		return "redirect:/board/view?id=" + boardId;
 	}
-
+*/
 	// FAQ 리스트
 	@GetMapping("/board/faq/list")
 	public String getBoardFAQListPage(Model model, @RequestParam(value = "kind", required = false) String kind,

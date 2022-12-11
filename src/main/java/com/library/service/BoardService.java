@@ -301,14 +301,15 @@ public class BoardService {
 	}
 	
 	// 댓글 수정 [22-12-08]
-	public String updateReply(BoardReplyRequestDto boardReplyRequestDto) throws Exception {
+/*		public String updateReply(BoardReplyRequestDto boardReplyRequestDto) throws Exception {
 		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
 		if(result.getBlevel() != null) {
 			String content = "content:" + result.getBlevel() + "수정 완료";
 		}
 		return String.valueOf(result.getId());
 	}
-
+*/
+	
 	public Board change(Optional<Board> optional, BoardRequestDto boardRequestDto) {
 		Board ori = optional.get();
 		ori.setContent(boardRequestDto.getContent());

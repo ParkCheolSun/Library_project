@@ -257,3 +257,7 @@
 .clearfix {
 	padding-top: 20px;	
 }
+
+.reply--content {
+	font-size: x-large;
+}

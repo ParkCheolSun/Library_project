@@ -230,7 +230,7 @@ public class MemberController {
 			memDto.setPassword(password);
 		}
 		MemberDto resultDto = memberService.updateMyPage(memDto, myid, myRole, ip);
-		
+		mySession.setAttribute("name", resultDto.getName() + "님 환영합니다!");
 		model.addAttribute("memberDto", resultDto);
 		return "redirect:/login/mypage";
 	}

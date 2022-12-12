@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.library.constant.Role;
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberService implements UserDetailsService {
 	private final MemberRepository memberRepository;
 	private final MemberLogRepository memberLogRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	// 계정 생성
 	public Member saveMember(Member member) {
@@ -121,6 +123,10 @@ public class MemberService implements UserDetailsService {
 		ori.setAddress_detail(res.getAddress_detail());
 		ori.setEmail(res.getEmail());
 		ori.setRole(res.getRole());
+		if(!res.getPassword().isEmpty()) {
+			String password = passwordEncoder.encode(res.getPassword());
+			ori.setPassword(password);
+		}
 		return ori;
 	}
 

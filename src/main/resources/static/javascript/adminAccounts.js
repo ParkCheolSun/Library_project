@@ -179,6 +179,7 @@ function fnCreate(){
 	$('#exampleModal').modal('show');
 	$('#modal-detail-id').val("");
     $('#modal-detail-name').val("");
+    $('#modal-detail-password').val("");
     $('#modal-detail-email').val("");
     $('#modal-detail-role').val("");
     $('#modal-detail-address').val("");

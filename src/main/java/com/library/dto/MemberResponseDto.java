@@ -21,6 +21,7 @@ public class MemberResponseDto {
 	private Long number;
 	private String id;
 	private String name;
+	private String password;
 	private String email;
 	private String address;
 	private String address_detail;

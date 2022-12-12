@@ -45,7 +45,7 @@ public class MemberService implements UserDetailsService {
 
 	// 계정 생성(관리자)
 	public Member saveMember(MemberResponseDto member, String myid, Role myRole, String ip) {
-		Member temp = Member.createMember(member);
+		Member temp = Member.createMember(member, passwordEncoder);
 		validateDuplicateMember(temp);
 		Member mem = memberRepository.save(temp);
 		if (mem.getId() != null) {

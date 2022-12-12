@@ -85,7 +85,7 @@ public class Member extends BaseEntity{
 		return member;
 	}
 	
-	public static Member createMember(MemberResponseDto memberResDto) {
+	public static Member createMember(MemberResponseDto memberResDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
 		member.setMNumber(memberResDto.getNumber());
 		member.setId(memberResDto.getId());
@@ -95,6 +95,10 @@ public class Member extends BaseEntity{
 		member.setAddress_detail(memberResDto.getAddress_detail());
 		member.setGender(memberResDto.getGender());
 		member.setRole(memberResDto.getRole());
+		if(!memberResDto.getPassword().isEmpty()) {
+			String password = passwordEncoder.encode(memberResDto.getPassword());
+			member.setPassword(password);
+		}
 		return member;
 	}
 }

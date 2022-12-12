@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminContorller {
 	private final MemberService memberService;
 	private final MemberLogService memberLogService;
-
+	
 	@GetMapping(value = "/accounts")
 	public String adminAccountsPage(Model model) {
 		model.addAttribute("memberResponseDto", memberService.findAll());

@@ -86,10 +86,10 @@
 				<button type="button" class="btn btn-success btn-pre"
 					onclick="javascript:location.href='/board/list'">이전</button>
 
-				<span class="btn btn-danger" th:onclick="fnFreeDelete()"
+				<span class="btn btn-danger" th:onclick="fnViewDelete()"
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">삭제</span>
 				<button type="button" class="btn btn-success btn-update-start clear"
-					onclick="fnFreeUpdate()"
+					onclick=""
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">수정</button>
 
 				<span class="btn btn-primary btn-update btn-update-end"

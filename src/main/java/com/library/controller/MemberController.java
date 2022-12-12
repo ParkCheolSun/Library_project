@@ -225,7 +225,7 @@ public class MemberController {
 		String myid = (String)mySession.getAttribute("id");
 		Role myRole = (Role)mySession.getAttribute("Role");
 		String ip = (String)mySession.getAttribute("ipaddress");
-		if(memDto.getPassword() != null) {
+		if(!memDto.getPassword().isEmpty()) {
 			String password = passwordEncoder.encode(memDto.getPassword());
 			memDto.setPassword(password);
 		}

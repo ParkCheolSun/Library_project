@@ -95,6 +95,8 @@ $(document).ready(function() {
 					footer : '<a href="">Why do I have this issue?</a>'
 				});
     			return false;
+			} else {
+				return true;
 			}
     	}
     	return false;

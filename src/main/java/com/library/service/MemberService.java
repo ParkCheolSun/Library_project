@@ -68,7 +68,6 @@ public class MemberService implements UserDetailsService {
 
 	// 계정 수정(마이페이지)
 	public MemberDto updateMyPage(@Valid MemberDto memDto, String myid, Role myRole, String ip) {
-		System.out.println(memDto);
 		Member temp = change(memberRepository.findById(memDto.getId()), memDto);
 		Member mem = memberRepository.save(temp);
 		if (mem.getId() != null) {
@@ -126,6 +125,7 @@ public class MemberService implements UserDetailsService {
 	}
 
 	private Member change(Member ori, MemberDto dto) {
+		System.out.println(dto);
 		ori.setName(dto.getName());
 		ori.setAddress(dto.getAddress());
 		ori.setAddress_detail(dto.getAddress_detail());
@@ -133,7 +133,7 @@ public class MemberService implements UserDetailsService {
 		ori.setGender(dto.getGender());
 		if (dto.getRole() != null)
 			ori.setRole(dto.getRole());
-		if (dto.getPassword() != null)
+		if (!dto.getPassword().isEmpty())
 			ori.setPassword(dto.getPassword());
 		return ori;
 	}

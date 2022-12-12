@@ -64,7 +64,7 @@ let deleteFileIdArr = [];
 			Swal.fire({
 				position : 'top-end',
 				icon : 'error',
-				title : "파일은 최대 3개까지만 업로드가 가능합니다!",
+				title : "파일은 최대 2개까지만 업로드가 가능합니다!",
 				showConfirmButton : false,
 				timer : 1500
 			});

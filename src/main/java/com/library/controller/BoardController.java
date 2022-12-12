@@ -93,10 +93,10 @@ public class BoardController {
 			String test2 = "제목";
 
 			if (test2.equals(kind) == true) {
-				model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByTitleContainingBoard(page, size, searchKeyword));
 			} else {
 
-				model.addAttribute("resultMap", boardService.findByContentContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByContentContainingBoard(page, size, searchKeyword));
 			}
 		}
 		System.out.println(boardService.findAll(page, size));
@@ -164,10 +164,10 @@ public class BoardController {
 			String findTitle = "제목";
 
 			if (findTitle.equals(kind) == true) {
-				model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByTitleContainingFaq(page, size, searchKeyword));
 			} else {
 
-				model.addAttribute("resultMap", boardService.findByContentContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByContentContainingFaq(page, size, searchKeyword));
 			}
 		}
 		System.out.println(boardService.findAll(page, size));
@@ -222,10 +222,10 @@ public class BoardController {
 			String findTitle = "제목";
 
 			if (findTitle.equals(kind) == true) {
-				model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByTitleContainingSuggestion(page, size, searchKeyword));
 			} else {
 
-				model.addAttribute("resultMap", boardService.findByContentContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByContentContainingSuggestion(page, size, searchKeyword));
 			}
 		}
 		System.out.println(boardService.findAll(page, size));
@@ -251,10 +251,10 @@ public class BoardController {
 			String findTitle = "제목";
 
 			if (findTitle.equals(kind) == true) {
-				model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByTitleContainingRequest(page, size, searchKeyword));
 			} else {
 
-				model.addAttribute("resultMap", boardService.findByContentContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByContentContainingRequest(page, size, searchKeyword));
 			}
 		}
 		System.out.println(boardService.findAll(page, size));
@@ -279,10 +279,10 @@ public class BoardController {
 			String findTitle = "제목";
 
 			if (findTitle.equals(kind) == true) {
-				model.addAttribute("resultMap", boardService.findByTitleContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByTitleContainingSmall(page, size, searchKeyword));
 			} else {
 
-				model.addAttribute("resultMap", boardService.findByContentContaining(page, size, searchKeyword));
+				model.addAttribute("resultMap", boardService.findByContentContainingSmall(page, size, searchKeyword));
 			}
 		}
 		System.out.println(boardService.findAll(page, size));

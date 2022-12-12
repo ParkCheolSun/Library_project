@@ -55,7 +55,7 @@ public class BoardService {
 		case CREATE_REQUEST:
 			contents = "고유번호[" + result.getId() + "] 도서요청 글 생성 완료";
 			break;
-		case CREATE_FAQ :
+		case CREATE_FAQ:
 			contents = "고유번호[" + result.getId() + "] FAQ 글 생성 완료";
 			break;
 		default:
@@ -154,8 +154,8 @@ public class BoardService {
 
 		Category category = new Category();
 		category.setCategory_id(11l);
-		Page<Board> list = boardRepository
-				.findAllByCategoryAndBlevel(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category, null);
+		Page<Board> list = boardRepository.findAllByCategoryAndBlevel(
+				PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "registerTime")), category, null);
 		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
 		resultMap.put("paging", list.getPageable());
 		resultMap.put("totalCnt", list.getTotalElements());
@@ -234,6 +234,96 @@ public class BoardService {
 		return resultMap;
 	}
 
+	// 도서요청
+	@Transactional
+	public HashMap<String, Object> findByTitleContainingRequest(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(14l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByTitleContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	// 자유게시판
+	@Transactional
+	public HashMap<String, Object> findByTitleContainingBoard(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(11l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByTitleContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	// 자주하는질문
+	@Transactional
+	public HashMap<String, Object> findByTitleContainingFaq(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(12l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByTitleContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	// 건의사항
+	@Transactional
+	public HashMap<String, Object> findByTitleContainingSuggestion(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(13l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByTitleContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+	
+	// 작은도서관 소식
+		@Transactional
+		public HashMap<String, Object> findByTitleContainingSmall(Integer page, Integer size, String searchKeyword) {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+			Category category = new Category();
+			category.setCategory_id(15l);
+			Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+			Page<Board> list = boardRepository.findByTitleContainingAndCategory(pageable, searchKeyword, category);
+
+			resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+			resultMap.put("paging", list.getPageable());
+			resultMap.put("totalCnt", list.getTotalElements());
+			resultMap.put("totalPage", list.getTotalPages());
+
+			return resultMap;
+		}
+
 	@Transactional
 	public HashMap<String, Object> findByContentContaining(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -266,20 +356,109 @@ public class BoardService {
 		return resultMap;
 	}
 
+	// 도서요청
+	@Transactional
+	public HashMap<String, Object> findByContentContainingRequest(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(14l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByContentContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	// 자유게시판
+	@Transactional
+	public HashMap<String, Object> findByContentContainingBoard(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(11l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByContentContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	// 자주하는질문
+	@Transactional
+	public HashMap<String, Object> findByContentContainingFaq(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(12l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByContentContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
+
+	// 건의사항
+	@Transactional
+	public HashMap<String, Object> findByContentContainingSuggestion(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+		Category category = new Category();
+		category.setCategory_id(13l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByContentContainingAndCategory(pageable, searchKeyword, category);
+
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
+
+		return resultMap;
+	}
 	
+	// 작은도서관 소식
+		@Transactional
+		public HashMap<String, Object> findByContentContainingSmall(Integer page, Integer size, String searchKeyword) {
+			HashMap<String, Object> resultMap = new HashMap<String, Object>();
+
+			Category category = new Category();
+			category.setCategory_id(15l);
+			Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+			Page<Board> list = boardRepository.findByContentContainingAndCategory(pageable, searchKeyword, category);
+
+			resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+			resultMap.put("paging", list.getPageable());
+			resultMap.put("totalCnt", list.getTotalElements());
+			resultMap.put("totalPage", list.getTotalPages());
+
+			return resultMap;
+		}
+
 	public HashMap<String, Object> findById(Long id) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
 		boardRepository.updateBoardReadCntInc(id);
 
-		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());	 
+		BoardResponseDto info = new BoardResponseDto(boardRepository.findById(id).get());
 		resultMap.put("info", info);
-		
+
 		// 댓글
 		List<Board> reply = boardRepository.findAllByBlevel(id);
 		resultMap.put("reply", reply);
-		
+
 		List<BoardFile> fileList = boardFileService.findByBoardId(info.getId());
 		if (!fileList.isEmpty()) {
 			resultMap.put("fileList", fileList);
@@ -288,28 +467,27 @@ public class BoardService {
 		}
 		return resultMap;
 	}
-	
+
 	// 댓글 작성 [22-12-07]
 	@Transactional
 	public void save(BoardReplyRequestDto boardReplyRequestDto) throws Exception {
 		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
-	}	
-	
+	}
+
 	// 댓글 삭제 [22-12-08]
 	public void deleteById(Long id) {
 		boardRepository.deleteById(id);
 	}
-	
+
 	// 댓글 수정 [22-12-08]
-/*		public String updateReply(BoardReplyRequestDto boardReplyRequestDto) throws Exception {
-		Board result = boardRepository.save(boardReplyRequestDto.toEntity());
-		if(result.getBlevel() != null) {
-			String content = "content:" + result.getBlevel() + "수정 완료";
-		}
-		return String.valueOf(result.getId());
-	}
-*/
-	
+	/*
+	 * public String updateReply(BoardReplyRequestDto boardReplyRequestDto) throws
+	 * Exception { Board result =
+	 * boardRepository.save(boardReplyRequestDto.toEntity()); if(result.getBlevel()
+	 * != null) { String content = "content:" + result.getBlevel() + "수정 완료"; }
+	 * return String.valueOf(result.getId()); }
+	 */
+
 	public Board change(Optional<Board> optional, BoardRequestDto boardRequestDto) {
 		Board ori = optional.get();
 		ori.setContent(boardRequestDto.getContent());

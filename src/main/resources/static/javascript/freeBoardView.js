@@ -288,7 +288,12 @@ let deleteFileIdArr = [];
 			})
 	}
 	
-	function fnReplyDelete() {
+	function fnReplyDelete(current) {
+		var temp = $(this).attr('class');
+		console.log(temp);
+		var repDele = $(current).children('input')[0];
+		console.log(current);
+		$(repDele).attr("name", "deleteId");
 		const swalWithBootstrapButtons = Swal.mixin({
   			customClass: {
     			confirmButton: 'btn btn-success btn-swal-success',
@@ -314,8 +319,8 @@ let deleteFileIdArr = [];
     				/* Read more about handling dismissals below */
     				result.dismiss === Swal.DismissReason.cancel
   				) {
+  				$(repDele).attr("name", "");
   				}
 			})
 	}
-	
 	

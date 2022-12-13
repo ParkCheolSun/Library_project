@@ -141,10 +141,11 @@
 
 					<div>
 						<!-- 삭제 버튼 -->
-						<span class="btn btn-danger" th:onclick="fnReplyDelete()"
+						<span class="btn btn-danger" th:id="${reply.id}"
+							th:onclick="fnReplyDelete(this)"
 							th:if="${session.id eq reply.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">
-							삭제 <input type="hidden" name="deleteId" th:value="${reply.id}">
-							<input type="hidden" name="infoId" th:value="${info.id}">
+							삭제 <input type="hidden" th:value="${reply.id}"> <input
+							type="hidden" name="infoId" th:value="${info.id}">
 						</span>
 					</div>
 				</li>

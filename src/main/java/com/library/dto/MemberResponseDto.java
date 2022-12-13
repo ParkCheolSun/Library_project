@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import com.library.constant.Role;
 import com.library.entity.Member;

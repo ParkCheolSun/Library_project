@@ -30,6 +30,7 @@ public class MailController {
 	private MailService mailService;
 	private Map<String, String> codeMap = new HashMap<String, String>();
 
+	// 인증코드 전송(이메일 발송)
 	@PostMapping
 	@ResponseBody
 	@RequestMapping(value = "/sendEmail")
@@ -59,6 +60,7 @@ public class MailController {
 		return resEntity;
 	}
 
+	// 인증코드 확인
 	@PostMapping
 	@ResponseBody
 	@RequestMapping(value = "/checkEmail")
@@ -88,6 +90,7 @@ public class MailController {
 		return resEntity;
 	}
 
+	// 이메일 유효성 검사
 	private static boolean isValidEmail(String email) {
 		boolean err = false;
 		String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";

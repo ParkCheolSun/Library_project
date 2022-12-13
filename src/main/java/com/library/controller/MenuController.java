@@ -9,95 +9,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/header")
 public class MenuController {
 
-	// 도서관 안내
+	// 도서관 안내, 인사말(Header, Header - sub)
 	@GetMapping(value = "/guide")
 	public String guide(Model model) {
 		return "contents/greetings";
 	}
 
-	@GetMapping(value = "/greetings")
-	public String greetings(Model model) {
-		return "contents/greetings";
-	}
-
+	// 도서관 안내 - 도서관 소개(Header - sub)
 	@GetMapping(value = "/intro")
-	public String a2(Model model) {
+	public String intro(Model model) {
 		return "contents/intro";
 	}
 
-	@GetMapping(value = "/a3")
-	public String a3(Model model) {
-		System.out.println("찾아오시는 길");
-		return "redirect:/";
-	}
-
-	// 문화 프로그램
-	@GetMapping(value = "/test2")
-	public String test2(Model model) {
-		System.out.println("문화 프로그램");
-		return "redirect:/header/b1";
-	}
-
-	@GetMapping(value = "/b1")
-	public String b1(Model model) {
-		System.out.println("프로그램 신청");
-		return "redirect:/";
-	}
-
-	// 알람마당
-	@GetMapping(value = "/test3")
-	public String test3(Model model) {
-		System.out.println("알림마당");
-		return "redirect:/header/c1";
-	}
-
+	// 알림마당(Header)
 	@GetMapping(value = "/notice")
-	public String c1(Model model) {
-		System.out.println("공지사항");
+	public String notice(Model model) {
 		return "redirect:/board/notice";
 	}
 
-	// 열린마당
-	@GetMapping(value = "/test4")
-	public String test4(Model model) {
-		System.out.println("열린마당");
+	// 열린마당, 자유게시판(Header, Header - sub)
+	@GetMapping(value = "/boardList")
+	public String boardList_h(Model model) {
 		return "redirect:/board/list";
 	}
 
-	@GetMapping(value = "/board")
-	public String d1(Model model) {
-		System.out.println("자유게시판");
-		return "redirect:/board/list";
-	}
-
+	// 열린마당 - FAQ(Header - sub)
 	@GetMapping(value = "/faq")
-	public String d2(Model model) {
-		System.out.println("자주하는 질문");
+	public String FAQ(Model model) {
 		return "redirect:/board/faq/list";
 	}
 
+	// 열린마당 - 건의사항(Header - sub)
 	@GetMapping(value = "/suggestion")
-	public String d3(Model model) {
-		System.out.println("건의사항");
+	public String suggestion(Model model) {
 		return "redirect:/board/suggestion/list";
 	}
 
+	// 열린마당 - 도서신청(Header - sub)
 	@GetMapping(value = "/request")
-	public String d4(Model model) {
-		System.out.println("도서신청");
+	public String requestList(Model model) {
 		return "redirect:/board/request/list";
 	}
 	
-	// 작은 도서관
+	// 작은 도서관(Header, Header - sub)
 	@GetMapping(value = "/smallLibrary")
 	public String e1(Model model) {
-		System.out.println("작은도서관 소개");
 		return "redirect:/small/small";
 	}
 
+	// 작은 도서관 - 작은도서관 소식(Header - sub)
 	@GetMapping(value = "/smallList")
 	public String e2(Model model) {
-		System.out.println("작은도서관 소식");
 		return "redirect:/small/smallList";
 	}
 }

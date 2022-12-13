@@ -30,12 +30,14 @@ public class AdminContorller {
 	private final MemberService memberService;
 	private final MemberLogService memberLogService;
 	
+	// 회원 리스트
 	@GetMapping(value = "/accounts")
 	public String adminAccountsPage(Model model) {
 		model.addAttribute("memberResponseDto", memberService.findAll());
 		return "admin/accounts";
 	}
 
+	// 회원 수정
 	@PutMapping(value = "/memberUpdate")
 	public String adminUpdate(MemberResponseDto memberResDto, Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -46,6 +48,7 @@ public class AdminContorller {
 		return "redirect:/admin/accounts";
 	}
 
+	// 회원 추가
 	@PostMapping(value = "/memberSave")
 	public String adminSave(MemberResponseDto memberResDto, Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -56,6 +59,7 @@ public class AdminContorller {
 		return "redirect:/admin/accounts";
 	}
 
+	// 회원 삭제
 	@DeleteMapping(value = "/memberDelete")
 	public String adminDelete(MemberResponseDto memberResDto, Model model, HttpServletRequest request) {
 		HttpSession mySession = request.getSession();
@@ -83,7 +87,7 @@ public class AdminContorller {
 		return map;
 	}
 	
-	// 관리자 로그
+	// 관리자 로그 리스트
 	@GetMapping(value = "/log")
 	public String adminLogPage(Model model) {
 		model.addAttribute("memberLogList", memberLogService.findAll());

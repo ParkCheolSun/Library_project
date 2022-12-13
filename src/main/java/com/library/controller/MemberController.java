@@ -117,7 +117,7 @@ public class MemberController {
 		}
 	}
 
-	// 회원가입
+	// 회원가입 뷰
 	@GetMapping(value = "/signUp")
 	public String memberForm(HttpServletRequest request, Model model) {
 		Map<String, ?> flashMap = RequestContextUtils.getInputFlashMap(request);
@@ -144,6 +144,7 @@ public class MemberController {
 		return map;
 	}
 
+	// 회원가입(DB저장)
 	@PostMapping(value = "/save")
 	public String newMember(@Valid MemberDto memberDto, BindingResult bindingResult, Model model,
 			RedirectAttributes redirectAttributes) {
@@ -166,6 +167,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 
+	// 아이디 찾기
 	@ResponseBody
 	@PostMapping(value = "/findEmail")
 	public HashMap<String, String> findId(@RequestParam("email") String email) {
@@ -180,12 +182,14 @@ public class MemberController {
 		return map;
 	}
 
+	// 아이디/비밀번호 찾기 뷰
 	@GetMapping(value = "/find")
 	public String findId(Model model) {
 		model.addAttribute("memberDto", new MemberDto());
 		return "member/FindMemberForm";
 	}
 
+	// 비밀번호 찾기(비밀번호 수정)
 	@PostMapping(value = "/mod")
 	public String newMember(MemberDto memberDto, HttpServletResponse response, Model model,
 			RedirectAttributes redirectAttributes) {
@@ -198,6 +202,7 @@ public class MemberController {
 		return "redirect:/login/signUp";
 	}
 
+	// 로그인 실패
 	@GetMapping(value = "/error")
 	public String loginError(MemberDto memberDto, Model model) {
 		model.addAttribute("mes", "USERLoginFail");

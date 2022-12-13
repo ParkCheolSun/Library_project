@@ -1,6 +1,7 @@
 package com.library.config;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,9 +52,16 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 		session.setAttribute("name", memDto.getName() + "님 환영합니다!");
 		session.setAttribute("id", memDto.getId());
 		session.setAttribute("Role", memDto.getRole());
-		String contents = "ID : " + memDto.getId() + "/ Name : " + memDto.getName() + " 로그인 완료";
+		
+		// 접속 아이피 저장 및 날짜 저장
+		memDto.setIpAddress(getClientIp(request));
+		memDto.setLastLogin(LocalDateTime.now());
+		MemberService.updateMember(memDto);
+		
+		// 로그인 로그 저장
 		Member mem = Member.createMember(memDto);
 		mem.setRole(memDto.getRole());
+		String contents = "ID : " + memDto.getId() + "/ Name : " + memDto.getName() + " 로그인 완료";
 		MemberLog memLog = MemberLog.createMemberLog(mem, WorkNumber.LOGIN_MEMBER, contents, getClientIp(request));
 		memberLogRepository.save(memLog);
 	}

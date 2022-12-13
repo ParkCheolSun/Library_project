@@ -1,5 +1,7 @@
 package com.library.dto;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -38,6 +40,10 @@ public class MemberDto {
 	
 	private Role role;
 	
+	private String ipAddress;
+	
+	private LocalDateTime lastLogin;
+	
 	public static MemberDto createMemberDto(Member mem) {
 		MemberDto memDto = new MemberDto();
 		memDto.id = mem.getId();
@@ -48,6 +54,7 @@ public class MemberDto {
 		memDto.address_detail = mem.getAddress_detail();
 		memDto.gender = mem.getGender();
 		memDto.role = mem.getRole();
+		memDto.ipAddress = mem.getIpAddress();
 		return memDto;
 	}
 }

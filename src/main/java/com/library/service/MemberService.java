@@ -137,10 +137,13 @@ public class MemberService implements UserDetailsService {
 		ori.setAddress_detail(dto.getAddress_detail());
 		ori.setEmail(dto.getEmail());
 		ori.setGender(dto.getGender());
+		ori.setIpAddress(dto.getIpAddress());
 		if (dto.getRole() != null)
 			ori.setRole(dto.getRole());
 		if (!dto.getPassword().isEmpty())
 			ori.setPassword(dto.getPassword());
+		if(dto.getLastLogin() != null)
+			ori.setLastLogin(dto.getLastLogin());
 		return ori;
 	}
 

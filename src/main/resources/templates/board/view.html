@@ -86,7 +86,7 @@
 				<button type="button" class="btn btn-success btn-pre"
 					onclick="javascript:location.href='/board/list'">이전</button>
 
-				<span class="btn btn-danger" th:onclick="fnViewDelete()"
+				<span class="btn btn-danger" th:onclick="fnFreeDelete()"
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">삭제</span>
 				<button type="button" class="btn btn-success btn-update-start clear"
 					onclick=""

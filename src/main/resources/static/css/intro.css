@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+.intro-wapper{
+	margin-left: 50px;
+}
+
+.intro-title {
+	margin-top: 80px;
+    margin-bottom: 60px;
+}
+
+.intro-content {
+	position: relative;
+    margin: 40px 0 30px 0;
+    text-align: justify;
+    line-height: 140%;
+    color: #535353;
+    width: 1200px;
+}
+
+.intro-image {
+	width: 300px;
+	height: 250px;
+}
+
+.li_pic {
+	width: 350px;
+	float: left;
+	text-align: center;
+}
+
+.li_pic > p {
+	width: 300px;
+	margin: auto;
+}

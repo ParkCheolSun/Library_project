@@ -257,9 +257,6 @@ $(function(){
 });
 
 
-function searchLoad(){
-	var offset = $(".cnt04").offset(); //해당 위치 반환
-	$("html, body").animate({scrollTop: offset.top},2000);
-}
+
 
 

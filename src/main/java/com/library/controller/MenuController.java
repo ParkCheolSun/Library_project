@@ -20,10 +20,9 @@ public class MenuController {
 		return "contents/greetings";
 	}
 
-	@GetMapping(value = "/a2")
+	@GetMapping(value = "/intro")
 	public String a2(Model model) {
-		System.out.println("도서관 소개");
-		return "redirect:/";
+		return "contents/intro";
 	}
 
 	@GetMapping(value = "/a3")

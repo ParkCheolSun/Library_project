@@ -31,10 +31,12 @@ public class BoardFileService {
 		return new BoardFileResponseDto(boardFileRepository.findById(id).get());
 	}
 
+	// 첨부파일 찾기(게시판 상세보기)
 	public List<BoardFile> findByBoardId(Long boardId) throws Exception {
 		return boardFileRepository.findByBoardId(boardId);
 	}
 
+	// 첨부파일 업로드
 	public boolean uploadFile(MultipartHttpServletRequest multiRequest, Board board) throws Exception {
 
 		if (board == null)
@@ -127,14 +129,17 @@ public class BoardFileService {
 		return (files.size() == resultList.size()) ? true : false;
 	}
 	
+	// 첨부파일 삭제(파일 ID 기준)
 	public void deleteFiles(Long[] deleteIdList) throws Exception {
 		boardFileRepository.deleteByIdIn(deleteIdList);
 	}
 
+	// 첨부파일 수정
 	public int updateDeleteYn(Long[] deleteIdList) throws Exception {
 		return boardFileRepository.updateDeleteYn(deleteIdList);
 	}
 
+	// 첨부파일 삭제(게시판 ID 기준)
 	public void deleteBoardFileYn(Long[] boardIdList) throws Exception {
 		boardFileRepository.deleteByBoardIdIn(boardIdList);
 	}

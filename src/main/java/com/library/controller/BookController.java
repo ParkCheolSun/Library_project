@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class BookController {
 	private final BookService bookService;
 	
+	// 도서 검색
 	@GetMapping(value = "/search")
 	public String memberForm(@RequestParam("keyword") String keyword ,Model model) {
 		List<BookResponseDto> bookResDtoList = bookService.searchBook(keyword);

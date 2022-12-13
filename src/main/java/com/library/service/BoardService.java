@@ -38,13 +38,14 @@ public class BoardService {
 	private final MemberLogRepository memberLogRepository;
 	private final BoardFileService boardFileService;
 
+	// 게시판 저장
 	@Transactional
 	public boolean save(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid,
 			Role myRole, String ip, WorkNumber wNum) throws Exception {
-		
+
 		String contents;
 		Member mem = memberRepository.findById(myid);
-		if(mem == null) {
+		if (mem == null) {
 			contents = "해당 사용자는 존재하지 않습니다.";
 			MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
 			memberLogRepository.save(memLog);
@@ -84,6 +85,7 @@ public class BoardService {
 		return resultFlag;
 	}
 
+	// 게시판 출력
 	@Transactional(readOnly = true)
 	public HashMap<String, Object> findAll(Integer page, Integer size) throws Exception {
 
@@ -100,6 +102,7 @@ public class BoardService {
 		return resultMap;
 	}
 
+	// 공지사항 게시판 출력
 	@Transactional(readOnly = true)
 	public HashMap<String, Object> findAllNotice(Integer page, Integer size) throws Exception {
 
@@ -118,7 +121,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 자주하는 질문
+	// 자주하는 질문 게시판 출력
 	@Transactional(readOnly = true)
 	public HashMap<String, Object> findAllFaq(Integer page, Integer size) throws Exception {
 
@@ -137,7 +140,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 건의사항
+	// 건의사항 게시판 출력
 	@Transactional(readOnly = true)
 	public HashMap<String, Object> findAllSuggestion(Integer page, Integer size) throws Exception {
 
@@ -156,7 +159,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 자유게시판
+	// 자유게시판 출력
 	@Transactional(readOnly = true)
 	public HashMap<String, Object> findAllBoard(Integer page, Integer size) throws Exception {
 
@@ -174,7 +177,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 도서요청 게시판
+	// 도서요청 게시판 출력
 	@Transactional(readOnly = true)
 	public HashMap<String, Object> findAllRequest(Integer page, Integer size) throws Exception {
 
@@ -193,7 +196,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 작은도서관 소식 게시판
+	// 작은도서관 소식 게시판 출력
 	@Transactional(readOnly = true)
 	public HashMap<String, Object> findAllSmallLibrary(Integer page, Integer size) throws Exception {
 
@@ -212,6 +215,7 @@ public class BoardService {
 		return resultMap;
 	}
 
+	// 제목으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByTitleContaining(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -227,6 +231,7 @@ public class BoardService {
 		return resultMap;
 	}
 
+	// 공지사항 - 제목으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByTitleContainingNotice(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -244,7 +249,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 도서요청
+	// 도서요청 - 제목으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByTitleContainingRequest(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -262,7 +267,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 자유게시판
+	// 자유게시판 - 제목으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByTitleContainingBoard(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -280,7 +285,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 자주하는질문
+	// 자주하는질문 - 제목으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByTitleContainingFaq(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -298,7 +303,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 건의사항
+	// 건의사항 - 제목으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByTitleContainingSuggestion(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -315,25 +320,26 @@ public class BoardService {
 
 		return resultMap;
 	}
-	
-	// 작은도서관 소식
-		@Transactional
-		public HashMap<String, Object> findByTitleContainingSmall(Integer page, Integer size, String searchKeyword) {
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-			Category category = new Category();
-			category.setCategory_id(15l);
-			Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
-			Page<Board> list = boardRepository.findByTitleContainingAndCategory(pageable, searchKeyword, category);
+	// 작은도서관 소식 - 제목으로 게시글 찾기
+	@Transactional
+	public HashMap<String, Object> findByTitleContainingSmall(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-			resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
-			resultMap.put("paging", list.getPageable());
-			resultMap.put("totalCnt", list.getTotalElements());
-			resultMap.put("totalPage", list.getTotalPages());
+		Category category = new Category();
+		category.setCategory_id(15l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByTitleContainingAndCategory(pageable, searchKeyword, category);
 
-			return resultMap;
-		}
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
 
+		return resultMap;
+	}
+
+	// 내용으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByContentContaining(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -349,6 +355,7 @@ public class BoardService {
 		return resultMap;
 	}
 
+	// 공지사항 - 내용으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByContentContainingNotice(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -366,7 +373,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 도서요청
+	// 도서요청 - 내용으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByContentContainingRequest(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -384,7 +391,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 자유게시판
+	// 자유게시판 - 내용으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByContentContainingBoard(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -402,7 +409,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 자주하는질문
+	// 자주하는질문 - 내용으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByContentContainingFaq(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -420,7 +427,7 @@ public class BoardService {
 		return resultMap;
 	}
 
-	// 건의사항
+	// 건의사항 - 내용으로 게시글 찾기
 	@Transactional
 	public HashMap<String, Object> findByContentContainingSuggestion(Integer page, Integer size, String searchKeyword) {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -437,25 +444,26 @@ public class BoardService {
 
 		return resultMap;
 	}
-	
-	// 작은도서관 소식
-		@Transactional
-		public HashMap<String, Object> findByContentContainingSmall(Integer page, Integer size, String searchKeyword) {
-			HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-			Category category = new Category();
-			category.setCategory_id(15l);
-			Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
-			Page<Board> list = boardRepository.findByContentContainingAndCategory(pageable, searchKeyword, category);
+	// 작은도서관 소식 - 내용으로 게시글 찾기
+	@Transactional
+	public HashMap<String, Object> findByContentContainingSmall(Integer page, Integer size, String searchKeyword) {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 
-			resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
-			resultMap.put("paging", list.getPageable());
-			resultMap.put("totalCnt", list.getTotalElements());
-			resultMap.put("totalPage", list.getTotalPages());
+		Category category = new Category();
+		category.setCategory_id(15l);
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+		Page<Board> list = boardRepository.findByContentContainingAndCategory(pageable, searchKeyword, category);
 
-			return resultMap;
-		}
+		resultMap.put("list", list.stream().map(BoardResponseDto::new).collect(Collectors.toList()));
+		resultMap.put("paging", list.getPageable());
+		resultMap.put("totalCnt", list.getTotalElements());
+		resultMap.put("totalPage", list.getTotalPages());
 
+		return resultMap;
+	}
+
+	// 게시글 상세내용 출력
 	public HashMap<String, Object> findById(Long id) throws Exception {
 
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
@@ -498,6 +506,7 @@ public class BoardService {
 	 * return String.valueOf(result.getId()); }
 	 */
 
+	// BoardRequestDto -> Optional<Board> 변환
 	public Board change(Optional<Board> optional, BoardRequestDto boardRequestDto) {
 		Board ori = optional.get();
 		ori.setContent(boardRequestDto.getContent());
@@ -506,6 +515,7 @@ public class BoardService {
 		return ori;
 	}
 
+	// 게시글 수정
 	public boolean updateBoard(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid,
 			Role myRole, String ip, WorkNumber wNum) throws Exception {
 		Board temp = change(boardRepository.findById(boardRequestDto.getId()), boardRequestDto);
@@ -544,6 +554,7 @@ public class BoardService {
 		return resultFlag;
 	}
 
+	// 게시글 삭제
 	public void deleteById(Long id, String myid, Role myRole, String ip, WorkNumber wNum) throws Exception {
 		Long[] idArr = { id };
 		boardFileService.deleteBoardFileYn(idArr);
@@ -572,6 +583,7 @@ public class BoardService {
 		memberLogRepository.save(memLog);
 	}
 
+	// 선택한 게시글 모두 삭제(관리자, 매니저)
 	public void deleteAll(Long[] deleteIdList, String myid, Role myRole, String ip, WorkNumber wNum) throws Exception {
 		boardFileService.deleteBoardFileYn(deleteIdList);
 		boardRepository.deleteBoard(deleteIdList);

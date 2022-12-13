@@ -190,6 +190,7 @@ public class BoardFileController {
 		}
 	}
 	
+	// 첨부파일 삭제
 	@ResponseBody
 	@PostMapping("/file/delete.ajax")
 	public HashMap<String, Boolean> updateDeleteYn(Model model, BoardFileRequestDto boardFileRequestDto) throws Exception {

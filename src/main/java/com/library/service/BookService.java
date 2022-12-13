@@ -30,10 +30,10 @@ public class BookService {
 	private String dtl_region = "24030";	// 남구
 	private RestTemplate restTemplate;
 	
+	// 전국 도서관 인기 도서 목록
 	public List<BookDto> popularityBook() {
 		String oriUrl = "http://data4library.kr/api/loanItemSrch";
 		String pageSize = "30";
-		String kdc = "9";
 		String url = oriUrl + "?authKey="+ key +"&startDt=2022-01-01&endDt=2022-12-31&pageNo=1&pageSize=" + pageSize;
 		
 		// Spring boot에서 제공하는 RestTemplate

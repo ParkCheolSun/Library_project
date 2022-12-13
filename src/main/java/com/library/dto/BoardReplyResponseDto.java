@@ -9,12 +9,10 @@ import lombok.Getter;
 public class BoardReplyResponseDto {
 
 	private String content;
-	private String member_id;
 	private String registerId;
 
 	public BoardReplyResponseDto(Board entity) {
 		this.content = entity.getContent();
-		this.member_id = entity.getMember_id();
 		this.registerId = entity.getRegisterId();
 		
 	}

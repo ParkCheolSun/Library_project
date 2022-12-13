@@ -1,5 +1,9 @@
 package com.library.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -64,14 +69,16 @@ public class Board extends BaseEntity {
 		return disclosure; 					// disclosure 체크를 하지 않았을 경우 false / 이외 true [2022-11-22]
 	}
 
-	private String member_id;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	@OneToMany(mappedBy = "board" , cascade = CascadeType.ALL)
+	private List<BoardFile> uploadList = new ArrayList<BoardFile>();
 
 	@Builder
-	public Board(Long id, Long blevel, String title, String content, int readCnt, Boolean disclosure, String member_id,
+	public Board(Long id, Long blevel, String title, String content, int readCnt, Boolean disclosure,
 			Category category ,String registerId) {
 		this.id = id;
 		this.blevel = blevel;
@@ -79,7 +86,6 @@ public class Board extends BaseEntity {
 		this.content = content;
 		this.readCnt = readCnt; // hits == cnt
 		this.disclosure = disclosure;
-		this.member_id = member_id;
 		this.category = category;
 		this.registerId = registerId;
 	}
@@ -91,7 +97,6 @@ public class Board extends BaseEntity {
 		board.setCategory(boardDto.getCategory());
 		board.setContent(boardDto.getContent());
 		board.setDisclosure(boardDto.getDisclosure());
-		board.setMember_id(boardDto.getMember_id());
 		board.setReadCnt(boardDto.getReadCnt());
 		board.setRegisterId(boardDto.getRegisterId());
 		board.setTitle(boardDto.getTitle());

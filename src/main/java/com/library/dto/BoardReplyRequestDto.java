@@ -16,7 +16,6 @@ import lombok.ToString;
 public class BoardReplyRequestDto {
 	private Long blevel;			// Long 타입변경[2022-11-30]
 	private String replyContent;
-	private String member_id;
 	private String replytitle;
 	private String registerId;
 	private Boolean disclosure;
@@ -26,7 +25,6 @@ public class BoardReplyRequestDto {
 		if(disclosure==null)		// null값을 강제로 false으로 변환 [2022-11-22]
 			disclosure = false;
 		return Board.builder()
-				.member_id(member_id)
 				.blevel(blevel)
 				.content(replyContent)
 				.registerId(registerId)

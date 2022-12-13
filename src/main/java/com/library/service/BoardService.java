@@ -49,7 +49,6 @@ public class BoardService {
 			MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
 			memberLogRepository.save(memLog);
 		}
-		boardRequestDto.setMember_id(myid);
 		Board result = boardRepository.save(boardRequestDto.toEntity());
 
 		contents = "존재하지 않는 작업입니다.";
@@ -503,7 +502,6 @@ public class BoardService {
 		Board ori = optional.get();
 		ori.setContent(boardRequestDto.getContent());
 		ori.setRegisterId(boardRequestDto.getRegisterId());
-		ori.setMember_id(boardRequestDto.getMember_id());
 		ori.setTitle(boardRequestDto.getTitle());
 		return ori;
 	}
@@ -550,7 +548,6 @@ public class BoardService {
 		Long[] idArr = { id };
 		boardFileService.deleteBoardFileYn(idArr);
 		boardRepository.deleteById(id);
-		//boardRepository.deleteById(id);
 		String contents = "존재하지 않는 작업입니다.";
 		switch (wNum) {
 		case DELETE_NOTICE:

@@ -2,10 +2,14 @@ package com.library.entity;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -22,7 +26,10 @@ public class BoardFile {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private Long boardId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "board_id")
+	private Board board;
 	private String origFileName;
 	private String saveFileName;
 	private int fileSize;
@@ -34,10 +41,10 @@ public class BoardFile {
 	private LocalDateTime registerTime;
 	
 	@Builder
-	public BoardFile(Long id, Long boardId, String origFileName, String saveFileName, int fileSize, String fileExt,
+	public BoardFile(Long id, Board board, String origFileName, String saveFileName, int fileSize, String fileExt,
 			String filePath, String deleteYn, LocalDateTime registerTime) {
 		this.id = id;
-		this.boardId = boardId;
+		this.board = board;
 		this.origFileName = origFileName;
 		this.saveFileName = saveFileName;
 		this.fileSize = fileSize;

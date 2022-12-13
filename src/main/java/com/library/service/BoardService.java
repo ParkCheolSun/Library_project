@@ -16,15 +16,16 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.library.constant.Role;
 import com.library.constant.WorkNumber;
 import com.library.dto.BoardReplyRequestDto;
-import com.library.dto.BoardReplyResponseDto;
 import com.library.dto.BoardRequestDto;
 import com.library.dto.BoardResponseDto;
 import com.library.entity.Board;
 import com.library.entity.BoardFile;
 import com.library.entity.Category;
+import com.library.entity.Member;
 import com.library.entity.MemberLog;
 import com.library.repository.BoardRepository;
 import com.library.repository.MemberLogRepository;
+import com.library.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,15 +34,25 @@ import lombok.RequiredArgsConstructor;
 public class BoardService {
 
 	private final BoardRepository boardRepository;
+	private final MemberRepository memberRepository;
 	private final MemberLogRepository memberLogRepository;
 	private final BoardFileService boardFileService;
 
 	@Transactional
 	public boolean save(BoardRequestDto boardRequestDto, MultipartHttpServletRequest multiRequest, String myid,
 			Role myRole, String ip, WorkNumber wNum) throws Exception {
+		
+		String contents;
+		Member mem = memberRepository.findById(myid);
+		if(mem == null) {
+			contents = "해당 사용자는 존재하지 않습니다.";
+			MemberLog memLog = MemberLog.createMemberLog(wNum, contents, myid, myRole, ip);
+			memberLogRepository.save(memLog);
+		}
+		boardRequestDto.setMember_id(myid);
 		Board result = boardRepository.save(boardRequestDto.toEntity());
 
-		String contents = "존재하지 않는 작업입니다.";
+		contents = "존재하지 않는 작업입니다.";
 		switch (wNum) {
 		case CREATE_NOTICE:
 			contents = "고유번호[" + result.getId() + "] 공지사항 글 생성 완료";
@@ -67,7 +78,7 @@ public class BoardService {
 		boolean resultFlag = false;
 
 		if (result != null) {
-			boardFileService.uploadFile(multiRequest, result.getId());
+			boardFileService.uploadFile(multiRequest, result);
 			resultFlag = true;
 		}
 
@@ -492,7 +503,7 @@ public class BoardService {
 		Board ori = optional.get();
 		ori.setContent(boardRequestDto.getContent());
 		ori.setRegisterId(boardRequestDto.getRegisterId());
-		ori.setMember(boardRequestDto.getMember());
+		ori.setMember_id(boardRequestDto.getMember_id());
 		ori.setTitle(boardRequestDto.getTitle());
 		return ori;
 	}
@@ -528,7 +539,7 @@ public class BoardService {
 		boolean resultFlag = false;
 
 		if (result.getId() != null) {
-			boardFileService.uploadFile(multiRequest, boardRequestDto.getId());
+			boardFileService.uploadFile(multiRequest, result);
 			resultFlag = true;
 		}
 
@@ -539,6 +550,7 @@ public class BoardService {
 		Long[] idArr = { id };
 		boardFileService.deleteBoardFileYn(idArr);
 		boardRepository.deleteById(id);
+		//boardRepository.deleteById(id);
 		String contents = "존재하지 않는 작업입니다.";
 		switch (wNum) {
 		case DELETE_NOTICE:

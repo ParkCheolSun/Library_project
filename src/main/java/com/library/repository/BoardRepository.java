@@ -16,7 +16,6 @@ import com.library.entity.Category;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-
 	static final String UPDATE_BOARD_READ_CNT_INC = "UPDATE Board " + "SET READ_CNT = READ_CNT + 1 "
 			+ "WHERE BOARD_ID = :id";
 

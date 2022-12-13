@@ -17,13 +17,13 @@ public class BoardResponseDto {
 	private String content;
 	private LocalDateTime registerTime;
 	private Boolean disclosure;         // 공개여부  String >> Boolean 타입변경[2022-11-22]
-	private Member member;
+	private String member_id;
 	private Category category;
 	private int readCnt;
 	private String registerId;
 
 	public BoardResponseDto(Board entity) {
-		this.member = entity.getMember();
+		this.member_id = entity.getMember_id();
 		this.id = entity.getId();
 		this.title = entity.getTitle();
 		this.content = entity.getContent();

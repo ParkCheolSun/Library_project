@@ -22,6 +22,7 @@ import com.library.constant.WorkNumber;
 import com.library.dto.BoardReplyRequestDto;
 import com.library.dto.BoardRequestDto;
 import com.library.entity.Category;
+import com.library.entity.Member;
 import com.library.service.BoardService;
 import com.library.service.CategoryService;
 import com.library.service.MemberService;

@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.library.dto.BoardFileResponseDto;
+import com.library.entity.Board;
 import com.library.entity.BoardFile;
 import com.library.repository.BoardFileRepository;
 
@@ -34,9 +35,9 @@ public class BoardFileService {
 		return boardFileRepository.findByBoardId(boardId);
 	}
 
-	public boolean uploadFile(MultipartHttpServletRequest multiRequest, Long boardId) throws Exception {
+	public boolean uploadFile(MultipartHttpServletRequest multiRequest, Board board) throws Exception {
 
-		if (boardId == null)
+		if (board == null)
 			throw new NullPointerException("Empty BOARD_ID.");
 
 		// 파라미터 이름을 키로 파라미터에 해당하는 파일 정보를 값으로 하는 Map을 가져온다.
@@ -115,7 +116,7 @@ public class BoardFileService {
 					mFile.transferTo(saveFile);
 				}
 				
-				BoardFile boardFile = BoardFile.builder().boardId(boardId).origFileName(realFileName)
+				BoardFile boardFile = BoardFile.builder().board(board).origFileName(realFileName)
 						.saveFileName(saveFileName).fileSize(fileSize).fileExt(fileExt).filePath(filePath).deleteYn("N")
 						.build();
 

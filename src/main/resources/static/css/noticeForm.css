@@ -261,3 +261,12 @@
 .reply--content {
 	font-size: x-large;
 }
+
+.btn-delete {
+	float: right;
+}
+
+.face-img {
+	width: 30px;
+	margin-right: 10px;
+}

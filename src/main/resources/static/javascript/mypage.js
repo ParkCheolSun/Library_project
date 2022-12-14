@@ -33,6 +33,8 @@ $(document).ready(function() {
 		var pwd1=$("#password1").val();
         var pwd2=$("#password2").val();
         if(pwd1 != "" || pwd2 != ""){
+        	var windowHeight = $( window ).height();
+        	$("#myPage-wrapper").css('height', windowHeight);
             if(pwd1 == pwd2){
                 $("#alert-success").show();
                 $("#alert-danger").hide();

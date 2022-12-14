@@ -114,15 +114,19 @@
 
 				<li id="reply--1" th:each="reply:${test.reply}" class="list-group-item justify-content-between">
 					<!-- 작성자 -->
-					<div class="text-monospace" th:text="${reply.registerId}"></div>
+					<div>
+						<span>
+							<img class="face-img" th:src="@{../images/face_icon.png}">
+						</span>
+						<span class="text-monospace" th:text="${reply.registerId}"></span>
+					</div>
+					
 					<div class="reply--content">
 						<!-- 댓글내용 -->
 						&nbsp;&nbsp;<span th:text="${reply.content}"></span>
-					</div>
-
-					<div>
+						
 						<!-- 삭제 버튼 -->
-						<span class="btn btn-danger" th:id="${reply.id}"
+						<span class="btn btn-danger btn-delete" th:id="${reply.id}"
 							th:onclick="fnReplyDelete(this)"
 							th:if="${session.id eq reply.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">
 							삭제 <input type="hidden" th:value="${reply.id}"> <input

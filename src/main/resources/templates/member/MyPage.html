@@ -3,125 +3,91 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layoutForm}">
+	
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/css/mypage.css}">
-<script src="/javascript/mypage.js"></script>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
-<meta id="_csrf_header" name="_csrf_header"
-	th:content="${_csrf.headerName}" />
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/mypage.css}">
+	<script src="/javascript/mypage.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
-<div id="myPage-wrapper" class="form-group row"
-	layout:fragment="content">
-	<form action="/login/mypage/mod" role="form" method="post"
-		th:object="${memberDto}" id="mypageForm">
+
+<div id="myPage-wrapper" class="form-group row" layout:fragment="content">
+	<form action="/login/mypage/mod" role="form" method="post" th:object="${memberDto}" id="mypageForm">
 		<input type="hidden" id="modal-method" name="_method" value="put">
 		<h4 class="mypage-title">MyPage</h4>
 		<div class="form-group row">
 			<label for="id" class="col-sm-3 col-form-label">아이디 : </label>
 			<div class="col-sm-7">
-				<input type="text" name="id"
-					class="form-control-plaintext form-style-id" width="80"
-					th:field="*{id}" placeholder="아이디" id="id" autocomplete="off"
-					readonly="readonly">
-				<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"
-					class="fieldError">해당 란은 공백일 수 없습니다.</p>
+				<input type="text" name="id" class="form-control-plaintext form-style-id" width="80"
+					th:field="*{id}" placeholder="아이디" id="id" autocomplete="off" readonly="readonly">
+				<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="fieldError">해당 란은 공백일 수 없습니다.</p>
 			</div>
 		</div>
 
 		<div class="form-group row">
 			<label for="name" class="col-sm-3 col-form-label">이름 : </label>
 			<div class="col-sm-7">
-				<input type="text" name="name" class="form-control-plaintext"
-					th:field="*{name}" placeholder="이름" id="name" autocomplete="off">
-				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-					class="fieldError">해당 란은 공백일 수 없습니다.</p>
+				<input type="text" name="name" class="form-control-plaintext" th:field="*{name}" placeholder="이름" id="name" autocomplete="off">
+				<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">해당 란은 공백일 수 없습니다.</p>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="address" class="col-sm-3 col-form-label">주소 : </label>
 			<div class="col-sm-7">
-				<input type="text" name="address" class="form-control-plaintext"
-					th:field="*{address}" placeholder="주소" id="address"
-					autocomplete="off" readonly>
-				<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
-					class="fieldError">해당 란은 공백일 수 없습니다.</p>
+				<input type="text" name="address" class="form-control-plaintext" th:field="*{address}" placeholder="주소" id="address" autocomplete="off" readonly>
+				<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">해당 란은 공백일 수 없습니다.</p>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="address_detail" class="col-sm-3 col-form-label">상세주소
-				: </label>
+			<label for="address_detail" class="col-sm-3 col-form-label">상세주소 : </label>
 			<div class="col-sm-7">
-				<input type="text" name="address_detail"
-					class="form-control-plaintext" th:field="*{address_detail}"
-					placeholder="상세주소" id="address_detail" autocomplete="off">
-				<p th:if="${#fields.hasErrors('address_detail')}"
-					th:errors="*{address_detail}" class="fieldError">해당 란은 공백일 수
-					없습니다.</p>
+				<input type="text" name="address_detail" class="form-control-plaintext" th:field="*{address_detail}" placeholder="상세주소" id="address_detail" autocomplete="off">
+				<p th:if="${#fields.hasErrors('address_detail')}" th:errors="*{address_detail}" class="fieldError">해당 란은 공백일 수 없습니다.</p>
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="email" class="col-sm-3 col-form-label">이메일 : </label>
 			<div class="col-sm-7">
-				<input type="email" name="email" class="form-control-plaintext"
-					th:field="*{email}" placeholder="이메일" id="email" autocomplete="off"
-					readonly="readonly">
-				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-					class="fieldError">해당 란은 공백일 수 없습니다.</p>
+				<input type="email" name="email" class="form-control-plaintext" th:field="*{email}" placeholder="이메일" id="email" autocomplete="off" readonly="readonly">
+				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">해당 란은 공백일 수 없습니다.</p>
 				<input type="hidden" id="email_hidden" value="F">
 			</div>
 		</div>
 		<div class="form-group row">
 			<label for="code" class="col-sm-3 col-form-label code">인증코드 : </label>
 			<div class="col-sm-7">
-				<input type="text" name="code"
-					class="form-control-plaintext input-email-code code" placeholder="인증코드"
-					id="code" autocomplete="off">
+				<input type="text" name="code" class="form-control-plaintext input-email-code code" placeholder="인증코드" id="code" autocomplete="off">
 			</div>
 		</div>
 		<div class="form-group row">
-			<button type="button" class="btn btn-primary btn-email-start"
-				onclick="emailMod()" id="btn-emailUpdate">이메일 수정</button>
-			<button type="button" class="btn btn-primary btn-email-start"
-				onclick="sendEmail()" id="btn-sendEmail">인증번호 전송</button>
-			<button type="button" class="btn btn-primary btn-email-end"
-				onclick="sendEmail()">인증번호 재발행</button>
-			<button type="button" class="btn btn-primary btn-email-end"
-				onclick="checkEmail()">인증확인</button>
+			<button type="button" class="btn btn-primary btn-email-start" onclick="emailMod()" id="btn-emailUpdate">이메일 수정</button>
+			<button type="button" class="btn btn-primary btn-email-start" onclick="sendEmail()" id="btn-sendEmail">인증번호 전송</button>
+			<button type="button" class="btn btn-primary btn-email-end" onclick="sendEmail()">인증번호 재발행</button>
+			<button type="button" class="btn btn-primary btn-email-end" onclick="checkEmail()">인증확인</button>
 		</div>
 		<div class="form-group row">
 			<label for="password1" class="col-sm-3 col-form-label">비밀번호 :
 			</label>
 			<div class="col-sm-7">
-				<input type="password" name="password1"
-					class="form-control-plaintext password" placeholder="비밀번호" id="password1"
-					autocomplete="off" minlength="8" maxlength="16">
-				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-					class="fieldError">해당 란은 공백일 수 없습니다.</p>
+				<input type="password" name="password1" class="form-control-plaintext password" placeholder="비밀번호" id="password1" autocomplete="off" minlength="8" maxlength="16">
+				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">해당 란은 공백일 수 없습니다.</p>
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label for="password2" class="col-sm-3 col-form-label">비밀번호
-				확인 : </label>
+			<label for="password2" class="col-sm-3 col-form-label">비밀번호 확인 : </label>
 			<div class="col-sm-7">
-				<input type="password" name="password2"
-					class="form-control-plaintext password" th:field="*{password}"
-					placeholder="비밀번호 확인" id="password2" autocomplete="off"
+				<input type="password" name="password2" class="form-control-plaintext password" th:field="*{password}" placeholder="비밀번호 확인" id="password2" autocomplete="off"
 					minlength="8" maxlength="16">
-				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-					class="fieldError">해당 란은 공백일 수 없습니다.</p>
+				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">해당 란은 공백일 수 없습니다.</p>
 			</div>
-			<div class="alert alert-success" id="alert-success">비밀번호가
-				일치합니다.</div>
-			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지
-				않습니다.</div>
+			<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+			<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
 		</div>
 		<div class="form-group row">
-			<select class="form-control select-control" id="gender"
-				th:field="*{gender}">
+			<select class="form-control select-control" id="gender" th:field="*{gender}">
 				<option value="M">남</option>
 				<option value="F">여</option>
 			</select>
@@ -129,8 +95,7 @@
 		<div class="form-group row">
 			<button type="button" class="btn btn-danger" id="btn-delete">회원탈퇴</button>
 			<button type="submit" class="btn btn-primary" id="btn-submit">수정</button>
-			<input type="hidden" th:name="${_csrf.parameterName}"
-				th:value="${_csrf.token}">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 		</div>
 	</form>
 </div>

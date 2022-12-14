@@ -19,6 +19,7 @@ public class MailService {
 	@Autowired
 	MemberService memberService;
  
+	// 메일 전송
     @Async
 	public void sendMail(String to, String subject, String body) {
       MimeMessage message = mailSender.createMimeMessage();
@@ -35,6 +36,7 @@ public class MailService {
 	  }
 	}
     
+    // 테이블에 동일한 메일이 있는지 검사
     public boolean checkEmail(String email) {
     	MemberDto memDto = memberService.findByEmail(email);
     	if(memDto == null)
@@ -42,6 +44,7 @@ public class MailService {
     	return true;
     }
     
+    // 해당 이메일을 가지고있는 멤버 반환
     public MemberDto findEmail(String email) {
     	MemberDto memDto = memberService.findByEmail(email);
     	return memDto;

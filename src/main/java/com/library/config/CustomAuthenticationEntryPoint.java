@@ -15,6 +15,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 			AuthenticationException authException) throws IOException, ServletException {
 		// 인증되지 않은 사람이 리소스 요청할 경우
 		response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+		response.sendRedirect("/");
 	}
 
 }

@@ -15,13 +15,12 @@
 <div layout:fragment="content">
 	<div class="search-content">
 		<div>
-			<label id="search-title">도서 검색 결과</label> <label id="search-coment">※키워드
-				검색이므로 제목과 관련없는 도서가 나올 수 있습니다!</label>
+			<label id="search-title">도서 검색 결과</label> 
+			<label id="search-coment">※키워드 검색이므로 제목과 관련없는 도서가 나올 수 있습니다!</label>
 
 			<form action="/search" role="form" method="get" id="search-form">
 				<button type="submit" id="search-btn">검색</button>
-				<input type="text" id="search-input" name="keyword"
-					placeholder="도서 키워드" autocomplete="off">
+				<input type="text" id="search-input" name="keyword" placeholder="도서 키워드" autocomplete="off">
 			</form>
 
 		</div>
@@ -34,8 +33,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="bookResDto : ${bookResDtoList}">
-					<td class="td-img"><img th:src="@{${bookResDto.bookImageURL}}"
-						class="img-book"></td>
+					<td class="td-img"><img th:src="@{${bookResDto.bookImageURL}}" class="img-book"></td>
 					<td>
 						<p th:text="'책 명칭 : ' + ${bookResDto.bookName}" />
 						<p th:text="'저자 : ' + ${bookResDto.authors}" />

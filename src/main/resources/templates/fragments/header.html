@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<!-- <body> -->
 <div class="header" th:fragment="header">
-
-	<head>
-<meta charset="UTF-8">
-<!-- link connect code -->
-<link href="/css/headerForm.css" rel="stylesheet">
-<!-- 2022-11-14 코드 추가됨 -->
-	</head>
-
-	<!-- <body> -->
-
+	<link rel="stylesheet" th:href="@{/css/headerForm.css}">
 	<!-- ======= Header ======= -->
 	<header id="main-header" class="main-header d-flex align-items-center"
 		th:fragment="header">
@@ -28,8 +25,11 @@
 			<nav id="navbar" class="navbar">
 				<ul>
 					<!--  1번 메뉴바-->
-					<li class="dropdown"><a href="/header/greetings"><span>도서관
-								안내</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+					<li class="dropdown">
+					<a href="/header/greetings">
+						<span>도서관 안내</span> 
+						<i class="bi bi-chevron-down dropdown-indicator"></i>
+					</a>
 						<ul>
 							<li><a href="/header/greetings">인사말</a></li>
 							<li><a href="/header/intro">도서관 소개</a></li>
@@ -37,8 +37,8 @@
 						</ul></li>
 
 					<!--  2번 메뉴바-->
-					<li class="dropdown"><a href="/search?keyword="><span>도서 검색</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-						</li>
+					<li class="dropdown"><a href="/search?keyword="><span>도서
+								검색</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a></li>
 
 					<!--  3번 메뉴바-->
 					<li class="dropdown"><a href="/header/notice"><span>알림마당</span>

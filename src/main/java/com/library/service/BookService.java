@@ -26,8 +26,6 @@ public class BookService {
 	private final List<BookResponseDto> bookResDtoList;
 	
 	private String key = "af2df55209c61c0726e45405de83247e14d2474c9c0bca948854d5495b6465a1";
-	private String region = "24"; 			// 광주
-	private String dtl_region = "24030";	// 남구
 	private RestTemplate restTemplate;
 	
 	// 전국 도서관 인기 도서 목록

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MenuController {
 
 	// 도서관 안내, 인사말(Header, Header - sub)
-	@GetMapping(value = "/guide")
+	@GetMapping(value = "/greetings")
 	public String guide(Model model) {
 		return "contents/greetings";
 	}

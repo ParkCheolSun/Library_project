@@ -116,6 +116,7 @@ public class MemberService implements UserDetailsService {
 		memberLogRepository.save(memLog);
 	}
 
+	// MemberResponseDto -> Member 변환
 	private Member change(Member ori, MemberResponseDto res) {
 		ori.setId(res.getId());
 		ori.setName(res.getName());
@@ -130,6 +131,7 @@ public class MemberService implements UserDetailsService {
 		return ori;
 	}
 
+	// MemberDto -> Member 변환
 	private Member change(Member ori, MemberDto dto) {
 		System.out.println(dto);
 		ori.setName(dto.getName());

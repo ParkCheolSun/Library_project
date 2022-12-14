@@ -1,49 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{layouts/layoutForm}">
+	
 <head>
-<meta charset="UTF-8">
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--부트스트랩 css 추가-->
-<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
-<meta id="_csrf_header" name="_csrf_header"
-	th:content="${_csrf.headerName}" />
-<link th:href="@{/css/noticeForm.css}" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<meta charset="UTF-8">
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
+	<link th:href="@{/css/noticeForm.css}" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
+
 <div id="noticedetailview-container" layout:fragment="content">
-	<script
-		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 	<script src="/javascript/noticeDetailView.js"></script>
+	
 	<h1 class="noticeDetail-title">건의사항</h1>
-	<form id="frm" action="/board/suggestion/view/action" method="post"
-		th:with="info=${test.info}" enctype="multipart/form-data">
+	<form id="frm" action="/board/suggestion/view/action" method="post" th:with="info=${test.info}" enctype="multipart/form-data">
 		<input type="hidden" name="id" th:value="${info.id}">
 		<div class="mb-3 noticeDetail-div-title">
-			<label class="form-label font-weight-bold noticeDetail-label"><span
-				class="text-danger">* </span>제목</label> <input type="text"
+			<label class="form-label font-weight-bold noticeDetail-label">
+			<span class="text-danger">* </span>제목</label> 
+			<input type="text"
 				class="form-control font-weight-bold txt-title" name="title"
 				th:value="${info.title}" maxlength="20"
 				placeholder="제목은 20자 이내로 작성해주세요." required>
 		</div>
 		<div class="mb-3 noticeDetail-flex">
-			<label class="form-label noticeDetail-label-writer">작성자 :</label> <input
-				type="text" class="form-control txt-register" name="registerId"
-				th:value="${info.registerId}" required> <label
-				class="form-label noticeDetail-label-readCnt">조회수 :</label> <input
-				type="text" class="form-control txt-register txt-readCnt"
-				name="registerReadCnt" th:value="${info.readCnt}" required>
-			<label class="form-label noticeDetail-label-time">작성일 :</label> <input
-				type="text" class="form-control txt-register txt-time"
-				name="registerTime"
+			<label class="form-label noticeDetail-label-writer">작성자 :</label> 
+			<input type="text" class="form-control txt-register" name="registerId" th:value="${info.registerId}" required> 
+			<label class="form-label noticeDetail-label-readCnt">조회수 :</label> 
+			<input type="text" class="form-control txt-register txt-readCnt" name="registerReadCnt" th:value="${info.readCnt}" required>
+			<label class="form-label noticeDetail-label-time">작성일 :</label> 
+			<input type="text" class="form-control txt-register txt-time" name="registerTime"
 				th:value="${#temporals.format(info.registerTime, 'yyyy-MM-dd HH:mm')}"
 				required>
 		</div>
 		<div class="mb-3 noticeDetail-content">
-			<label class="form-label font-weight-bold noticeDetail-label"><span
-				class="text-danger">* </span>내용</label>
+			<label class="form-label font-weight-bold noticeDetail-label">
+			<span class="text-danger">* </span>내용</label>
 			<textarea class="form-control txt-content content_area" rows="5"
 				name="content" th:text="${info.content}" maxlength="1000"
 				placeholder="내용을 입력하세요."></textarea>
@@ -52,21 +50,17 @@
 
 		<div class="clearfix mt-5">
 			<div class="noticeDetail-result">
-				<button type="button" class="btn btn-success btn-pre"
-					onclick="javascript:location.href='/board/suggestion/list'">이전</button>
+				<button type="button" class="btn btn-success btn-pre" onclick="javascript:location.href='/board/suggestion/list'">이전</button>
 				<span class="btn btn-danger" th:onclick="fnViewDelete()"
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">삭제</span>
-				<button type="button" class="btn btn-success btn-update-start clear"
-					onclick=""
+				<button type="button" class="btn btn-success btn-update-start clear" onclick=""
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">수정</button>
-				<span class="btn btn-primary btn-update btn-update-end"
-					onclick="fnSubmit()"
+				<span class="btn btn-primary btn-update btn-update-end" onclick="fnSubmit()"
 					th:if="${session.id eq info.registerId} or ${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false} or ${#authorization.expression('hasRole(''ROLE_MANAGER'')') ? true : false}">수정완료</span>
 			</div>
 		</div>
 
-		<input type="hidden" th:name="${_csrf.parameterName}"
-			th:value="${_csrf.token}">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 	</form>
 </div>
 </html>

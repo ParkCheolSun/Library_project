@@ -45,17 +45,18 @@ public class MemberController {
 	@PostConstruct
 	private void createAdmin() {
 		// admin 계정 생성
-		boolean check = memberService.findById("1");
+		boolean check = memberService.findById("admin");
 		if (check)
 			return;
 		Member mem;
 		MemberDto memDto = new MemberDto();
-		memDto.setId("1");
-		memDto.setPassword("1");
-		memDto.setAddress("관리자 주소");
+		memDto.setId("admin");
+		memDto.setPassword("admin");
+		memDto.setAddress("대전 광역시 대덕구 송촌북로 23번길 7");
+		memDto.setAddress_detail("111동 201호");
 		memDto.setGender("M");
 		memDto.setName("총관리자");
-		memDto.setEmail("admin@admin.admin");
+		memDto.setEmail("admin@adminEmail.com");
 		mem = Member.createMember(memDto, passwordEncoder);
 		String password = passwordEncoder.encode(memDto.getPassword());
 		mem.setPassword(password);
@@ -68,9 +69,10 @@ public class MemberController {
 		if (check)
 			return;
 		memDto = new MemberDto();
-		memDto.setId("2");
-		memDto.setPassword("2");
-		memDto.setAddress("매니저 주소");
+		memDto.setId("manager01");
+		memDto.setPassword("manager01");
+		memDto.setAddress("대전 동구 판교1길 3");
+		memDto.setAddress_detail("5층 연구실");
 		memDto.setGender("M");
 		memDto.setName("매니저");
 		memDto.setEmail("manager@manager.manager");
@@ -79,36 +81,20 @@ public class MemberController {
 		mem.setPassword(password);
 		mem.setRole(Role.MANAGER);
 		memberService.saveMember(mem);
-
-		// admin 계정 생성
-		check = memberService.findById("3");
-		if (check)
-			return;
-		memDto = new MemberDto();
-		memDto.setId("3");
-		memDto.setPassword("3");
-		memDto.setAddress("사용자 주소");
-		memDto.setGender("F");
-		memDto.setName("사용자");
-		memDto.setEmail("user@user.user");
-		mem = Member.createMember(memDto, passwordEncoder);
-		password = passwordEncoder.encode(memDto.getPassword());
-		mem.setPassword(password);
-		mem.setRole(Role.USER);
-		memberService.saveMember(mem);
 		
-		// 사용자 생성중
+		// 사용자 생성(발표용)
 		for(int i = 4; i < 14 ; i++) {
 			check = memberService.findById(String.valueOf(i));
 			if (check)
 				return;
 			memDto = new MemberDto();
-			memDto.setId(String.valueOf(i));
+			memDto.setId("User" + String.valueOf(i));
 			memDto.setPassword(String.valueOf(i));
 			memDto.setAddress("사용자 주소 "+i);
+			memDto.setAddress_detail("사용자 상세주소 "+i);
 			memDto.setGender("M");
 			memDto.setName("사용자"+i);
-			memDto.setEmail("user@user.user"+i);
+			memDto.setEmail("User"+i+"@userEmail.com");
 			mem = Member.createMember(memDto, passwordEncoder);
 			password = passwordEncoder.encode(memDto.getPassword());
 			mem.setPassword(password);

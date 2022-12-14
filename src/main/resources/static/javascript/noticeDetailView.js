@@ -161,6 +161,8 @@ let deleteFileIdArr = [];
 	}
 
 	function fnViewDelete() {
+		var pathName = $(location).attr('pathname');
+		console.log(pathName);
 		const swalWithBootstrapButtons = Swal.mixin({
   			customClass: {
     			confirmButton: 'btn btn-success btn-swal-success',
@@ -180,7 +182,7 @@ let deleteFileIdArr = [];
 			}).then((result) => {
   				if (result.isConfirmed) {
       				let frm = $("#frm");
-					frm.attr("action", "/board/noticeDetailView/delete");
+					frm.attr("action", pathName + "/delete");
 					frm.submit();
   				} else if (
     				/* Read more about handling dismissals below */

@@ -26,7 +26,7 @@
 
 	function fnDelete() {
 		var delInpChkLen = $("input[name='deleteId']:checked").length;
-
+		var pathName = $(location).attr('pathname');
 		if (delInpChkLen > 0) {
 			const swalWithBootstrapButtons = Swal.mixin({
   				customClass: {
@@ -47,7 +47,7 @@
 				}).then((result) => {
   					if (result.isConfirmed) {
       					let frm = $("#frm");
-						frm.attr("action", "/board/notice/delete");
+						frm.attr("action", pathName + "/delete");
 						frm.attr("method", "post");
 						frm.submit();
   					} else if (

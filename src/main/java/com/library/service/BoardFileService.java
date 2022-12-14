@@ -44,6 +44,9 @@ public class BoardFileService {
 			throw new NullPointerException("Empty BOARD_ID.");
 
 		// 파라미터 이름을 키로 파라미터에 해당하는 파일 정보를 값으로 하는 Map을 가져온다.
+		if(multiRequest == null) {
+			return false;
+		}
 		Map<String, MultipartFile> files = multiRequest.getFileMap();
 
 		// files.entrySet()의 요소를 읽어온다.

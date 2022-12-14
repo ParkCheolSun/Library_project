@@ -65,7 +65,7 @@
 						<ul class="pagination">
 							<li class="page-item" th:each="index : ${#numbers.sequence(1, resultMap.totalPage)}" th:with="paging=${resultMap.paging}">
 								<a class="page-link" th:classappend="${paging.pageNumber ==  (index-1)} ? bg-primary : bg-secondary"
-								th:href="@{./notice(page=${index - 1})}" th:if="${index != 0}">
+								th:href="@{./list(page=${index - 1})}" th:if="${index != 0}">
 									<span class="text-white" th:text="${index}"></span>
 								</a>
 							</li>

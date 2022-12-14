@@ -51,24 +51,9 @@ public class Board extends BaseEntity {
 	@Column(length = 1000)
 	private String content; // 내용
 
-//	private LocalDateTime cDate; // 작성날짜
-//
-//	private LocalDateTime mDate; // 수정날짜
-
 	private int readCnt; // 조회수
 
-	@NotNull
-	@Column(nullable = false)
-	private Boolean disclosure = false; 	// 공개여부 String >> Boolean 타입변경[2022-11-22]
-
 	private String registerId; // 작성자
-
-	public boolean getDisclosure() {
-		if(disclosure == null)
-			disclosure = false;
-		return disclosure; 					// disclosure 체크를 하지 않았을 경우 false / 이외 true [2022-11-22]
-	}
-
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
@@ -78,14 +63,13 @@ public class Board extends BaseEntity {
 	private List<BoardFile> uploadList = new ArrayList<BoardFile>();
 
 	@Builder
-	public Board(Long id, Long blevel, String title, String content, int readCnt, Boolean disclosure,
+	public Board(Long id, Long blevel, String title, String content, int readCnt,
 			Category category ,String registerId) {
 		this.id = id;
 		this.blevel = blevel;
 		this.title = title;
 		this.content = content;
 		this.readCnt = readCnt; // hits == cnt
-		this.disclosure = disclosure;
 		this.category = category;
 		this.registerId = registerId;
 	}
@@ -96,7 +80,6 @@ public class Board extends BaseEntity {
 		board.setBlevel(boardDto.getBlevel());
 		board.setCategory(boardDto.getCategory());
 		board.setContent(boardDto.getContent());
-		board.setDisclosure(boardDto.getDisclosure());
 		board.setReadCnt(boardDto.getReadCnt());
 		board.setRegisterId(boardDto.getRegisterId());
 		board.setTitle(boardDto.getTitle());

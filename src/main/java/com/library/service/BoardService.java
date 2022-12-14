@@ -69,6 +69,9 @@ public class BoardService {
 		case CREATE_FAQ:
 			contents = "고유번호[" + result.getId() + "] FAQ 글 생성 완료";
 			break;
+		case CREATE_SMALLLIBRARY:
+			contents = "고유번호[" + result.getId() + "] 작은도서관 글 생성 완료";
+			break;
 		default:
 			break;
 		}
@@ -538,6 +541,9 @@ public class BoardService {
 		case UPDATE_FAQ:
 			contents = "고유번호[" + boardRequestDto.getId() + "] FAQ 글 수정 완료";
 			break;
+		case UPDATE_SMALLLIBRARY:
+			contents = "고유번호[" + boardRequestDto.getId() + "] 작은도서관 글 수정 완료";
+			break;
 		default:
 			break;
 		}
@@ -574,7 +580,10 @@ public class BoardService {
 			contents = "고유번호[" + id + "] 도서요청 글 삭제 완료";
 			break;
 		case DELETE_FAQ:
-			contents = "고유번호[" + id + "] 도서요청 글 삭제 완료";
+			contents = "고유번호[" + id + "] FAQ 글 삭제 완료";
+			break;
+		case DELETE_SMALLLIBRARY:
+			contents = "고유번호[" + id + "] 작은도서관 글 삭제 완료";
 			break;
 		default:
 			break;

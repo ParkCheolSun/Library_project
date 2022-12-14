@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -22,7 +20,6 @@ import com.library.constant.WorkNumber;
 import com.library.dto.BoardReplyRequestDto;
 import com.library.dto.BoardRequestDto;
 import com.library.entity.Category;
-import com.library.entity.Member;
 import com.library.service.BoardService;
 import com.library.service.CategoryService;
 import com.library.service.MemberService;
@@ -72,6 +69,115 @@ public class BoardController {
 		category.setCategory_id(15l);
 		category.setCategory_name("작은도서관 소식");
 		categoryService.saveCategory(category);
+
+	}
+
+	// 발표용 게시판 생성
+	@PostConstruct
+	private void createTestBoard() {
+		BoardRequestDto boardRequestDto;
+		Category category = new Category();
+		// 공지사항
+		category.setCategory_id(10l);
+		for (int i = 1; i < 13; i++) {
+			boardRequestDto = new BoardRequestDto();
+			boardRequestDto.setRegisterId("manager");
+			boardRequestDto.setReadCnt(0);
+			boardRequestDto.setTitle("공지사항 입니다. [ " + i + " ]");
+			boardRequestDto.setContent("공지사항 내용입니다. [ " + i + " ]");
+			boardRequestDto.setCategory(category);
+			try {
+				boardService.save(boardRequestDto, null, "manager", Role.MANAGER, "Test IP " + i,
+						WorkNumber.CREATE_NOTICE);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		// 자유게시판
+		category.setCategory_id(11l);
+		for (int i = 1; i < 13; i++) {
+			boardRequestDto = new BoardRequestDto();
+			boardRequestDto.setRegisterId("User" + i);
+			boardRequestDto.setReadCnt(0);
+			boardRequestDto.setTitle("자유게시판 입니다. [ " + i + " ]");
+			boardRequestDto.setContent("자유게시판 내용입니다. [ " + i + " ]");
+			boardRequestDto.setCategory(category);
+			try {
+				boardService.save(boardRequestDto, null, "manager", Role.MANAGER, "Test IP " + i,
+						WorkNumber.CREATE_FREE);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		// 자주하는질문(FAQ)
+		category.setCategory_id(12l);
+		for (int i = 1; i < 13; i++) {
+			boardRequestDto = new BoardRequestDto();
+			boardRequestDto.setRegisterId("manager");
+			boardRequestDto.setReadCnt(0);
+			boardRequestDto.setTitle("자주하는질문 게시판 입니다. [ " + i + " ]");
+			boardRequestDto.setContent("자주하는질문 게시판 내용입니다. [ " + i + " ]");
+			boardRequestDto.setCategory(category);
+			try {
+				boardService.save(boardRequestDto, null, "manager", Role.MANAGER, "Test IP " + i,
+						WorkNumber.CREATE_FAQ);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		// 건의사항
+		category.setCategory_id(13l);
+		for (int i = 1; i < 13; i++) {
+			boardRequestDto = new BoardRequestDto();
+			boardRequestDto.setRegisterId("manager");
+			boardRequestDto.setReadCnt(0);
+			boardRequestDto.setTitle("건의사항 게시판 입니다. [ " + i + " ]");
+			boardRequestDto.setContent("건의사항 게시판 내용입니다. [ " + i + " ]");
+			boardRequestDto.setCategory(category);
+			try {
+				boardService.save(boardRequestDto, null, "manager", Role.MANAGER, "Test IP " + i,
+						WorkNumber.CREATE_SUGGESTION);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		// 도서요청
+		category.setCategory_id(14l);
+		for (int i = 1; i < 13; i++) {
+			boardRequestDto = new BoardRequestDto();
+			boardRequestDto.setRegisterId("manager");
+			boardRequestDto.setReadCnt(0);
+			boardRequestDto.setTitle("도서요청 게시판 입니다. [ " + i + " ]");
+			boardRequestDto.setContent("도서요청 게시판 내용입니다. [ " + i + " ]");
+			boardRequestDto.setCategory(category);
+			try {
+				boardService.save(boardRequestDto, null, "User" + i, Role.MANAGER, "Test IP " + i,
+						WorkNumber.CREATE_REQUEST);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		// 작은도서관
+		category.setCategory_id(15l);
+		for (int i = 1; i < 13; i++) {
+			boardRequestDto = new BoardRequestDto();
+			boardRequestDto.setRegisterId("manager");
+			boardRequestDto.setReadCnt(0);
+			boardRequestDto.setTitle("작은도서관 게시판 입니다. [ " + i + " ]");
+			boardRequestDto.setContent("작은도서관 게시판 내용입니다. [ " + i + " ]");
+			boardRequestDto.setCategory(category);
+			try {
+				boardService.save(boardRequestDto, null, "manager", Role.MANAGER, "Test IP " + i,
+						WorkNumber.CREATE_SMALLLIBRARY);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/*----------------------------------------------자유게시판---------------------------------------------*/
@@ -435,7 +541,7 @@ public class BoardController {
 	}
 
 	// 건의사항 삭제(복수)
-	@PostMapping("/board/suggestion/delete")
+	@PostMapping("/board/suggestion/list/delete")
 	public String suggestionBoardDelete(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request)
 			throws Exception {
 		HttpSession mySession = request.getSession();
@@ -544,7 +650,7 @@ public class BoardController {
 	}
 
 	// FAQ 수정
-	@PostMapping("/faq/view/action")
+	@PostMapping("/board/faq/view/action")
 	public String boardFAQViewAction(Model model, BoardRequestDto boardRequestDto,
 			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
 		HttpSession mySession = request.getSession();
@@ -566,7 +672,7 @@ public class BoardController {
 	}
 
 	// FAQ 삭제(단일)
-	@PostMapping("/faq/view/delete")
+	@PostMapping("/board/faq/view/delete")
 	public String boardFAQViewDeleteAction(Model model, @RequestParam() Long id, HttpServletRequest request)
 			throws Exception {
 		HttpSession mySession = request.getSession();
@@ -583,7 +689,7 @@ public class BoardController {
 	}
 
 	// FAQ 삭제(복수)
-	@PostMapping("/faq/delete")
+	@PostMapping("/board/faq/list/delete")
 	public String boardFAQDeleteAction(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request)
 			throws Exception {
 		HttpSession mySession = request.getSession();
@@ -674,7 +780,7 @@ public class BoardController {
 	}
 
 	// 도서요청 삭제(복수)
-	@PostMapping("/board/request/delete")
+	@PostMapping("/board/request/list/delete")
 	public String smallLibraryBoardDelete(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request)
 			throws Exception {
 		HttpSession mySession = request.getSession();
@@ -767,8 +873,8 @@ public class BoardController {
 		return "small/smallWrite";
 	}
 
-	// 작은도서관 소식 삭제
-	@PostMapping("/small/delete")
+	// 작은도서관 소식 삭제(복수)
+	@PostMapping("/small/smallList/delete")
 	public String requestBoardDelete(Model model, @RequestParam() Long[] deleteId, HttpServletRequest request)
 			throws Exception {
 		HttpSession mySession = request.getSession();
@@ -784,7 +890,7 @@ public class BoardController {
 		return "redirect:/small/smallList";
 	}
 
-	// 작은도서관 소식 작성 완료
+	// 작은도서관 소식 저장
 	@PostMapping("/small/smallWrite/action")
 	public String smallLibraryBoardWriteAction(Model model, BoardRequestDto boardRequestDto,
 			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
@@ -819,7 +925,7 @@ public class BoardController {
 		return "small/smallView";
 	}
 
-	// 작은도서관 소식 세부사항 수정
+	// 작은도서관 소식 수정
 	@PostMapping("/small/smallView/action")
 	public String smallLibraryBoardDetailViewAction(Model model, BoardRequestDto boardRequestDto,
 			MultipartHttpServletRequest multiRequest, HttpServletRequest request) throws Exception {
@@ -841,7 +947,7 @@ public class BoardController {
 		return "redirect:/small/smallList";
 	}
 
-	// 작은도서관 소식 세부사항 삭제
+	// 작은도서관 소식 삭제(단일)
 	@PostMapping("/small/smallView/delete")
 	public String smallLibraryBoardDetailViewDelete(Model model, @RequestParam() Long id, HttpServletRequest request)
 			throws Exception {

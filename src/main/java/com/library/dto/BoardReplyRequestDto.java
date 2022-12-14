@@ -18,18 +18,14 @@ public class BoardReplyRequestDto {
 	private String replyContent;
 	private String replytitle;
 	private String registerId;
-	private Boolean disclosure;
 	private Category category;
 	
 	public Board toEntity() {
-		if(disclosure==null)		// null값을 강제로 false으로 변환 [2022-11-22]
-			disclosure = false;
 		return Board.builder()
 				.blevel(blevel)
 				.content(replyContent)
 				.registerId(registerId)
 				.title(replytitle)
-				.disclosure(disclosure)
 				.category(category)
 				.build();	
 	}

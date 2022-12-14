@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class CategoryService {
 	private final CategoryRepository categoryRepository;
 	
+	// 카테고리 테이블 확인
 	public boolean findAll() {
 		List<Category> clist = categoryRepository.findAll();
 		if(clist.isEmpty())
@@ -22,6 +23,7 @@ public class CategoryService {
 		return true;
 	}
 	
+	// 카테고리 저장
 	public boolean saveCategory(Category category) {
 		Category cate = categoryRepository.save(category);
 		if(cate.getCategory_id() != 0) {
@@ -30,6 +32,7 @@ public class CategoryService {
 		return false;
 	}
 	
+	// 카테고리 검색
 	public Category findCategory(Long category_id) {
 		Optional<Category> temp = categoryRepository.findById(category_id);
 		if(temp.isEmpty()) {

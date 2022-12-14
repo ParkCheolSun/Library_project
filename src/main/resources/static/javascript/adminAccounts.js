@@ -62,10 +62,6 @@ $(document).ready(function() {
     	var name = $('#modal-detail-name').val();
     	var email = $('#modal-detail-email').val();
     	var role = $('#modal-detail-role').val();
-    	console.log(id);
-    	console.log(member[0]);
-    	console.log(email);
-    	console.log(member[2]);
     	if(id == null || name == null || email == null || role == null){
     		Swal.fire({
 				icon : 'error',
@@ -77,7 +73,6 @@ $(document).ready(function() {
     	} else if(email == member[2]){
     		check = true;
     	} else {
-    		console.log(doubleCheck);
     		if(doubleCheck == false){
     			Swal.fire({
 					icon : 'error',
@@ -133,7 +128,6 @@ function check(){
 					'email' : email
 				},
 				success : function(check, aJaxtatus) { //컨트롤러에서 넘어온 cnt값을 받는다 
-					console.log("check : " + check.answer)
 					if (check.answer == "Success") {
 						Swal.fire({
 							icon : 'success',

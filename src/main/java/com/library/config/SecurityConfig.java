@@ -89,7 +89,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
-    	//auth.userDetailsService(service).passwordEncoder(passwordEncoder());  //비밀번호 암호화 합니다.
     }
 
     

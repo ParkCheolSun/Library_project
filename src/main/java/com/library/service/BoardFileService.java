@@ -27,6 +27,7 @@ public class BoardFileService {
 
 	private final BoardFileRepository boardFileRepository;
 
+	// 게시판 첨부파일 불러오기
 	public BoardFileResponseDto findById(Long id) throws Exception {
 		return new BoardFileResponseDto(boardFileRepository.findById(id).get());
 	}

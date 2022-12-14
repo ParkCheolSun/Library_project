@@ -1,50 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	layout:decorate="~{layouts/layoutForm}">
+	
 <head>
-<title>글 작성</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--부트스트랩 css 추가-->
-<link rel="stylesheet" href="/css/lib/bootstrap.min.css">
-<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
-<meta id="_csrf_header" name="_csrf_header"
-	th:content="${_csrf.headerName}" />
-<link th:href="@{/css/noticeForm.css}" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+	<meta id="_csrf" name="_csrf" th:content="${_csrf.token}" />
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}" />
+	<link th:href="@{/css/noticeForm.css}" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
+
 <div id="noticewrite-container" layout:fragment="content">
-	<script
-		src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 	<script src="/javascript/noticeWrite.js"></script>
 	<h1>글 작성</h1>
-	<form action="/board/faq/write/action" method="post"
-		enctype="multipart/form-data">
+	<form action="/board/faq/write/action" method="post" enctype="multipart/form-data">
 
 		<div class="mb-3">
-			<label class="form-label">제목</label> <input type="text"
-				class="form-control" id="" name="title" maxlength="20"
-					placeholder="제목은 20자 이내로 작성해주세요." required>
+			<label class="form-label">제목</label> 
+			<input type="text" class="form-control" id="" name="title" maxlength="20" placeholder="제목은 20자 이내로 작성해주세요." required>
 		</div>
 		<div class="mb-3">
 			<label class="form-label">내용</label>
-			<textarea class="form-control content_area" rows="5" cols="" name="content"
-			maxlength="500" placeholder="내용을 입력하세요."></textarea>
+			<textarea class="form-control content_area" rows="5" cols="" name="content" maxlength="500" placeholder="내용을 입력하세요."></textarea>
 			<span style="color: #aaa;" id="counter">(0 / 200)</span>
 		</div>
 		<div class="mb-3">
-			<label class="form-label">작성자</label><input type="text"
-				th:value="${session.id}" class="form-control" id=""
-				name="registerId" readonly>
+			<label class="form-label">작성자</label>
+			<input type="text" th:value="${session.id}" class="form-control" id="" name="registerId" readonly>
 
 		</div>
 
-		<button type="button" class="btn btn-success"
-			onclick="javascript:location.href='/board/faq/list'">이전</button>
+		<button type="button" class="btn btn-success" onclick="javascript:location.href='/board/faq/list'">이전</button>
 		<button type="submit" class="btn btn-primary">작성</button>
-		<input type="hidden" th:name="${_csrf.parameterName}"
-			th:value="${_csrf.token}">
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 	</form>
 </div>
 </th:block>

@@ -19,19 +19,21 @@
 								var len = search.length;
 								
 								search.each(function(idx, data){
-									if($(data).attr('href') == pathName){
+									var href_sp = $(data).attr('href').split('/');
+									var pathName_sp = pathName.split('/');
+									if(href_sp[1] == pathName_sp[1] && href_sp[1] != "board"){
 										$(temp).get(0).click();
 									}
 								});
 								return;
 							} else {
 								var temp = pathName.split('/');
-								
 								if(pathName.match("notice") != null){
 									$('#noticeMenu').click();
 								} else if(pathName.match("faq") != null || 
 								pathName.match("suggestion") != null ||
-								pathName.match("request") != null){
+								pathName.match("request") != null ||
+								pathName.match("list") != null){
 									$('#openMenu').get(0).click();
 								}
 								//console.log("test : " + $(item).parent().parent().parent().children('a').attr('id'));

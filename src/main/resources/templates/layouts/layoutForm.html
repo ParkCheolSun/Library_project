@@ -1,26 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
 <head>
-<meta charset="UTF-8">
-<title>남구통합도서관</title>
-<!-- JS, Popper.js, and jQuery -->
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<!-- CSS only -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link th:href="@{/css/layoutForm.css}" rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- icon -->
-<link rel='stylesheet'
-	href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
+	<meta charset="UTF-8">
+	<title>남구통합도서관</title>
+	<!-- JS, Popper.js, and jQuery -->
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<!-- CSS only -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link th:href="@{/css/layoutForm.css}" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- icon -->
+	<link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
 
-<th:block layout:fragment="script"></th:block>
-<th:block layout:fragment="css"></th:block>
+	<th:block layout:fragment="script"></th:block>
+	<th:block layout:fragment="css"></th:block>
 </head>
 <body>
 	<script src="/javascript/layoutForm.js"></script>
@@ -28,7 +25,6 @@
 	<div id="content-wrapper" class="d-flex">
 		<div th:replace="fragments/sidebar::sidebar" class="sidebar"></div>
 		<div layout:fragment="content" class="content"></div>
-		
 	</div>
 	<div th:replace="fragments/footer::footer"></div>
 	<div class="ocean">
@@ -36,5 +32,4 @@
 			<div class="wave"></div>
 		</div>
 </body>
-
 </html>

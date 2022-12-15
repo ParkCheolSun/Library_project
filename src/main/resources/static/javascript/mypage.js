@@ -67,6 +67,7 @@ $(document).ready(function() {
   			reverseButtons: true
 		}).then((result) => {
   			if (result.isConfirmed) {
+  				console.log("ssssssssssss");
       			$('#mypageForm').attr("action","/login/mypage/delete");
 				$('#modal-method').attr("value","delete");
 				$('#mypageForm').submit();
@@ -81,7 +82,7 @@ $(document).ready(function() {
     $("#mypageForm").submit(function(){
     	var method = $('#modal-method').attr("value");
     	if(method == "delete"){
-    		checkResult = true;
+    		return true;
     	} else if(method == "put"){
     		var regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
 			var pwd1=$("#password1").val();

@@ -33,6 +33,8 @@ $(document).ready(function() {
 	table.column(6).visible(false);
 	table.column(7).visible(false);
 	
+	var del;
+	
 	$("#data_list").on('click', 'tbody tr', function () {
     	var row = $("#data_list").DataTable().row($(this)).data();
     	member = row;
@@ -49,6 +51,14 @@ $(document).ready(function() {
     	$('#modal-detail-createDate').val(row[8]);
     	$('#modal-delete').show();
     	$('#modal-detail-id').attr("readonly", true );
+    	
+    	// 클릭한 아이디가 관리자일경우 삭제 불가
+    	
+    	if(row[3] == "ADMIN"){
+    		del = $('#modal-delete').detach();
+    	} else {
+    		$('#btn-close').after(del);
+    	}
 	});
 	
 	$('#modal-form').submit(function(){

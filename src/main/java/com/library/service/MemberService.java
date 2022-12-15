@@ -162,6 +162,16 @@ public class MemberService implements UserDetailsService {
 		}
 		return false;
 	}
+	
+	// myPage ID기준 사용자 반환
+	public MemberDto myPagefindById(String id) {
+		Member mem = memberRepository.findById(id);
+		
+		if (mem != null) {
+			return MemberDto.createMemberDto(mem);
+		}
+		return null;
+	}
 
 	// Email 체크
 	public MemberDto findByEmail(String email) {

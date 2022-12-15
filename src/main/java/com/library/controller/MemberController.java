@@ -203,8 +203,15 @@ public class MemberController {
 	
 	// 마이페이지
 	@GetMapping(value = "/mypage")
-	public String mypageView(Model model, Authentication authentication) {
-		MemberDto memDto = memberService.findByEmail(authentication.getName());
+	public String mypageView(Model model, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String myid = (String)mySession.getAttribute("id");
+		MemberDto memDto = memberService.myPagefindById(myid);
+		if(memDto == null) {
+			memDto = new MemberDto();
+			memDto.setId(myid);
+			memDto.setAddress("해당 아이디는 정보가 존재하지 않습니다.");
+		}
 		model.addAttribute("memberDto", memDto);
 		return "member/MyPage";
 	}

@@ -88,6 +88,15 @@
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var id = $("#id").val()
+			if(id.length < 5){
+				Swal.fire({
+					icon : 'error',
+					title : '아이디 오류',
+					text : "아이디는 5자 이상으로 작성하여주세요.",
+					footer : '<a href="">Why do I have this issue?</a>'
+				});
+				return;
+			}
 			if (id.match(reg)) {
 				//공백이 있을 경우
 				return;
